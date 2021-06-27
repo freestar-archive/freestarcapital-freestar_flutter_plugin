@@ -1,0 +1,44 @@
+buildscript {
+    repositories {
+        google()
+        jcenter()
+    }
+
+    dependencies {
+        classpath 'com.android.tools.build:gradle:4.2.1'
+    }
+}
+
+allprojects {
+    repositories {
+        google()
+        jcenter()
+        mavenCentral()
+        maven { url 'https://jitpack.io' }
+        maven { url "https://freestar.jfrog.io/artifactory/freestar-mediation-android-sdk" }
+        maven { url "https://s3.amazonaws.com/moat-sdk-builds" }
+        maven { url "https://sdk.tapjoy.com/" }
+
+        maven {
+            url = uri("https://adsbynimbus-public.s3.amazonaws.com/android/sdks")
+            credentials {
+                username = "*"
+            }
+            // Publisher on SDK versions below 1.10.0 must add the following block
+            metadataSources {
+                mavenPom()
+                ignoreGradleMetadataRedirection()
+            }
+        }
+    }
+}
+
+rootProject.buildDir = '../build'
+subprojects {
+    project.buildDir = "${rootProject.buildDir}/${project.name}"
+    project.evaluationDependsOn(':app')
+}
+
+task clean(type: Delete) {
+    delete rootProject.buildDir
+}
