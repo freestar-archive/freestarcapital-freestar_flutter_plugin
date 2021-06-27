@@ -6,17 +6,18 @@ class InterstitialAd {
   bool isLoaded = false;
   static const MethodChannel _channel = const MethodChannel('freestar_flutter_plugin');
 
+  InterstitialAd.from(this.placement, this.interstitialAdListener) {
+    _channel.setMethodCallHandler(adsCallbackHandler);
+  }
+
   InterstitialAd() {
     _channel.setMethodCallHandler(adsCallbackHandler);
   }
 
-  InterstitialAdListener? _listener;
+  InterstitialAdListener? interstitialAdListener;
+  String? placement;
 
-  void setInterstitialAdListener(InterstitialAdListener? listener) {
-    this._listener = listener;
-  }
-
-  void loadAd(String? placement) {
+  void loadAd() {
     _channel.invokeMethod('loadInterstitialAd', placement);
   }
 
@@ -35,7 +36,7 @@ class InterstitialAd {
         "] args: " +
         methodCall.arguments);
 
-    if (_listener == null) {
+    if (interstitialAdListener == null) {
       print("InterstitialAdListener is null. info: " +
           methodCall.method +
           " args: " +
@@ -44,23 +45,23 @@ class InterstitialAd {
 
     switch (methodCall.method) {
       case "onInterstitialShown":
-        _listener!.onInterstitialShown(FreestarUtils.placement(methodCall.arguments));
+        interstitialAdListener!.onInterstitialShown(FreestarUtils.placement(methodCall.arguments));
         break;
       case "onInterstitialLoaded":
         isLoaded = true;
-        _listener!.onInterstitialLoaded(FreestarUtils.placement(methodCall.arguments));
+        interstitialAdListener!.onInterstitialLoaded(FreestarUtils.placement(methodCall.arguments));
         break;
       case "onInterstitialFailed":
         isLoaded = false;
-        _listener!.onInterstitialFailed(FreestarUtils.placementFromError(methodCall.arguments),
+        interstitialAdListener!.onInterstitialFailed(FreestarUtils.placementFromError(methodCall.arguments),
             FreestarUtils.errorMessageFromError(methodCall.arguments));
         break;
       case "onInterstitialClicked":
-        _listener!.onInterstitialClicked(FreestarUtils.placement(methodCall.arguments));
+        interstitialAdListener!.onInterstitialClicked(FreestarUtils.placement(methodCall.arguments));
         break;
       case "onInterstitialDismissed":
         isLoaded = false;
-        _listener!.onInterstitialDismissed(FreestarUtils.placement(methodCall.arguments));
+        interstitialAdListener!.onInterstitialDismissed(FreestarUtils.placement(methodCall.arguments));
         break;
       default:
         break;

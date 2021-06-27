@@ -6,17 +6,18 @@ class RewardedAd {
   bool isLoaded = false;
   static const MethodChannel _channel = const MethodChannel('freestar_flutter_plugin');
 
+  RewardedAd.from(this.placement, this.rewardedAdListener) {
+    _channel.setMethodCallHandler(adsCallbackHandler);
+  }
+
   RewardedAd() {
     _channel.setMethodCallHandler(adsCallbackHandler);
   }
 
-  RewardedAdListener? _listener;
+  String? placement;
+  RewardedAdListener? rewardedAdListener;
 
-  void setRewardedAdListener(RewardedAdListener? listener) {
-    this._listener = listener;
-  }
-
-  void loadAd(String? placement) {
+  void loadAd() {
     _channel.invokeMethod('loadRewardedAd', placement);
   }
 
@@ -41,7 +42,7 @@ class RewardedAd {
         "] args: " +
         methodCall.arguments);
 
-    if (_listener == null) {
+    if (rewardedAdListener == null) {
       print("RewardedAdListener is null. info: " +
           methodCall.method +
           " args: " +
@@ -50,28 +51,28 @@ class RewardedAd {
 
     switch (methodCall.method) {
       case "onRewardedVideoShown":
-        _listener!.onRewardedVideoShown(FreestarUtils.placement(methodCall.arguments));
+        rewardedAdListener!.onRewardedVideoShown(FreestarUtils.placement(methodCall.arguments));
         break;
       case "onRewardedVideoLoaded":
         isLoaded = true;
-        _listener!.onRewardedVideoLoaded(FreestarUtils.placement(methodCall.arguments));
+        rewardedAdListener!.onRewardedVideoLoaded(FreestarUtils.placement(methodCall.arguments));
         break;
       case "onRewardedVideoFailed":
         isLoaded = false;
-        _listener!.onRewardedVideoFailed(FreestarUtils.placementFromError(methodCall.arguments),
+        rewardedAdListener!.onRewardedVideoFailed(FreestarUtils.placementFromError(methodCall.arguments),
             FreestarUtils.errorMessageFromError(methodCall.arguments));
         break;
       case "onRewardedVideoShownError":
-        _listener!.onRewardedVideoShownError(FreestarUtils.placementFromError(methodCall.arguments),
+        rewardedAdListener!.onRewardedVideoShownError(FreestarUtils.placementFromError(methodCall.arguments),
             FreestarUtils.errorMessageFromError(methodCall.arguments));
         break;
       case "onRewardedVideoDismissed":
         isLoaded = false;
-        _listener!.onRewardedVideoDismissed(FreestarUtils.placement(methodCall.arguments));
+        rewardedAdListener!.onRewardedVideoDismissed(FreestarUtils.placement(methodCall.arguments));
         break;
       case "onRewardedVideoCompleted":
         isLoaded = false;
-        _listener!.onRewardedVideoCompleted(FreestarUtils.placement(methodCall.arguments));
+        rewardedAdListener!.onRewardedVideoCompleted(FreestarUtils.placement(methodCall.arguments));
         break;
       default:
         break;

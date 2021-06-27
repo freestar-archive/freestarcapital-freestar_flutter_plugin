@@ -56,34 +56,40 @@ class _MyAppState extends State<MyApp>
 
   void _loadBannerAd() {
     _bannerAd.bannerAdListener = this;
+    //_bannerAd.placement = "optional-placement";
     _bannerAd.loadAd();
   }
 
   void _loadMRECBannerAd() {
     _mrecBannerAd.bannerAdListener = this;
+    //_mrecBannerAd.placement = "optional-placement";
     _mrecBannerAd.loadAd();
   }
 
   void _loadSmallNativeAd() {
     _smallNativeAd.nativeAdListener = this;
+    //_smallNativeAd.placement = "optional-placement";
     _smallNativeAd.loadAd();
   }
 
   void _loadMediumNativeAd() {
     _mediumNativeAd.nativeAdListener = this;
+    //_mediumNativeAd.placement = "optional-placement";
     _mediumNativeAd.loadAd();
   }
 
   void _loadInterstitialAd() {
     _interstitialAd = new InterstitialAd();
-    _interstitialAd!.setInterstitialAdListener(this);
-    _interstitialAd!.loadAd(null); //no placement
+    _interstitialAd!.interstitialAdListener = this;
+    //_interstitialAd!.placement = "optional-placement";
+    _interstitialAd!.loadAd();
   }
 
   void _loadRewardedAd() {
     _rewardedAd = new RewardedAd();
-    _rewardedAd!.setRewardedAdListener(this);
-    _rewardedAd!.loadAd(null); //no placement
+    _rewardedAd!.rewardedAdListener = this;
+    //_rewardedAd!.placement = "optional-placement";
+    _rewardedAd!.loadAd();
   }
 
   @override

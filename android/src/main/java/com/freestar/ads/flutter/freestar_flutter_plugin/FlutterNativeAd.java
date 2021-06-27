@@ -53,16 +53,6 @@ public class FlutterNativeAd implements PlatformView, MethodCallHandler, NativeA
             return;
         }
 
-        if (methodCall.method.equals("loadNativeAd")) {
-            String[] args = ((String) methodCall.arguments).split("\\|");
-            String placement = args[0].trim().isEmpty() ? null : args[0];
-            nativeAd.setTemplate(Integer.parseInt(args[1]));
-            loadNativeAd(adRequest, placement);
-            result.success("loadNativeAd invoked.");
-        } else {
-            result.notImplemented();
-        }
-
         switch (methodCall.method) {
             case "loadNativeAd":
                 String[] args = ((String) methodCall.arguments).split("\\|");
