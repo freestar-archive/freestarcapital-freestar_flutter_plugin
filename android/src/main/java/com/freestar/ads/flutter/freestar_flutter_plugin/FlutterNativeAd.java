@@ -11,6 +11,7 @@ import com.freestar.android.ads.ErrorCodes;
 import com.freestar.android.ads.NativeAd;
 import com.freestar.android.ads.NativeAdListener;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import io.flutter.plugin.common.BinaryMessenger;
 import io.flutter.plugin.common.MethodCall;
@@ -47,6 +48,11 @@ public class FlutterNativeAd implements PlatformView, MethodCallHandler, NativeA
 
         ChocolateLogger.i(TAG, "onMethodCall. method: " + methodCall.method + " args: " + methodCall.arguments);
 
+        if (nativeAd == null) {
+            result.error("Android_NativeAd_NULL",null,null);
+            return;
+        }
+
         if (methodCall.method.equals("loadNativeAd")) {
             String[] args = ((String) methodCall.arguments).split("\\|");
             String placement = args[0].trim().isEmpty() ? null : args[0];
@@ -55,6 +61,28 @@ public class FlutterNativeAd implements PlatformView, MethodCallHandler, NativeA
             result.success("loadNativeAd invoked.");
         } else {
             result.notImplemented();
+        }
+
+        switch (methodCall.method) {
+            case "loadNativeAd":
+                String[] args = ((String) methodCall.arguments).split("\\|");
+                String placement = args[0].trim().isEmpty() ? null : args[0];
+                nativeAd.setTemplate(Integer.parseInt(args[1]));
+                loadNativeAd(adRequest, placement);
+                result.success("loadNativeAd invoked.");
+                break;
+            case "resumed":
+                nativeAd.onResume();
+                break;
+            case "paused":
+                nativeAd.onPause();
+                break;
+            case "detached":
+                nativeAd.destroyView();
+                break;
+            default:
+                result.notImplemented();
+                break;
         }
     }
 
@@ -83,6 +111,19 @@ public class FlutterNativeAd implements PlatformView, MethodCallHandler, NativeA
 
     @Override
     public void dispose() {
+        ChocolateLogger.i(TAG, "dispose");
+        if (nativeAd != null)
+            nativeAd.destroyView();
+    }
+
+    @Override
+    public void onFlutterViewAttached(@NonNull View flutterView) {
+        ChocolateLogger.i(TAG, "onFlutterViewAttached");
+    }
+
+    @Override
+    public void onFlutterViewDetached() {
+        ChocolateLogger.i(TAG, "onFlutterViewDetached");
     }
 
     @Override
@@ -100,7 +141,7 @@ public class FlutterNativeAd implements PlatformView, MethodCallHandler, NativeA
         methodChannel.invokeMethod("onNativeAdClicked", placement(s), result);
     }
 
-    private Result result = new Result() {
+    private final Result result = new Result() {
         @Override
         public void success(@Nullable Object result) {
             ChocolateLogger.e(TAG, "plugins.freestar.ads/NativeAd success: " + result);

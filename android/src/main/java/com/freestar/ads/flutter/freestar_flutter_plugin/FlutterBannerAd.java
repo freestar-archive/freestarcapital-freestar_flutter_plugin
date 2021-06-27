@@ -11,6 +11,7 @@ import com.freestar.android.ads.BannerAdListener;
 import com.freestar.android.ads.ChocolateLogger;
 import com.freestar.android.ads.ErrorCodes;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import io.flutter.plugin.common.BinaryMessenger;
 import io.flutter.plugin.common.MethodCall;
@@ -47,14 +48,31 @@ public class FlutterBannerAd implements PlatformView, MethodCallHandler, BannerA
 
         ChocolateLogger.i(TAG,"onMethodCall. method: " + methodCall.method + " args: " + methodCall.arguments);
 
-        if (methodCall.method.equals("loadBannerAd")) {
-            String[] args = ((String)methodCall.arguments).split("\\|");
-            String placement = args[0].trim().isEmpty() ? null : args[0];
-            bannerAd.setAdSize(getAdSize(Integer.parseInt(args[1])));
-            loadBannerAd(adRequest,placement);
-            result.success("loadBannerAd invoked.");
-        } else {
-            result.notImplemented();
+        if (bannerAd == null) {
+            result.error("Android_BannerAd_NULL",null,null);
+            return;
+        }
+
+        switch (methodCall.method) {
+            case "loadBannerAd":
+                String[] args = ((String) methodCall.arguments).split("\\|");
+                String placement = args[0].trim().isEmpty() ? null : args[0];
+                bannerAd.setAdSize(getAdSize(Integer.parseInt(args[1])));
+                loadBannerAd(adRequest, placement);
+                result.success("loadBannerAd invoked.");
+                break;
+            case "resumed":
+                bannerAd.onResume();
+                break;
+            case "paused":
+                bannerAd.onPause();
+                break;
+            case "detached":
+                bannerAd.destroyView();
+                break;
+            default:
+                result.notImplemented();
+                break;
         }
     }
 
@@ -97,7 +115,21 @@ public class FlutterBannerAd implements PlatformView, MethodCallHandler, BannerA
     }
 
     @Override
-    public void dispose() {}
+    public void dispose() {
+        ChocolateLogger.i(TAG, "dispose");
+        if (bannerAd != null)
+            bannerAd.destroyView();
+    }
+
+    @Override
+    public void onFlutterViewAttached(@NonNull View flutterView) {
+        ChocolateLogger.i(TAG, "onFlutterViewAttached");
+    }
+
+    @Override
+    public void onFlutterViewDetached() {
+        ChocolateLogger.i(TAG, "onFlutterViewDetached");
+    }
 
     @Override
     public void onBannerAdLoaded(View view, String s) {
