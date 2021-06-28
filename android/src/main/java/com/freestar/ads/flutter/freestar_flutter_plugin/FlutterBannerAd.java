@@ -60,14 +60,7 @@ public class FlutterBannerAd implements PlatformView, MethodCallHandler, BannerA
                 Map map = (Map)methodCall.arguments;
                 String placement = (String)map.get("placement");
                 int adSize = (Integer)map.get("adSize");
-                Map targetingMap = (Map)map.get("targetingMap");
-                if (targetingMap != null && targetingMap.size() > 0) {
-                    for (Object key : targetingMap.keySet()) {
-                        String value = (String)targetingMap.get(key);
-                        ChocolateLogger.w(TAG, "fsfp_tag: add custom targeting. name: " + key + " value: " + value);
-                        adRequest.addCustomTargeting((String)key, value);
-                    }
-                }
+                Utils.addTargetingParams(adRequest, (Map)map.get("targetingMap"));
                 bannerAd.setAdSize(from(adSize));
                 loadBannerAd(adRequest, placement);
                 break;

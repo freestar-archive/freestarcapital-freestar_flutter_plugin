@@ -118,181 +118,180 @@ public class FreestarFlutterPlugin implements FlutterPlugin, MethodCallHandler, 
 
     ChocolateLogger.w(TAG, "fsfp_tag: onMethodCall. call: " + call.method + " args: " + call.arguments);
 
-    if (call.method.equals("enableTestMode")) {
-      ChocolateLogger.w(TAG, "fsfp_tag: enableTestMode " + (Boolean) firstArg(call));
-      FreeStarAds.enableTestAds((Boolean) firstArg(call));
-      result.success(null);
-    } else if (call.method.equals("enableLogging")) {
-      FreeStarAds.enableLogging((Boolean) firstArg(call));
-      ChocolateLogger.w(TAG, "fsfp_tag: enableLogging " + (Boolean) firstArg(call));
-      result.success(null);
-    } else if (call.method.equals("enablePartnerChooser")) {
-      ChocolateLogger.w(TAG, "fsfp_tag: enablePartnerChooser " + (Boolean) firstArg(call));
-      isPartnerChooserEnabled = (Boolean) firstArg(call);
-      result.success(null);
-    } else if (call.method.equals("init")) {
-      ChocolateLogger.w(TAG, "fsfp_tag: before init: activity: " + activity);
-      AdRequest adRequest = new AdRequest(activity.get());
-      //adRequest.addCustomTargeting("some target", "my value");
-      String publisherKey = (String) firstArg(call);
-      FreeStarAds.init(activity.get(), publisherKey, adRequest);
-      ChocolateLogger.w(TAG, "fsfp_tag: after init: " + publisherKey + " activity: " + activity);
-      result.success(null);
-    } else if (call.method.equals("showInterstitialAd")) {
-
-      if (interstitialAd != null && interstitialAd.isReady()) {
-        interstitialAd.show();
+    switch (call.method) {
+      case "enableTestMode":
+        ChocolateLogger.w(TAG, "fsfp_tag: enableTestMode " + (Boolean) firstArg(call));
+        FreeStarAds.enableTestAds((Boolean) firstArg(call));
         result.success(null);
-      } else {
-        result.error("INTERSTITIAL_AD_NOT_READY", "Must call loadAd first", null);
+        break;
+      case "enableLogging":
+        FreeStarAds.enableLogging((Boolean) firstArg(call));
+        ChocolateLogger.w(TAG, "fsfp_tag: enableLogging " + (Boolean) firstArg(call));
+        result.success(null);
+        break;
+      case "enablePartnerChooser":
+        ChocolateLogger.w(TAG, "fsfp_tag: enablePartnerChooser " + (Boolean) firstArg(call));
+        isPartnerChooserEnabled = (Boolean) firstArg(call);
+        result.success(null);
+        break;
+      case "init": {
+        ChocolateLogger.w(TAG, "fsfp_tag: before init: activity: " + activity);
+        AdRequest adRequest = new AdRequest(activity.get());
+        //adRequest.addCustomTargeting("some target", "my value");
+        String publisherKey = (String) firstArg(call);
+        FreeStarAds.init(activity.get(), publisherKey, adRequest);
+        ChocolateLogger.w(TAG, "fsfp_tag: after init: " + publisherKey + " activity: " + activity);
+        result.success(null);
+        break;
       }
+      case "showInterstitialAd":
 
-    } else if (call.method.equals("loadRewardedAd")) {
-
-      rewardedAd = new RewardedAd(activity.get(), new RewardedAdListener() {
-        @Override
-        public void onRewardedVideoLoaded(String s) {
-          ChocolateLogger.e(TAG, "onRewardedVideoLoaded");
-          if (rewardedAd != null && isActivityAlive()) {
-            rewardedChannel.invokeMethod("onRewardedVideoLoaded", "", callbackResult);
-          }
+        if (interstitialAd != null && interstitialAd.isReady()) {
+          interstitialAd.show();
+          result.success(null);
+        } else {
+          result.error("INTERSTITIAL_AD_NOT_READY", "Must call loadAd first", null);
         }
 
-        @Override
-        public void onRewardedVideoFailed(String s, int i) {
-          ChocolateLogger.e(TAG, "onRewardedVideoFailed: " + ErrorCodes.getErrorDescription(i));
-          if (rewardedAd != null && isActivityAlive()) {
-            rewardedChannel.invokeMethod("onRewardedVideoFailed", ErrorCodes.getErrorDescription(i), callbackResult);
-          }
-        }
+        break;
+      case "loadRewardedAd": {
 
-        @Override
-        public void onRewardedVideoShown(String s) {
-          ChocolateLogger.e(TAG, "onRewardedVideoShown");
-          rewardedChannel.invokeMethod("onRewardedVideoShown", "", callbackResult);
-        }
-
-        @Override
-        public void onRewardedVideoShownError(String s, int i) {
-          ChocolateLogger.e(TAG, "onRewardedVideoShownError: " + ErrorCodes.getErrorDescription(i));
-          if (rewardedAd != null && isActivityAlive()) {
-            rewardedChannel.invokeMethod("onRewardedVideoShownError", ErrorCodes.getErrorDescription(i), callbackResult);
-          }
-        }
-
-        @Override
-        public void onRewardedVideoDismissed(String s) {
-          ChocolateLogger.e(TAG, "onRewardedVideoDismissed");
-          rewardedChannel.invokeMethod("onRewardedVideoDismissed", "", callbackResult);
-        }
-
-        @Override
-        public void onRewardedVideoCompleted(String s) {
-          ChocolateLogger.e(TAG, "onRewardedVideoCompleted");
-          rewardedChannel.invokeMethod("onRewardedVideoCompleted", "", callbackResult);
-        }
-      });
-      final AdRequest adRequest = new AdRequest(activity.get());
-      Map params = (Map)call.arguments;
-      final String placement = (String)params.get("placement");
-      Map targetingParams = (Map)params.get("targetingParams");
-      if (targetingParams != null && !targetingParams.isEmpty()) {
-        for (Object key : targetingParams.keySet()) {
-          String value = (String)targetingParams.get(key);
-          adRequest.addCustomTargeting((String)key, value);
-          ChocolateLogger.e(TAG, "loadRewardedAd. add custom targeting. name: "+key+ " value: " + value);
-        }
-      }
-      ChocolateLogger.e(TAG, "loadRewardedAd. placement: [" + placement + "]");
-
-      if (isPartnerChooserEnabled) {
-        MediationPartners.choosePartners(activity.get(), adRequest, MediationPartners.ADTYPE_REWARDED, new DialogInterface.OnClickListener() {
+        rewardedAd = new RewardedAd(activity.get(), new RewardedAdListener() {
           @Override
-          public void onClick(DialogInterface dialogInterface, int i) {
-            loadRewardedAd(adRequest, placement);
+          public void onRewardedVideoLoaded(String s) {
+            ChocolateLogger.e(TAG, "onRewardedVideoLoaded");
+            if (rewardedAd != null && isActivityAlive()) {
+              rewardedChannel.invokeMethod("onRewardedVideoLoaded", "", callbackResult);
+            }
+          }
+
+          @Override
+          public void onRewardedVideoFailed(String s, int i) {
+            ChocolateLogger.e(TAG, "onRewardedVideoFailed: " + ErrorCodes.getErrorDescription(i));
+            if (rewardedAd != null && isActivityAlive()) {
+              rewardedChannel.invokeMethod("onRewardedVideoFailed", ErrorCodes.getErrorDescription(i), callbackResult);
+            }
+          }
+
+          @Override
+          public void onRewardedVideoShown(String s) {
+            ChocolateLogger.e(TAG, "onRewardedVideoShown");
+            rewardedChannel.invokeMethod("onRewardedVideoShown", "", callbackResult);
+          }
+
+          @Override
+          public void onRewardedVideoShownError(String s, int i) {
+            ChocolateLogger.e(TAG, "onRewardedVideoShownError: " + ErrorCodes.getErrorDescription(i));
+            if (rewardedAd != null && isActivityAlive()) {
+              rewardedChannel.invokeMethod("onRewardedVideoShownError", ErrorCodes.getErrorDescription(i), callbackResult);
+            }
+          }
+
+          @Override
+          public void onRewardedVideoDismissed(String s) {
+            ChocolateLogger.e(TAG, "onRewardedVideoDismissed");
+            rewardedChannel.invokeMethod("onRewardedVideoDismissed", "", callbackResult);
+          }
+
+          @Override
+          public void onRewardedVideoCompleted(String s) {
+            ChocolateLogger.e(TAG, "onRewardedVideoCompleted");
+            rewardedChannel.invokeMethod("onRewardedVideoCompleted", "", callbackResult);
           }
         });
-      } else {
-        loadRewardedAd(adRequest, placement);
-      }
-      result.success(null);
+        final AdRequest adRequest = new AdRequest(activity.get());
+        Map map = (Map) call.arguments;
+        final String placement = (String) map.get("placement");
+        Utils.addTargetingParams(adRequest, (Map) map.get("targetingMap"));
+        ChocolateLogger.e(TAG, "loadRewardedAd. placement: [" + placement + "]");
 
-    } else if (call.method.equals("showRewardedAd")) {
-
-      //String secret, String userId, String rewardName, String rewardAmount
-      Map params = (Map)call.arguments;
-      if (rewardedAd != null && rewardedAd.isReady()) {
-        ChocolateLogger.i(TAG, "showRewardedAd " + params.get("secret") + " " + params.get("userId") + " " + params.get("rewardName") + " " + params.get("rewardAmount"));
-        rewardedAd.showRewardAd((String)params.get("secret"), (String)params.get("userId"), (String)params.get("rewardName"), (String)params.get("rewardAmount"));
+        if (isPartnerChooserEnabled) {
+          MediationPartners.choosePartners(activity.get(), adRequest, MediationPartners.ADTYPE_REWARDED, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+              loadRewardedAd(adRequest, placement);
+            }
+          });
+        } else {
+          loadRewardedAd(adRequest, placement);
+        }
         result.success(null);
-      } else {
-        result.error("REWARDED_AD_NOT_READY", "Must call load first", "rewarded ad: " + rewardedAd);
+
+        break;
       }
+      case "showRewardedAd":
 
-    } else if (call.method.equals("loadInterstitialAd")) {
-
-      interstitialAd = new InterstitialAd(activity.get(), new InterstitialAdListener() {
-        @Override
-        public void onInterstitialLoaded(String s) {
-          ChocolateLogger.e(TAG, "onInterstitialLoaded");
-          if (interstitialAd != null && isActivityAlive()) {
-            interstitialChannel.invokeMethod("onInterstitialLoaded", "", callbackResult);
-          }
+        //String secret, String userId, String rewardName, String rewardAmount
+        Map params = (Map) call.arguments;
+        if (rewardedAd != null && rewardedAd.isReady()) {
+          ChocolateLogger.i(TAG, "showRewardedAd " + params.get("secret") + " " + params.get("userId") + " " + params.get("rewardName") + " " + params.get("rewardAmount"));
+          rewardedAd.showRewardAd((String) params.get("secret"), (String) params.get("userId"), (String) params.get("rewardName"), (String) params.get("rewardAmount"));
+          result.success(null);
+        } else {
+          result.error("REWARDED_AD_NOT_READY", "Must call load first", "rewarded ad: " + rewardedAd);
         }
 
-        @Override
-        public void onInterstitialFailed(String s, int i) {
-          ChocolateLogger.e(TAG, "onInterstitialFailed: " + ErrorCodes.getErrorDescription(i));
-          if (interstitialAd != null && isActivityAlive()) {
-            interstitialChannel.invokeMethod("onInterstitialFailed", ErrorCodes.getErrorDescription(i), callbackResult);
-          }
-        }
+        break;
+      case "loadInterstitialAd": {
 
-        @Override
-        public void onInterstitialShown(String s) {
-          ChocolateLogger.e(TAG, "onInterstitialShown");
-          interstitialChannel.invokeMethod("onInterstitialShown", "", callbackResult);
-        }
-
-        @Override
-        public void onInterstitialClicked(String s) {
-          ChocolateLogger.e(TAG, "onInterstitialClicked");
-          interstitialChannel.invokeMethod("onInterstitialClicked", "", callbackResult);
-        }
-
-        @Override
-        public void onInterstitialDismissed(String s) {
-          ChocolateLogger.e(TAG, "onInterstitialDismissed");
-          interstitialAd = null;
-          interstitialChannel.invokeMethod("onInterstitialDismissed", "", callbackResult);
-        }
-      });
-      final AdRequest adRequest = new AdRequest(activity.get());
-      Map params = (Map)call.arguments;
-      String placement = (String)params.get("placement");
-      Map targetingParams = (Map)params.get("targetingParams");
-      if (targetingParams != null && !targetingParams.isEmpty()) {
-        for (Object key : targetingParams.keySet()) {
-          String value = (String)targetingParams.get(key);
-          adRequest.addCustomTargeting((String)key, value);
-          ChocolateLogger.e(TAG, "loadInterstitialAd. add custom targeting. name: "+key+ " value: " + value);
-        }
-      }
-      ChocolateLogger.e(TAG, "loadInterstitialAd. placement: [" + placement + "]");
-      if (isPartnerChooserEnabled) {
-        MediationPartners.choosePartners(activity.get(), adRequest, MediationPartners.ADTYPE_INTERSTITIAL, new DialogInterface.OnClickListener() {
+        interstitialAd = new InterstitialAd(activity.get(), new InterstitialAdListener() {
           @Override
-          public void onClick(DialogInterface dialogInterface, int i) {
-            loadInterstitialAd(adRequest, placement);
+          public void onInterstitialLoaded(String s) {
+            ChocolateLogger.e(TAG, "onInterstitialLoaded");
+            if (interstitialAd != null && isActivityAlive()) {
+              interstitialChannel.invokeMethod("onInterstitialLoaded", "", callbackResult);
+            }
+          }
+
+          @Override
+          public void onInterstitialFailed(String s, int i) {
+            ChocolateLogger.e(TAG, "onInterstitialFailed: " + ErrorCodes.getErrorDescription(i));
+            if (interstitialAd != null && isActivityAlive()) {
+              interstitialChannel.invokeMethod("onInterstitialFailed", ErrorCodes.getErrorDescription(i), callbackResult);
+            }
+          }
+
+          @Override
+          public void onInterstitialShown(String s) {
+            ChocolateLogger.e(TAG, "onInterstitialShown");
+            interstitialChannel.invokeMethod("onInterstitialShown", "", callbackResult);
+          }
+
+          @Override
+          public void onInterstitialClicked(String s) {
+            ChocolateLogger.e(TAG, "onInterstitialClicked");
+            interstitialChannel.invokeMethod("onInterstitialClicked", "", callbackResult);
+          }
+
+          @Override
+          public void onInterstitialDismissed(String s) {
+            ChocolateLogger.e(TAG, "onInterstitialDismissed");
+            interstitialAd = null;
+            interstitialChannel.invokeMethod("onInterstitialDismissed", "", callbackResult);
           }
         });
-      } else {
-        loadInterstitialAd(adRequest, placement);
-      }
-      result.success(null);
+        final AdRequest adRequest = new AdRequest(activity.get());
+        Map map = (Map) call.arguments;
+        String placement = (String) map.get("placement");
+        Utils.addTargetingParams(adRequest, (Map) map.get("targetingMap"));
+        ChocolateLogger.e(TAG, "loadInterstitialAd. placement: [" + placement + "]");
+        if (isPartnerChooserEnabled) {
+          MediationPartners.choosePartners(activity.get(), adRequest, MediationPartners.ADTYPE_INTERSTITIAL, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+              loadInterstitialAd(adRequest, placement);
+            }
+          });
+        } else {
+          loadInterstitialAd(adRequest, placement);
+        }
+        result.success(null);
 
-    } else {
-      result.notImplemented();
+        break;
+      }
+      default:
+        result.notImplemented();
+        break;
     }
   }
 

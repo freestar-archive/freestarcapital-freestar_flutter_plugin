@@ -60,14 +60,7 @@ public class FlutterNativeAd implements PlatformView, MethodCallHandler, NativeA
                 Map map = (Map) methodCall.arguments;
                 String placement = (String) map.get("placement");
                 int template = (Integer) map.get("template");
-                Map targetingMap = (Map) map.get("targetingMap");
-                if (targetingMap != null && targetingMap.size() > 0) {
-                    for (Object key : targetingMap.keySet()) {
-                        String value = (String) targetingMap.get(key);
-                        ChocolateLogger.w(TAG, "fsfp_tag: add custom targing. name: " + key + " value: " + value);
-                        adRequest.addCustomTargeting((String) key, value);
-                    }
-                }
+                Utils.addTargetingParams(adRequest, (Map)map.get("targetingMap"));
                 nativeAd.setTemplate(template);
                 loadNativeAd(adRequest, placement);
                 break;
