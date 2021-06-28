@@ -1,26 +1,15 @@
+
 class FreestarUtils {
 
-  //Use only for non-error callbacks
-  static String? placement(String str) {
-    if ((str.trim().isEmpty)) {
-      return null;
+  static Map paramsFrom(String? placement, Map? targetingParams) {
+    Map params = Map();
+    if (placement != null && !placement.trim().isEmpty) {
+      params["placement"] = placement;
     }
-    return str.trim();
+    if (targetingParams != null) {
+      params["targetingParams"] = targetingParams;
+    }
+    return params;
   }
 
-  //Use only for error callbacks where str needs to be split
-  static String? placementFromError(String str) {
-    List<String> list = str.split("\\|");
-    if (list.first.trim().isEmpty) {
-      return null;
-    } else {
-      return list.first.trim();
-    }
-  }
-
-  //Use only for error callbacks where str needs to be split
-  static String errorMessageFromError(String str) {
-    List<String> list = str.split("\\|");
-    return list.last;
-  }
 }

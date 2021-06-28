@@ -11,6 +11,8 @@ import com.freestar.android.ads.ErrorCodes;
 import com.freestar.android.ads.NativeAd;
 import com.freestar.android.ads.NativeAdListener;
 
+import java.util.Map;
+
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import io.flutter.plugin.common.BinaryMessenger;
@@ -49,17 +51,25 @@ public class FlutterNativeAd implements PlatformView, MethodCallHandler, NativeA
         ChocolateLogger.i(TAG, "onMethodCall. method: " + methodCall.method + " args: " + methodCall.arguments);
 
         if (nativeAd == null) {
-            result.error("Android_NativeAd_NULL",null,null);
+            result.error("Android_NativeAd_NULL", null, null);
             return;
         }
 
         switch (methodCall.method) {
             case "loadNativeAd":
-                String[] args = ((String) methodCall.arguments).split("\\|");
-                String placement = args[0].trim().isEmpty() ? null : args[0];
-                nativeAd.setTemplate(Integer.parseInt(args[1]));
+                Map map = (Map) methodCall.arguments;
+                String placement = (String) map.get("placement");
+                int template = (Integer) map.get("template");
+                Map targetingMap = (Map) map.get("targetingMap");
+                if (targetingMap != null && targetingMap.size() > 0) {
+                    for (Object key : targetingMap.keySet()) {
+                        String value = (String) targetingMap.get(key);
+                        ChocolateLogger.w(TAG, "fsfp_tag: add custom targing. name: " + key + " value: " + value);
+                        adRequest.addCustomTargeting((String) key, value);
+                    }
+                }
+                nativeAd.setTemplate(template);
                 loadNativeAd(adRequest, placement);
-                result.success("loadNativeAd invoked.");
                 break;
             case "resumed":
                 nativeAd.onResume();
@@ -92,13 +102,6 @@ public class FlutterNativeAd implements PlatformView, MethodCallHandler, NativeA
         }
     }
 
-    private String placement(String s) {
-        if (s == null || (s.trim().isEmpty())) {
-            return " "; //single white-space
-        }
-        return s;
-    }
-
     @Override
     public void dispose() {
         ChocolateLogger.i(TAG, "dispose");
@@ -118,17 +121,17 @@ public class FlutterNativeAd implements PlatformView, MethodCallHandler, NativeA
 
     @Override
     public void onNativeAdLoaded(View view, String s) {
-        methodChannel.invokeMethod("onNativeAdLoaded", placement(s), result);
+        methodChannel.invokeMethod("onNativeAdLoaded", "", result);
     }
 
     @Override
     public void onNativeAdFailed(String s, int i) {
-        methodChannel.invokeMethod("onNativeAdFailed", placement(s) + "|" + ErrorCodes.getErrorDescription(i), result);
+        methodChannel.invokeMethod("onNativeAdFailed", ErrorCodes.getErrorDescription(i), result);
     }
 
     @Override
     public void onNativeAdClicked(String s) {
-        methodChannel.invokeMethod("onNativeAdClicked", placement(s), result);
+        methodChannel.invokeMethod("onNativeAdClicked", "", result);
     }
 
     private final Result result = new Result() {
@@ -139,7 +142,7 @@ public class FlutterNativeAd implements PlatformView, MethodCallHandler, NativeA
 
         @Override
         public void error(String errorCode, @Nullable String errorMessage, @Nullable Object errorDetails) {
-            ChocolateLogger.e(TAG, "plugins.freestar.ads/NativeAd error: " + errorMessage + " " + errorDetails);
+            ChocolateLogger.e(TAG, "plugins.freestar.ads/NativeAd errorCode: " + errorCode +  " errorMessage: " + errorMessage + " errorDetails: " + errorDetails);
         }
 
         @Override

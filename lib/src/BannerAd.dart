@@ -14,9 +14,10 @@ class BannerAd extends StatefulWidget {
 
   BannerAd.from(this.placement, this.adSize, this.bannerAdListener, this.doAutoloadWhenCreated);
 
+  String? placement;  //optional
+  Map? targetingParams; //optional
   BannerAdListener? bannerAdListener;
   int adSize = AD_SIZE_BANNER_320x50; //default small banner
-  String? placement;  //optional
   bool doAutoloadWhenCreated = false; //if false, loadAd must be explicitly called
 
   MethodChannel? _channel;
@@ -25,19 +26,12 @@ class BannerAd extends StatefulWidget {
     return _channel != null;
   }
 
-  String _placement(String? placement) {
-    if (placement == null || placement.trim().isEmpty) {
-      return " ";
-    } else {
-      return placement;
-    }
-  }
-
   Future<void> loadAd() async {
     print("fsfp_tag: BannerAd.dart. loadAd.");
     _channel!.setMethodCallHandler(adsCallbackHandler);
-    String args = _placement(placement) + "|" + adSize.toString();
-    await _channel!.invokeMethod('loadBannerAd', args);
+    Map params = FreestarUtils.paramsFrom(placement, targetingParams);
+    params["adSize"] = adSize;
+    await _channel!.invokeMethod('loadBannerAd', params);
   }
 
   Future<dynamic> adsCallbackHandler(MethodCall methodCall) async {
@@ -55,14 +49,13 @@ class BannerAd extends StatefulWidget {
 
     switch (methodCall.method) {
       case "onBannerAdLoaded":
-        bannerAdListener!.onBannerAdLoaded(FreestarUtils.placement(methodCall.arguments));
+        bannerAdListener!.onBannerAdLoaded(placement);
         break;
       case "onBannerAdClicked":
-        bannerAdListener!.onBannerAdClicked(FreestarUtils.placement(methodCall.arguments));
+        bannerAdListener!.onBannerAdClicked(placement);
         break;
       case "onBannerAdFailed":
-        bannerAdListener!.onBannerAdFailed(FreestarUtils.placementFromError(methodCall.arguments),
-            FreestarUtils.errorMessageFromError(methodCall.arguments));
+        bannerAdListener!.onBannerAdFailed(placement, methodCall.arguments);
         break;
       default:
         break;
@@ -88,6 +81,8 @@ class _BannerAdViewState extends State<BannerAd> with WidgetsBindingObserver {
 
     super.dispose();
     print("fsfp_tag: BannerAd.dart. dispose");
+
+    widget._channel!.setMethodCallHandler(null);
   }
 
   @override

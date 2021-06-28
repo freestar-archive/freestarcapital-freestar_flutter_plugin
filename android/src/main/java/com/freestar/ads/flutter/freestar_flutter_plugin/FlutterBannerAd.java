@@ -11,6 +11,8 @@ import com.freestar.android.ads.BannerAdListener;
 import com.freestar.android.ads.ChocolateLogger;
 import com.freestar.android.ads.ErrorCodes;
 
+import java.util.Map;
+
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import io.flutter.plugin.common.BinaryMessenger;
@@ -55,11 +57,19 @@ public class FlutterBannerAd implements PlatformView, MethodCallHandler, BannerA
 
         switch (methodCall.method) {
             case "loadBannerAd":
-                String[] args = ((String) methodCall.arguments).split("\\|");
-                String placement = args[0].trim().isEmpty() ? null : args[0];
-                bannerAd.setAdSize(getAdSize(Integer.parseInt(args[1])));
+                Map map = (Map)methodCall.arguments;
+                String placement = (String)map.get("placement");
+                int adSize = (Integer)map.get("adSize");
+                Map targetingMap = (Map)map.get("targetingMap");
+                if (targetingMap != null && targetingMap.size() > 0) {
+                    for (Object key : targetingMap.keySet()) {
+                        String value = (String)targetingMap.get(key);
+                        ChocolateLogger.w(TAG, "fsfp_tag: add custom targeting. name: " + key + " value: " + value);
+                        adRequest.addCustomTargeting((String)key, value);
+                    }
+                }
+                bannerAd.setAdSize(from(adSize));
                 loadBannerAd(adRequest, placement);
-                result.success("loadBannerAd invoked.");
                 break;
             case "resumed":
                 bannerAd.onResume();
@@ -92,7 +102,7 @@ public class FlutterBannerAd implements PlatformView, MethodCallHandler, BannerA
         }
     }
 
-    private AdSize getAdSize(int adSize) {
+    private AdSize from(int adSize) {
         switch (adSize) {
             case 0:
                 return AdSize.BANNER_320_50;
@@ -105,13 +115,6 @@ public class FlutterBannerAd implements PlatformView, MethodCallHandler, BannerA
         }
         return AdSize.BANNER_320_50;
 
-    }
-
-    private String placement(String s) {
-        if (s == null || (s.trim().isEmpty())) {
-            return " "; //single white-space
-        }
-        return s;
     }
 
     @Override
@@ -133,17 +136,17 @@ public class FlutterBannerAd implements PlatformView, MethodCallHandler, BannerA
 
     @Override
     public void onBannerAdLoaded(View view, String s) {
-        methodChannel.invokeMethod("onBannerAdLoaded", placement(s), result);
+        methodChannel.invokeMethod("onBannerAdLoaded", "", result);
     }
 
     @Override
     public void onBannerAdFailed(View view, String s, int i) {
-        methodChannel.invokeMethod("onBannerAdFailed", placement(s)+"|"+ ErrorCodes.getErrorDescription(i), result);
+        methodChannel.invokeMethod("onBannerAdFailed", ErrorCodes.getErrorDescription(i), result);
     }
 
     @Override
     public void onBannerAdClicked(View view, String s) {
-        methodChannel.invokeMethod("onBannerAdClicked", placement(s), result);
+        methodChannel.invokeMethod("onBannerAdClicked", "", result);
     }
 
     @Override
@@ -159,7 +162,7 @@ public class FlutterBannerAd implements PlatformView, MethodCallHandler, BannerA
 
         @Override
         public void error(String errorCode, @Nullable String errorMessage, @Nullable Object errorDetails) {
-            ChocolateLogger.e(TAG, "plugins.freestar.ads/BannerAd error: " + errorMessage + " " + errorDetails);
+            ChocolateLogger.e(TAG, "plugins.freestar.ads/BannerAd errorCode: " + errorCode +  " errorMessage: " + errorMessage + " errorDetails: " + errorDetails);
         }
 
         @Override

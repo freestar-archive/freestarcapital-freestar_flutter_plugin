@@ -1,4 +1,5 @@
 package com.freestar.ads.flutter.freestar_flutter_plugin;
+
 import android.app.Activity;
 import android.content.DialogInterface;
 
@@ -13,6 +14,7 @@ import com.freestar.android.ads.RewardedAdListener;
 
 import java.lang.ref.WeakReference;
 import java.util.ArrayList;
+import java.util.Map;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -109,6 +111,7 @@ public class FreestarFlutterPlugin implements FlutterPlugin, MethodCallHandler, 
   public void onMethodCall(final @NonNull MethodCall call, final @NonNull Result result) {
 
     ChocolateLogger.w(TAG, "fsfp_tag: onMethodCall. call: " + call.method + " args: " + call.arguments);
+
     if (call.method.equals("enableTestMode")) {
       ChocolateLogger.w(TAG, "fsfp_tag: enableTestMode " + (Boolean) firstArg(call));
       FreeStarAds.enableTestAds((Boolean) firstArg(call));
@@ -135,7 +138,7 @@ public class FreestarFlutterPlugin implements FlutterPlugin, MethodCallHandler, 
         interstitialAd.show();
         result.success(null);
       } else {
-        result.error("NOT_READY", "Must call loadAd first", null);
+        result.error("INTERSTITIAL_AD_NOT_READY", "Must call loadAd first", null);
       }
 
     } else if (call.method.equals("loadRewardedAd")) {
@@ -145,7 +148,7 @@ public class FreestarFlutterPlugin implements FlutterPlugin, MethodCallHandler, 
         public void onRewardedVideoLoaded(String s) {
           ChocolateLogger.e(TAG, "onRewardedVideoLoaded");
           if (rewardedAd != null && isActivityAlive()) {
-            channel.invokeMethod("onRewardedVideoLoaded", placement(s), callbackResult);
+            channel.invokeMethod("onRewardedVideoLoaded", "", callbackResult);
           }
         }
 
@@ -153,38 +156,47 @@ public class FreestarFlutterPlugin implements FlutterPlugin, MethodCallHandler, 
         public void onRewardedVideoFailed(String s, int i) {
           ChocolateLogger.e(TAG, "onRewardedVideoFailed: " + ErrorCodes.getErrorDescription(i));
           if (rewardedAd != null && isActivityAlive()) {
-            channel.invokeMethod("onRewardedVideoFailed", placement(s) + "|" + ErrorCodes.getErrorDescription(i), callbackResult);
+            channel.invokeMethod("onRewardedVideoFailed", ErrorCodes.getErrorDescription(i), callbackResult);
           }
         }
 
         @Override
         public void onRewardedVideoShown(String s) {
           ChocolateLogger.e(TAG, "onRewardedVideoShown");
-          channel.invokeMethod("onRewardedVideoShown", placement(s), callbackResult);
+          channel.invokeMethod("onRewardedVideoShown", "", callbackResult);
         }
 
         @Override
         public void onRewardedVideoShownError(String s, int i) {
           ChocolateLogger.e(TAG, "onRewardedVideoShownError: " + ErrorCodes.getErrorDescription(i));
           if (rewardedAd != null && isActivityAlive()) {
-            channel.invokeMethod("onRewardedVideoShownError", placement(s) + "|" + ErrorCodes.getErrorDescription(i), callbackResult);
+            channel.invokeMethod("onRewardedVideoShownError", ErrorCodes.getErrorDescription(i), callbackResult);
           }
         }
 
         @Override
         public void onRewardedVideoDismissed(String s) {
           ChocolateLogger.e(TAG, "onRewardedVideoDismissed");
-          channel.invokeMethod("onRewardedVideoDismissed", placement(s), callbackResult);
+          channel.invokeMethod("onRewardedVideoDismissed", "", callbackResult);
         }
 
         @Override
         public void onRewardedVideoCompleted(String s) {
           ChocolateLogger.e(TAG, "onRewardedVideoCompleted");
-          channel.invokeMethod("onRewardedVideoCompleted", placement(s), callbackResult);
+          channel.invokeMethod("onRewardedVideoCompleted", "", callbackResult);
         }
       });
       final AdRequest adRequest = new AdRequest(activity.get());
-      final String placement = (String) call.arguments;
+      Map params = (Map)call.arguments;
+      final String placement = (String)params.get("placement");
+      Map targetingParams = (Map)params.get("targetingParams");
+      if (targetingParams != null && !targetingParams.isEmpty()) {
+        for (Object key : targetingParams.keySet()) {
+          String value = (String)targetingParams.get(key);
+          adRequest.addCustomTargeting((String)key, value);
+          ChocolateLogger.e(TAG, "loadRewardedAd. add custom targeting. name: "+key+ " value: " + value);
+        }
+      }
       ChocolateLogger.e(TAG, "loadRewardedAd. placement: [" + placement + "]");
 
       if (isPartnerChooserEnabled) {
@@ -201,13 +213,14 @@ public class FreestarFlutterPlugin implements FlutterPlugin, MethodCallHandler, 
 
     } else if (call.method.equals("showRewardedAd")) {
 
-      String params[] = ((String) call.arguments).split("\\|");
+      //String secret, String userId, String rewardName, String rewardAmount
+      Map params = (Map)call.arguments;
       if (rewardedAd != null && rewardedAd.isReady()) {
-        ChocolateLogger.i(TAG, "showRewardedAd " + params[0] + " " + params[1] + " " + params[2] + " " + params[3]);
-        rewardedAd.showRewardAd(params[0], params[1], params[2], params[3]);
+        ChocolateLogger.i(TAG, "showRewardedAd " + params.get("secret") + " " + params.get("userId") + " " + params.get("rewardName") + " " + params.get("rewardAmount"));
+        rewardedAd.showRewardAd((String)params.get("secret"), (String)params.get("userId"), (String)params.get("rewardName"), (String)params.get("rewardAmount"));
         result.success(null);
       } else {
-        result.error("NOT_READY", "Must call load first", null);
+        result.error("REWARDED_AD_NOT_READY", "Must call load first", "rewarded ad: " + rewardedAd);
       }
 
     } else if (call.method.equals("loadInterstitialAd")) {
@@ -217,7 +230,7 @@ public class FreestarFlutterPlugin implements FlutterPlugin, MethodCallHandler, 
         public void onInterstitialLoaded(String s) {
           ChocolateLogger.e(TAG, "onInterstitialLoaded");
           if (interstitialAd != null && isActivityAlive()) {
-            channel.invokeMethod("onInterstitialLoaded", placement(s), callbackResult);
+            channel.invokeMethod("onInterstitialLoaded", "", callbackResult);
           }
         }
 
@@ -225,31 +238,40 @@ public class FreestarFlutterPlugin implements FlutterPlugin, MethodCallHandler, 
         public void onInterstitialFailed(String s, int i) {
           ChocolateLogger.e(TAG, "onInterstitialFailed: " + ErrorCodes.getErrorDescription(i));
           if (interstitialAd != null && isActivityAlive()) {
-            channel.invokeMethod("onInterstitialFailed", placement(s) + "|" + ErrorCodes.getErrorDescription(i), callbackResult);
+            channel.invokeMethod("onInterstitialFailed", ErrorCodes.getErrorDescription(i), callbackResult);
           }
         }
 
         @Override
         public void onInterstitialShown(String s) {
           ChocolateLogger.e(TAG, "onInterstitialShown");
-          channel.invokeMethod("onInterstitialShown", placement(s), callbackResult);
+          channel.invokeMethod("onInterstitialShown", "", callbackResult);
         }
 
         @Override
         public void onInterstitialClicked(String s) {
           ChocolateLogger.e(TAG, "onInterstitialClicked");
-          channel.invokeMethod("onInterstitialClicked", placement(s), callbackResult);
+          channel.invokeMethod("onInterstitialClicked", "", callbackResult);
         }
 
         @Override
         public void onInterstitialDismissed(String s) {
           ChocolateLogger.e(TAG, "onInterstitialDismissed");
           interstitialAd = null;
-          channel.invokeMethod("onInterstitialDismissed", placement(s), callbackResult);
+          channel.invokeMethod("onInterstitialDismissed", "", callbackResult);
         }
       });
       final AdRequest adRequest = new AdRequest(activity.get());
-      final String placement = (String) call.arguments;
+      Map params = (Map)call.arguments;
+      String placement = (String)params.get("placement");
+      Map targetingParams = (Map)params.get("targetingParams");
+      if (targetingParams != null && !targetingParams.isEmpty()) {
+        for (Object key : targetingParams.keySet()) {
+          String value = (String)targetingParams.get(key);
+          adRequest.addCustomTargeting((String)key, value);
+          ChocolateLogger.e(TAG, "loadInterstitialAd. add custom targeting. name: "+key+ " value: " + value);
+        }
+      }
       ChocolateLogger.e(TAG, "loadInterstitialAd. placement: [" + placement + "]");
       if (isPartnerChooserEnabled) {
         MediationPartners.choosePartners(activity.get(), adRequest, MediationPartners.ADTYPE_INTERSTITIAL, new DialogInterface.OnClickListener() {
@@ -268,7 +290,7 @@ public class FreestarFlutterPlugin implements FlutterPlugin, MethodCallHandler, 
     }
   }
 
-  private Result callbackResult = new Result() {
+  private final Result callbackResult = new Result() {
     @Override
     public void success(@Nullable Object result) {
       ChocolateLogger.e(TAG, "channel success: " + result);
@@ -284,13 +306,6 @@ public class FreestarFlutterPlugin implements FlutterPlugin, MethodCallHandler, 
       ChocolateLogger.e(TAG, "channel notImplemented");
     }
   };
-
-  private String placement(String s) {
-    if (s == null || (s.trim().isEmpty())) {
-      return " "; //single white-space
-    }
-    return s;
-  }
 
   @Override
   public void onDetachedFromEngine(@NonNull FlutterPluginBinding binding) {

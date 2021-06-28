@@ -89,6 +89,10 @@ class _MyAppState extends State<MyApp>
     _rewardedAd = new RewardedAd();
     _rewardedAd!.rewardedAdListener = this;
     //_rewardedAd!.placement = "optional-placement";
+    Map targetingParams = Map();
+    targetingParams["my-targeting-param1"] = "example value 1";
+    targetingParams["my-targeting-param2"] = "example value 2";
+    _rewardedAd!.targetingParams = targetingParams; //optional
     _rewardedAd!.loadAd();
   }
 

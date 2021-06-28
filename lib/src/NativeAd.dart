@@ -16,6 +16,7 @@ class NativeAd extends StatefulWidget {
   NativeAdListener? nativeAdListener;
   int template = NATIVE_TEMPLATE_SMALL; //default SMALL template
   String? placement;  //optional
+  Map? targetingParams; //optional
   bool doAutoloadWhenCreated = false; //if false, loadAd must be explicitly called
 
   MethodChannel? _channel;
@@ -24,19 +25,12 @@ class NativeAd extends StatefulWidget {
     return _channel != null;
   }
 
-  String _placement(String? placement) {
-    if (placement == null || placement.trim().isEmpty) {
-      return " ";
-    } else {
-      return placement;
-    }
-  }
-
   Future<void> loadAd() async {
     print("fsfp_tag: NativeAd.dart. loadAd.");
     _channel!.setMethodCallHandler(adsCallbackHandler);
-    String args = _placement(placement) + "|" + template.toString();
-    await _channel!.invokeMethod('loadNativeAd', args);
+    Map params = FreestarUtils.paramsFrom(placement, targetingParams);
+    params["template"] = template;
+    await _channel!.invokeMethod('loadNativeAd', params);
   }
 
   Future<dynamic> adsCallbackHandler(MethodCall methodCall) async {
@@ -54,14 +48,13 @@ class NativeAd extends StatefulWidget {
 
     switch (methodCall.method) {
       case "onNativeAdLoaded":
-        nativeAdListener!.onNativeAdLoaded(FreestarUtils.placement(methodCall.arguments));
+        nativeAdListener!.onNativeAdLoaded(placement);
         break;
       case "onNativeAdClicked":
-        nativeAdListener!.onNativeAdClicked(FreestarUtils.placement(methodCall.arguments));
+        nativeAdListener!.onNativeAdClicked(placement);
         break;
       case "onNativeAdFailed":
-        nativeAdListener!.onNativeAdFailed(FreestarUtils.placementFromError(methodCall.arguments),
-            FreestarUtils.errorMessageFromError(methodCall.arguments));
+        nativeAdListener!.onNativeAdFailed(placement, methodCall.arguments);
         break;
       default:
         break;
@@ -87,6 +80,8 @@ class _NativeAdViewState extends State<NativeAd> with WidgetsBindingObserver {
 
     super.dispose();
     print("fsfp_tag: NativeAd.dart. dispose");
+
+    widget._channel!.setMethodCallHandler(null);
   }
 
   @override
