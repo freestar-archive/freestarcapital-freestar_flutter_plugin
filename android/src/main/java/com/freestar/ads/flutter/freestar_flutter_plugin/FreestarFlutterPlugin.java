@@ -158,7 +158,7 @@ public class FreestarFlutterPlugin implements FlutterPlugin, MethodCallHandler, 
 
         rewardedAd = new RewardedAd(activity.get(), new RewardedAdListener() {
           @Override
-          public void onRewardedAdLoaded(String s) {
+          public void onRewardedVideoLoaded(String s) {
             ChocolateLogger.e(TAG, "onRewardedAdLoaded");
             if (rewardedAd != null && isActivityAlive()) {
               rewardedChannel.invokeMethod("onRewardedAdLoaded", "", callbackResult);
@@ -166,7 +166,7 @@ public class FreestarFlutterPlugin implements FlutterPlugin, MethodCallHandler, 
           }
 
           @Override
-          public void onRewardedAdFailed(String s, int i) {
+          public void onRewardedVideoFailed(String s, int i) {
             ChocolateLogger.e(TAG, "onRewardedAdFailed: " + ErrorCodes.getErrorDescription(i));
             if (rewardedAd != null && isActivityAlive()) {
               rewardedChannel.invokeMethod("onRewardedAdFailed", ErrorCodes.getErrorDescription(i), callbackResult);
@@ -174,13 +174,13 @@ public class FreestarFlutterPlugin implements FlutterPlugin, MethodCallHandler, 
           }
 
           @Override
-          public void onRewardedAdShown(String s) {
+          public void onRewardedVideoShown(String s) {
             ChocolateLogger.e(TAG, "onRewardedAdShown");
             rewardedChannel.invokeMethod("onRewardedAdShown", "", callbackResult);
           }
 
           @Override
-          public void onRewardedAdShownError(String s, int i) {
+          public void onRewardedVideoShownError(String s, int i) {
             ChocolateLogger.e(TAG, "onRewardedAdShownError: " + ErrorCodes.getErrorDescription(i));
             if (rewardedAd != null && isActivityAlive()) {
               rewardedChannel.invokeMethod("onRewardedAdShownError", ErrorCodes.getErrorDescription(i), callbackResult);
@@ -188,13 +188,13 @@ public class FreestarFlutterPlugin implements FlutterPlugin, MethodCallHandler, 
           }
 
           @Override
-          public void onRewardedAdDismissed(String s) {
+          public void onRewardedVideoDismissed(String s) {
             ChocolateLogger.e(TAG, "onRewardedAdDismissed");
             rewardedChannel.invokeMethod("onRewardedAdDismissed", "", callbackResult);
           }
 
           @Override
-          public void onRewardedAdCompleted(String s) {
+          public void onRewardedVideoCompleted(String s) {
             ChocolateLogger.e(TAG, "onRewardedAdCompleted");
             rewardedChannel.invokeMethod("onRewardedAdCompleted", "", callbackResult);
           }
@@ -236,7 +236,7 @@ public class FreestarFlutterPlugin implements FlutterPlugin, MethodCallHandler, 
 
         interstitialAd = new InterstitialAd(activity.get(), new InterstitialAdListener() {
           @Override
-          public void onInterstitialAdLoaded(String s) {
+          public void onInterstitialLoaded(String s) {
             ChocolateLogger.e(TAG, "onInterstitialAdLoaded");
             if (interstitialAd != null && isActivityAlive()) {
               interstitialChannel.invokeMethod("onInterstitialAdLoaded", "", callbackResult);
@@ -244,7 +244,7 @@ public class FreestarFlutterPlugin implements FlutterPlugin, MethodCallHandler, 
           }
 
           @Override
-          public void onInterstitialAdFailed (String s, int i) {
+          public void onInterstitialFailed (String s, int i) {
             ChocolateLogger.e(TAG, "onInterstitialAdFailed : " + ErrorCodes.getErrorDescription(i));
             if (interstitialAd != null && isActivityAlive()) {
               interstitialChannel.invokeMethod("onInterstitialAdFailed ", ErrorCodes.getErrorDescription(i), callbackResult);
@@ -252,19 +252,19 @@ public class FreestarFlutterPlugin implements FlutterPlugin, MethodCallHandler, 
           }
 
           @Override
-          public void onInterstitialAdShown(String s) {
+          public void onInterstitialShown(String s) {
             ChocolateLogger.e(TAG, "onInterstitialAdShown");
             interstitialChannel.invokeMethod("onInterstitialAdShown", "", callbackResult);
           }
 
           @Override
-          public void onInterstitialAdClicked(String s) {
+          public void onInterstitialClicked(String s) {
             ChocolateLogger.e(TAG, "onInterstitialAdClicked");
             interstitialChannel.invokeMethod("onInterstitialAdClicked", "", callbackResult);
           }
 
           @Override
-          public void onInterstitialAdDismissed(String s) {
+          public void onInterstitialDismissed(String s) {
             ChocolateLogger.e(TAG, "onInterstitialAdDismissed");
             interstitialAd = null;
             interstitialChannel.invokeMethod("onInterstitialAdDismissed", "", callbackResult);
