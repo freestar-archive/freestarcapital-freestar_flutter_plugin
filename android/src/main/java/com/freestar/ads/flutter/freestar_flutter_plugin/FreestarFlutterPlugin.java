@@ -36,8 +36,10 @@ public class FreestarFlutterPlugin implements FlutterPlugin, MethodCallHandler, 
   ///
   /// This local reference serves to register the plugin with the Flutter Engine and unregister it
   /// when the Flutter Engine is detached from the Activity
-  private MethodChannel channel;
+  private MethodChannel channel, interstitialChannel, rewardedChannel;
   private static final String CHANNEL_NAME = "freestar_flutter_plugin";
+  private static final String INTERSTITIAL_CHANNEL_NAME = "freestar_flutter_plugin/InterstitialAd";
+  private static final String REWARDED_CHANNEL_NAME = "freestar_flutter_plugin/RewardedAd";
   public static WeakReference<Activity> activity;
   private InterstitialAd interstitialAd;
   private RewardedAd rewardedAd;
@@ -68,7 +70,11 @@ public class FreestarFlutterPlugin implements FlutterPlugin, MethodCallHandler, 
   public void onAttachedToEngine(@NonNull FlutterPluginBinding flutterPluginBinding) {
 
     channel = new MethodChannel(flutterPluginBinding.getBinaryMessenger(), CHANNEL_NAME);
+    interstitialChannel = new MethodChannel(flutterPluginBinding.getBinaryMessenger(), INTERSTITIAL_CHANNEL_NAME);
+    rewardedChannel = new MethodChannel(flutterPluginBinding.getBinaryMessenger(), REWARDED_CHANNEL_NAME);
     channel.setMethodCallHandler(this);
+    interstitialChannel.setMethodCallHandler(this);
+    rewardedChannel.setMethodCallHandler(this);
 
     flutterPluginBinding
             .getPlatformViewRegistry()
@@ -148,7 +154,7 @@ public class FreestarFlutterPlugin implements FlutterPlugin, MethodCallHandler, 
         public void onRewardedVideoLoaded(String s) {
           ChocolateLogger.e(TAG, "onRewardedVideoLoaded");
           if (rewardedAd != null && isActivityAlive()) {
-            channel.invokeMethod("onRewardedVideoLoaded", "", callbackResult);
+            rewardedChannel.invokeMethod("onRewardedVideoLoaded", "", callbackResult);
           }
         }
 
@@ -156,34 +162,34 @@ public class FreestarFlutterPlugin implements FlutterPlugin, MethodCallHandler, 
         public void onRewardedVideoFailed(String s, int i) {
           ChocolateLogger.e(TAG, "onRewardedVideoFailed: " + ErrorCodes.getErrorDescription(i));
           if (rewardedAd != null && isActivityAlive()) {
-            channel.invokeMethod("onRewardedVideoFailed", ErrorCodes.getErrorDescription(i), callbackResult);
+            rewardedChannel.invokeMethod("onRewardedVideoFailed", ErrorCodes.getErrorDescription(i), callbackResult);
           }
         }
 
         @Override
         public void onRewardedVideoShown(String s) {
           ChocolateLogger.e(TAG, "onRewardedVideoShown");
-          channel.invokeMethod("onRewardedVideoShown", "", callbackResult);
+          rewardedChannel.invokeMethod("onRewardedVideoShown", "", callbackResult);
         }
 
         @Override
         public void onRewardedVideoShownError(String s, int i) {
           ChocolateLogger.e(TAG, "onRewardedVideoShownError: " + ErrorCodes.getErrorDescription(i));
           if (rewardedAd != null && isActivityAlive()) {
-            channel.invokeMethod("onRewardedVideoShownError", ErrorCodes.getErrorDescription(i), callbackResult);
+            rewardedChannel.invokeMethod("onRewardedVideoShownError", ErrorCodes.getErrorDescription(i), callbackResult);
           }
         }
 
         @Override
         public void onRewardedVideoDismissed(String s) {
           ChocolateLogger.e(TAG, "onRewardedVideoDismissed");
-          channel.invokeMethod("onRewardedVideoDismissed", "", callbackResult);
+          rewardedChannel.invokeMethod("onRewardedVideoDismissed", "", callbackResult);
         }
 
         @Override
         public void onRewardedVideoCompleted(String s) {
           ChocolateLogger.e(TAG, "onRewardedVideoCompleted");
-          channel.invokeMethod("onRewardedVideoCompleted", "", callbackResult);
+          rewardedChannel.invokeMethod("onRewardedVideoCompleted", "", callbackResult);
         }
       });
       final AdRequest adRequest = new AdRequest(activity.get());
@@ -230,7 +236,7 @@ public class FreestarFlutterPlugin implements FlutterPlugin, MethodCallHandler, 
         public void onInterstitialLoaded(String s) {
           ChocolateLogger.e(TAG, "onInterstitialLoaded");
           if (interstitialAd != null && isActivityAlive()) {
-            channel.invokeMethod("onInterstitialLoaded", "", callbackResult);
+            interstitialChannel.invokeMethod("onInterstitialLoaded", "", callbackResult);
           }
         }
 
@@ -238,27 +244,27 @@ public class FreestarFlutterPlugin implements FlutterPlugin, MethodCallHandler, 
         public void onInterstitialFailed(String s, int i) {
           ChocolateLogger.e(TAG, "onInterstitialFailed: " + ErrorCodes.getErrorDescription(i));
           if (interstitialAd != null && isActivityAlive()) {
-            channel.invokeMethod("onInterstitialFailed", ErrorCodes.getErrorDescription(i), callbackResult);
+            interstitialChannel.invokeMethod("onInterstitialFailed", ErrorCodes.getErrorDescription(i), callbackResult);
           }
         }
 
         @Override
         public void onInterstitialShown(String s) {
           ChocolateLogger.e(TAG, "onInterstitialShown");
-          channel.invokeMethod("onInterstitialShown", "", callbackResult);
+          interstitialChannel.invokeMethod("onInterstitialShown", "", callbackResult);
         }
 
         @Override
         public void onInterstitialClicked(String s) {
           ChocolateLogger.e(TAG, "onInterstitialClicked");
-          channel.invokeMethod("onInterstitialClicked", "", callbackResult);
+          interstitialChannel.invokeMethod("onInterstitialClicked", "", callbackResult);
         }
 
         @Override
         public void onInterstitialDismissed(String s) {
           ChocolateLogger.e(TAG, "onInterstitialDismissed");
           interstitialAd = null;
-          channel.invokeMethod("onInterstitialDismissed", "", callbackResult);
+          interstitialChannel.invokeMethod("onInterstitialDismissed", "", callbackResult);
         }
       });
       final AdRequest adRequest = new AdRequest(activity.get());
@@ -310,6 +316,8 @@ public class FreestarFlutterPlugin implements FlutterPlugin, MethodCallHandler, 
   @Override
   public void onDetachedFromEngine(@NonNull FlutterPluginBinding binding) {
     channel.setMethodCallHandler(null);
+    interstitialChannel.setMethodCallHandler(null);
+    rewardedChannel.setMethodCallHandler(null);
   }
 
 }

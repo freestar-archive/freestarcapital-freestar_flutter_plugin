@@ -4,14 +4,16 @@ import '../freestar_flutter_plugin.dart';
 
 class RewardedAd {
   bool isLoaded = false;
-  static const MethodChannel _channel = const MethodChannel('freestar_flutter_plugin');
+  static const MethodChannel _channel = const MethodChannel('freestar_flutter_plugin/RewardedAd');
 
   RewardedAd.from(this.placement, this.rewardedAdListener) {
     _channel.setMethodCallHandler(adsCallbackHandler);
+    print("fsfp_tag: RewardedAd.from() constructed from helper.");
   }
 
   RewardedAd() {
     _channel.setMethodCallHandler(adsCallbackHandler);
+    print("fsfp_tag: RewardedAd() default constructor.");
   }
 
   Map? targetingParams; //optional

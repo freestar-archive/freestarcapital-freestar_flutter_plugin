@@ -4,14 +4,16 @@ import '../freestar_flutter_plugin.dart';
 
 class InterstitialAd {
   bool isLoaded = false;
-  static const MethodChannel _channel = const MethodChannel('freestar_flutter_plugin');
+  static const MethodChannel _channel = const MethodChannel('freestar_flutter_plugin/InterstitialAd');
 
   InterstitialAd.from(this.placement, this.interstitialAdListener) {
     _channel.setMethodCallHandler(adsCallbackHandler);
+    print("fsfp_tag: InterstitialAd.from() constructed from helper.");
   }
 
   InterstitialAd() {
     _channel.setMethodCallHandler(adsCallbackHandler);
+    print("fsfp_tag: InterstitialAd() default constructor.");
   }
 
   InterstitialAdListener? interstitialAdListener;
@@ -31,7 +33,7 @@ class InterstitialAd {
   }
 
   Future<dynamic> adsCallbackHandler(MethodCall methodCall) async {
-    print("fsfp_tag: RewardedAd. adsCallbackHandler. " +
+    print("fsfp_tag: InterstitialAd. adsCallbackHandler. " +
         methodCall.method + " args: " + methodCall.arguments);
 
     if (interstitialAdListener == null) {
