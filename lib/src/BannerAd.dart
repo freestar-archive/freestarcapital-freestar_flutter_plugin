@@ -22,10 +22,6 @@ class BannerAd extends StatefulWidget {
 
   MethodChannel? _channel;
 
-  bool isCreated() {
-    return _channel != null;
-  }
-
   Future<void> loadAd() async {
     print("fsfp_tag: BannerAd.dart. loadAd.");
     _channel!.setMethodCallHandler(adsCallbackHandler);
