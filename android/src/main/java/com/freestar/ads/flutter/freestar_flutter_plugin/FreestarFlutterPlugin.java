@@ -158,45 +158,45 @@ public class FreestarFlutterPlugin implements FlutterPlugin, MethodCallHandler, 
 
         rewardedAd = new RewardedAd(activity.get(), new RewardedAdListener() {
           @Override
-          public void onRewardedVideoLoaded(String s) {
-            ChocolateLogger.e(TAG, "onRewardedVideoLoaded");
+          public void onRewardedAdLoaded(String s) {
+            ChocolateLogger.e(TAG, "onRewardedAdLoaded");
             if (rewardedAd != null && isActivityAlive()) {
-              rewardedChannel.invokeMethod("onRewardedVideoLoaded", "", callbackResult);
+              rewardedChannel.invokeMethod("onRewardedAdLoaded", "", callbackResult);
             }
           }
 
           @Override
-          public void onRewardedVideoFailed(String s, int i) {
-            ChocolateLogger.e(TAG, "onRewardedVideoFailed: " + ErrorCodes.getErrorDescription(i));
+          public void onRewardedAdFailed(String s, int i) {
+            ChocolateLogger.e(TAG, "onRewardedAdFailed: " + ErrorCodes.getErrorDescription(i));
             if (rewardedAd != null && isActivityAlive()) {
-              rewardedChannel.invokeMethod("onRewardedVideoFailed", ErrorCodes.getErrorDescription(i), callbackResult);
+              rewardedChannel.invokeMethod("onRewardedAdFailed", ErrorCodes.getErrorDescription(i), callbackResult);
             }
           }
 
           @Override
-          public void onRewardedVideoShown(String s) {
-            ChocolateLogger.e(TAG, "onRewardedVideoShown");
-            rewardedChannel.invokeMethod("onRewardedVideoShown", "", callbackResult);
+          public void onRewardedAdShown(String s) {
+            ChocolateLogger.e(TAG, "onRewardedAdShown");
+            rewardedChannel.invokeMethod("onRewardedAdShown", "", callbackResult);
           }
 
           @Override
-          public void onRewardedVideoShownError(String s, int i) {
-            ChocolateLogger.e(TAG, "onRewardedVideoShownError: " + ErrorCodes.getErrorDescription(i));
+          public void onRewardedAdShownError(String s, int i) {
+            ChocolateLogger.e(TAG, "onRewardedAdShownError: " + ErrorCodes.getErrorDescription(i));
             if (rewardedAd != null && isActivityAlive()) {
-              rewardedChannel.invokeMethod("onRewardedVideoShownError", ErrorCodes.getErrorDescription(i), callbackResult);
+              rewardedChannel.invokeMethod("onRewardedAdShownError", ErrorCodes.getErrorDescription(i), callbackResult);
             }
           }
 
           @Override
-          public void onRewardedVideoDismissed(String s) {
-            ChocolateLogger.e(TAG, "onRewardedVideoDismissed");
-            rewardedChannel.invokeMethod("onRewardedVideoDismissed", "", callbackResult);
+          public void onRewardedAdDismissed(String s) {
+            ChocolateLogger.e(TAG, "onRewardedAdDismissed");
+            rewardedChannel.invokeMethod("onRewardedAdDismissed", "", callbackResult);
           }
 
           @Override
-          public void onRewardedVideoCompleted(String s) {
-            ChocolateLogger.e(TAG, "onRewardedVideoCompleted");
-            rewardedChannel.invokeMethod("onRewardedVideoCompleted", "", callbackResult);
+          public void onRewardedAdCompleted(String s) {
+            ChocolateLogger.e(TAG, "onRewardedAdCompleted");
+            rewardedChannel.invokeMethod("onRewardedAdCompleted", "", callbackResult);
           }
         });
         final AdRequest adRequest = new AdRequest(activity.get());
@@ -236,38 +236,38 @@ public class FreestarFlutterPlugin implements FlutterPlugin, MethodCallHandler, 
 
         interstitialAd = new InterstitialAd(activity.get(), new InterstitialAdListener() {
           @Override
-          public void onInterstitialLoaded(String s) {
-            ChocolateLogger.e(TAG, "onInterstitialLoaded");
+          public void onInterstitialAdLoaded(String s) {
+            ChocolateLogger.e(TAG, "onInterstitialAdLoaded");
             if (interstitialAd != null && isActivityAlive()) {
-              interstitialChannel.invokeMethod("onInterstitialLoaded", "", callbackResult);
+              interstitialChannel.invokeMethod("onInterstitialAdLoaded", "", callbackResult);
             }
           }
 
           @Override
-          public void onInterstitialFailed(String s, int i) {
-            ChocolateLogger.e(TAG, "onInterstitialFailed: " + ErrorCodes.getErrorDescription(i));
+          public void onInterstitialAdFailed (String s, int i) {
+            ChocolateLogger.e(TAG, "onInterstitialAdFailed : " + ErrorCodes.getErrorDescription(i));
             if (interstitialAd != null && isActivityAlive()) {
-              interstitialChannel.invokeMethod("onInterstitialFailed", ErrorCodes.getErrorDescription(i), callbackResult);
+              interstitialChannel.invokeMethod("onInterstitialAdFailed ", ErrorCodes.getErrorDescription(i), callbackResult);
             }
           }
 
           @Override
-          public void onInterstitialShown(String s) {
-            ChocolateLogger.e(TAG, "onInterstitialShown");
-            interstitialChannel.invokeMethod("onInterstitialShown", "", callbackResult);
+          public void onInterstitialAdShown(String s) {
+            ChocolateLogger.e(TAG, "onInterstitialAdShown");
+            interstitialChannel.invokeMethod("onInterstitialAdShown", "", callbackResult);
           }
 
           @Override
-          public void onInterstitialClicked(String s) {
-            ChocolateLogger.e(TAG, "onInterstitialClicked");
-            interstitialChannel.invokeMethod("onInterstitialClicked", "", callbackResult);
+          public void onInterstitialAdClicked(String s) {
+            ChocolateLogger.e(TAG, "onInterstitialAdClicked");
+            interstitialChannel.invokeMethod("onInterstitialAdClicked", "", callbackResult);
           }
 
           @Override
-          public void onInterstitialDismissed(String s) {
-            ChocolateLogger.e(TAG, "onInterstitialDismissed");
+          public void onInterstitialAdDismissed(String s) {
+            ChocolateLogger.e(TAG, "onInterstitialAdDismissed");
             interstitialAd = null;
-            interstitialChannel.invokeMethod("onInterstitialDismissed", "", callbackResult);
+            interstitialChannel.invokeMethod("onInterstitialAdDismissed", "", callbackResult);
           }
         });
         final AdRequest adRequest = new AdRequest(activity.get());

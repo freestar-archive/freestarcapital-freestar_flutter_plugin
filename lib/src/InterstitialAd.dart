@@ -42,23 +42,23 @@ class InterstitialAd {
     }
 
     switch (methodCall.method) {
-      case "onInterstitialShown":
-        interstitialAdListener!.onInterstitialShown(placement);
+      case "onInterstitialAdShown":
+        interstitialAdListener!.onInterstitialAdShown(placement);
         break;
-      case "onInterstitialLoaded":
+      case "onInterstitialAdLoaded":
         isLoaded = true;
-        interstitialAdListener!.onInterstitialLoaded(placement);
+        interstitialAdListener!.onInterstitialAdLoaded(placement);
         break;
-      case "onInterstitialFailed":
+      case "onInterstitialAdFailed ":
         isLoaded = false;
-        interstitialAdListener!.onInterstitialFailed(placement, methodCall.arguments);
+        interstitialAdListener!.onInterstitialAdFailed (placement, methodCall.arguments);
         break;
-      case "onInterstitialClicked":
-        interstitialAdListener!.onInterstitialClicked(placement);
+      case "onInterstitialAdClicked":
+        interstitialAdListener!.onInterstitialAdClicked(placement);
         break;
-      case "onInterstitialDismissed":
+      case "onInterstitialAdDismissed":
         isLoaded = false;
-        interstitialAdListener!.onInterstitialDismissed(placement);
+        interstitialAdListener!.onInterstitialAdDismissed(placement);
         break;
       default:
         break;

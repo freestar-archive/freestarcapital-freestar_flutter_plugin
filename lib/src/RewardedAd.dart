@@ -53,27 +53,27 @@ class RewardedAd {
     }
 
     switch (methodCall.method) {
-      case "onRewardedVideoShown":
-        rewardedAdListener!.onRewardedVideoShown(placement);
+      case "onRewardedAdShown":
+        rewardedAdListener!.onRewardedAdShown(placement);
         break;
-      case "onRewardedVideoLoaded":
+      case "onRewardedAdLoaded":
         isLoaded = true;
-        rewardedAdListener!.onRewardedVideoLoaded(placement);
+        rewardedAdListener!.onRewardedAdLoaded(placement);
         break;
-      case "onRewardedVideoFailed":
+      case "onRewardedAdFailed":
         isLoaded = false;
-        rewardedAdListener!.onRewardedVideoFailed(placement, methodCall.arguments);
+        rewardedAdListener!.onRewardedAdFailed(placement, methodCall.arguments);
         break;
-      case "onRewardedVideoShownError":
-        rewardedAdListener!.onRewardedVideoShownError(placement, methodCall.arguments);
+      case "onRewardedAdShownError":
+        rewardedAdListener!.onRewardedAdShownError(placement, methodCall.arguments);
         break;
-      case "onRewardedVideoDismissed":
+      case "onRewardedAdDismissed":
         isLoaded = false;
-        rewardedAdListener!.onRewardedVideoDismissed(placement);
+        rewardedAdListener!.onRewardedAdDismissed(placement);
         break;
-      case "onRewardedVideoCompleted":
+      case "onRewardedAdCompleted":
         isLoaded = false;
-        rewardedAdListener!.onRewardedVideoCompleted(placement);
+        rewardedAdListener!.onRewardedAdCompleted(placement);
         break;
       default:
         break;

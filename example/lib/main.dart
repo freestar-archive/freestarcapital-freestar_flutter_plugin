@@ -182,69 +182,69 @@ class _MyAppState extends State<MyApp>
   }
 
   @override
-  void onInterstitialShown(String? placement) {
-    print("fsfp_tag: main.dart. onInterstitialShown. placement: [" +
+  void onInterstitialAdShown(String? placement) {
+    print("fsfp_tag: main.dart. onInterstitialAdShown. placement: [" +
         _notNull(placement) +"]");
   }
 
   @override
-  void onInterstitialDismissed(String? placement) {
-    print("fsfp_tag: main.dart. onInterstitialDismissed. placement: [" +
+  void onInterstitialAdDismissed(String? placement) {
+    print("fsfp_tag: main.dart. onInterstitialAdDismissed. placement: [" +
         _notNull(placement) +"]");
   }
 
   @override
-  void onInterstitialClicked(String? placement) {
-    print("fsfp_tag: main.dart. onInterstitialClicked. placement: [" +
+  void onInterstitialAdClicked(String? placement) {
+    print("fsfp_tag: main.dart. onInterstitialAdClicked. placement: [" +
         _notNull(placement) +"]");
   }
 
   @override
-  void onInterstitialFailed(String? placement, String errorMessage) {
-    print("fsfp_tag: main.dart. onInterstitialFailed. placement: [" +
+  void onInterstitialAdFailed (String? placement, String errorMessage) {
+    print("fsfp_tag: main.dart. onInterstitialAdFailed . placement: [" +
         _notNull(placement) +"] error: " + errorMessage);
   }
 
   @override
-  void onInterstitialLoaded(String? placement) {
-    print("fsfp_tag: main.dart. onInterstitialLoaded. placement: [" +
+  void onInterstitialAdLoaded(String? placement) {
+    print("fsfp_tag: main.dart. onInterstitialAdLoaded. placement: [" +
         _notNull(placement) +"]");
     _interstitialAd.showAd();
   }
 
   @override
-  void onRewardedVideoCompleted(String? placement) {
-    print("fsfp_tag: main.dart. onRewardedVideoCompleted. placement: [" +
+  void onRewardedAdCompleted(String? placement) {
+    print("fsfp_tag: main.dart. onRewardedAdCompleted. placement: [" +
         _notNull(placement) +"]");
   }
 
   @override
-  void onRewardedVideoDismissed(String? placement) {
-    print("fsfp_tag: main.dart. onRewardedVideoDismissed. placement: [" +
+  void onRewardedAdDismissed(String? placement) {
+    print("fsfp_tag: main.dart. onRewardedAdDismissed. placement: [" +
         _notNull(placement) + "]");
   }
 
   @override
-  void onRewardedVideoShownError(String? placement, String errorMessage) {
-    print("fsfp_tag: main.dart. onRewardedVideoShownError. placement: [" +
+  void onRewardedAdShownError(String? placement, String errorMessage) {
+    print("fsfp_tag: main.dart. onRewardedAdShownError. placement: [" +
         _notNull(placement) +"]");
   }
 
   @override
-  void onRewardedVideoShown(String? placement) {
-    print("fsfp_tag: main.dart. onRewardedVideoShown. placement: [" +
+  void onRewardedAdShown(String? placement) {
+    print("fsfp_tag: main.dart. onRewardedAdShown. placement: [" +
         _notNull(placement) +"]");
   }
 
   @override
-  void onRewardedVideoFailed(String? placement, String errorMessage) {
-    print("fsfp_tag: main.dart. onRewardedVideoFailed. placement: [" +
+  void onRewardedAdFailed(String? placement, String errorMessage) {
+    print("fsfp_tag: main.dart. onRewardedAdFailed. placement: [" +
         _notNull(placement) +"]  error: " + errorMessage);
   }
 
   @override
-  void onRewardedVideoLoaded(String? placement) {
-    print("fsfp_tag: main.dart. onRewardedVideoLoaded. placement: [" +
+  void onRewardedAdLoaded(String? placement) {
+    print("fsfp_tag: main.dart. onRewardedAdLoaded. placement: [" +
         _notNull(placement) + "]");
     _rewardedAd.showAd("secret-12345", "myUserId765", "V-Bucks", "9000");
   }

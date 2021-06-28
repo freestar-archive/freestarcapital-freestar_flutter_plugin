@@ -1,20 +1,20 @@
 class RewardedAdListener {
 
   // The rewarded ad has been loaded and is ready to be shown.
-  void onRewardedVideoLoaded(String? placement) {}
+  void onRewardedAdLoaded(String? placement) {}
 
   // The rewarded ad failed to load.
-  void onRewardedVideoFailed(String? placement, String errorMessage) {}
+  void onRewardedAdFailed(String? placement, String errorMessage) {}
 
   // The rewarded ad has shown on the screen.
-  void onRewardedVideoShown(String? placement) {}
+  void onRewardedAdShown(String? placement) {}
 
   // The rewarded ad encountered an error when it was about to show on screen.
-  void onRewardedVideoShownError(String? placement, String errorMessage) {}
+  void onRewardedAdShownError(String? placement, String errorMessage) {}
 
   // The rewarded ad was dismissed.
-  void onRewardedVideoDismissed(String? placement) {}
+  void onRewardedAdDismissed(String? placement) {}
 
   // The rewarded ad has completed and the user can be rewarded.
-  void onRewardedVideoCompleted(String? placement) {}
+  void onRewardedAdCompleted(String? placement) {}
 }
