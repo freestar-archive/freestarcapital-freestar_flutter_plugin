@@ -6,7 +6,7 @@ Supports Android platform.  iOS coming soon!
 
 ## Getting Started
 
-See our [integration instructions](https://github.com/freestarcapital/freestar_flutter_plugin/wiki) to display Freestar mediated ads into your Flutter app today.
+See our [integration instructions](https://github.com/freestarcapital/freestar_flutter_plugin/wiki) to display Freestar mediated ads in your Flutter app today.
 
 
 ## Other Platforms
