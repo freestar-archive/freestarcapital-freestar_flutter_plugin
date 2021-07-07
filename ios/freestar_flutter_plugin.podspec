@@ -15,9 +15,22 @@ A new flutter plugin project.
   s.source           = { :path => '.' }
   s.source_files = 'Classes/**/*'
   s.dependency 'Flutter'
-  s.platform = :ios, '8.0'
+  s.platform = :ios, '10.0'
 
   # Flutter.framework does not contain a i386 slice.
   s.pod_target_xcconfig = { 'DEFINES_MODULE' => 'YES', 'EXCLUDED_ARCHS[sdk=iphonesimulator*]' => 'i386' }
   s.swift_version = '5.0'
+  s.dependency 'FreestarAds', '~> 4.0'
+  s.dependency 'FreestarAds-AdColony', '~> 4.0'
+  s.dependency 'FreestarAds-AppLovin', '~> 4.0'
+  s.dependency 'FreestarAds-Mopub', '~> 4.0'
+  s.dependency 'FreestarAds-Googleadmob', '~> 3.0'
+  s.dependency 'FreestarAds-Tapjoy', '~> 4.0'
+  s.dependency 'FreestarAds-Unity', '~> 5.0'
+  s.dependency 'FreestarAds-Vungle', '~> 4.0'
+  s.dependency 'FreestarAds-Amazon', '~> 3.0'
+  s.dependency 'FreestarAds-Google', '~> 4.0'
+  s.dependency 'FreestarAds-Criteo', '~> 2.0'
+  s.dependency 'FreestarAds-GAM', '~> 2.0'
+  s.dependency 'FreestarAds-Nimbus', '~> 2.0'
 end
