@@ -41,5 +41,20 @@
 	</array>
 	<key>UIViewControllerBasedStatusBarAppearance</key>
 	<false/>
+	<key>CHP_STAGING_SERVER</key>
+	<true/>
+	<key>CHP_TEST_ADS</key>
+	<string>enable</string>
+	<key>CHP_LOGGING_ENABLE</key>
+	<string>true</string>
+	<key>CHP_ENABLE_PARTNER_SELECTION</key>
+	<string>true</string>
+	<key>CHP_TEST_DEVICE_IDENTIFIERS</key>
+	<array>
+		<string>29A9A236-2C31-4432-99B7-B24A6E0CE146</string>
+		<string>00000000-0000-0000-0000-000000000000</string>
+	</array>
+	<key>GADApplicationIdentifier</key>
+	<string>ca-app-pub-3940256099942544~1458002511</string>
 </dict>
 </plist>
