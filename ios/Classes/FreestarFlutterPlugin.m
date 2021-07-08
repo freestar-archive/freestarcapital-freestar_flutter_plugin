@@ -8,8 +8,13 @@
 #import "freestar_flutter_plugin-Swift.h"
 #endif
 
+#import "FlutterBannerAd.h"
+
 @implementation FreestarFlutterPlugin
 + (void)registerWithRegistrar:(NSObject<FlutterPluginRegistrar>*)registrar {
-  [SwiftFreestarFlutterPlugin registerWithRegistrar:registrar];
+    [SwiftFreestarFlutterPlugin registerWithRegistrar:registrar];
+    FlutterBannerAdFactory *bannerAdFactory = [[FlutterBannerAdFactory alloc] initWithMessenger:registrar.messenger];
+    
+    [registrar registerViewFactory:bannerAdFactory withId:BANNER_CHANNEL_PREFIX];
 }
 @end

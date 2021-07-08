@@ -55,6 +55,7 @@ class _MyAppState extends State<MyApp>
   }
 
   void _loadBannerAd() {
+    print("fsfp_tag: BannerAdButton.dart. loadAd.");
     _bannerAd.bannerAdListener = this;
     //_bannerAd.placement = "optional-placement";
     _bannerAd.loadAd();
@@ -102,7 +103,7 @@ class _MyAppState extends State<MyApp>
         body: Center(
           child: SingleChildScrollView(
             child: Container(
-              margin: const EdgeInsets.only(top: 16.0),
+              margin: const EdgeInsets.only(top: 40.0),
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: <Widget>[

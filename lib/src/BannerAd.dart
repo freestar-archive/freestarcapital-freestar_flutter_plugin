@@ -116,6 +116,11 @@ class _BannerAdViewState extends State<BannerAd> with WidgetsBindingObserver {
         viewType: 'plugins.freestar.ads/BannerAd',
         onPlatformViewCreated: _onPlatformViewCreated,
       );
+    } else if (defaultTargetPlatform == TargetPlatform.iOS) {
+      return UiKitView(
+        viewType: 'plugins.freestar.ads/BannerAd',
+        onPlatformViewCreated: _onPlatformViewCreated,
+      );
     }
     return Text(
         '$defaultTargetPlatform is not yet supported by the Freestar Flutter Plugin');
