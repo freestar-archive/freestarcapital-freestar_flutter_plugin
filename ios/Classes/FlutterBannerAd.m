@@ -131,12 +131,12 @@ static const FreestarBannerAdSize FLUTTER_BANNER_SIZES[3] = {
 
 
 - (void)freestarBannerClicked:(nonnull FreestarBannerAd *)ad {
-    [channel invokeMethod:@"onBannerAdClicked" arguments:nil];
+    [channel invokeMethod:@"onBannerAdClicked" arguments:@""];
 
 }
 
 - (void)freestarBannerClosed:(nonnull FreestarBannerAd *)ad {
-    [channel invokeMethod:@"onBannerAdClosed" arguments:nil];
+    [channel invokeMethod:@"onBannerAdClosed" arguments:@""];
 }
 
 - (void)freestarBannerFailed:(nonnull FreestarBannerAd *)ad because:(FreestarNoAdReason)reason {
@@ -145,7 +145,7 @@ static const FreestarBannerAdSize FLUTTER_BANNER_SIZES[3] = {
 }
 
 - (void)freestarBannerLoaded:(nonnull FreestarBannerAd *)ad {
-    [channel invokeMethod:@"onBannerAdLoaded" arguments:nil];
+    [channel invokeMethod:@"onBannerAdLoaded" arguments:@""];
 }
 
 - (void)freestarBannerShown:(nonnull FreestarBannerAd *)ad {}

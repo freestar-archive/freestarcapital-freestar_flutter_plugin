@@ -126,12 +126,12 @@ static const FreestarNativeAdSize FLUTTER_NATIVE_SIZES[2] = {
 
 
 - (void)freestarNativeClicked:(nonnull FreestarNativeAd *)ad {
-    [channel invokeMethod:@"onNativeAdClicked" arguments:nil];
+    [channel invokeMethod:@"onNativeAdClicked" arguments:@""];
 
 }
 
 - (void)freestarNativeClosed:(nonnull FreestarNativeAd *)ad {
-    [channel invokeMethod:@"onNativeAdClosed" arguments:nil];
+    [channel invokeMethod:@"onNativeAdClosed" arguments:@""];
 }
 
 - (void)freestarNativeFailed:(nonnull FreestarNativeAd *)ad because:(FreestarNoAdReason)reason {
@@ -140,7 +140,7 @@ static const FreestarNativeAdSize FLUTTER_NATIVE_SIZES[2] = {
 }
 
 - (void)freestarNativeLoaded:(nonnull FreestarNativeAd *)ad {
-    [channel invokeMethod:@"onNativeAdLoaded" arguments:nil];
+    [channel invokeMethod:@"onNativeAdLoaded" arguments:@""];
 }
 
 - (void)freestarNativeShown:(nonnull FreestarNativeAd *)ad {}
