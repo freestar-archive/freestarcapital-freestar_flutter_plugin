@@ -115,6 +115,11 @@ class _NativeAdViewState extends State<NativeAd> with WidgetsBindingObserver {
         viewType: 'plugins.freestar.ads/NativeAd',
         onPlatformViewCreated: _onPlatformViewCreated,
       );
+    } else if (defaultTargetPlatform == TargetPlatform.iOS) {
+      return UiKitView(
+        viewType: 'plugins.freestar.ads/NativeAd',
+        onPlatformViewCreated: _onPlatformViewCreated,
+      );
     }
     return Text(
         '$defaultTargetPlatform is not yet supported by the Freestar Flutter Plugin');
