@@ -17,7 +17,7 @@ static const NSString *BANNER_CHANNEL_PREFIX = @"plugins.freestar.ads/BannerAd";
 @end
 
 
-@interface FlutterBannerAd : FreestarBannerAd <FlutterPlatformView>
+@interface FlutterBannerAd : NSObject <FlutterPlatformView>
 - (instancetype)initWithFrame:(CGRect)frame
                viewIdentifier:(int64_t)viewId
                     arguments:(id _Nullable)args
