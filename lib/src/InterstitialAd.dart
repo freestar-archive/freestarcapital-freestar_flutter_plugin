@@ -22,6 +22,7 @@ class InterstitialAd {
 
   void loadAd() {
     Map params = FreestarUtils.paramsFrom(placement, targetingParams);
+    print("batman");
     _channel.invokeMethod('loadInterstitialAd', params);
   }
 
@@ -49,7 +50,7 @@ class InterstitialAd {
         isLoaded = true;
         interstitialAdListener!.onInterstitialAdLoaded(placement);
         break;
-      case "onInterstitialAdFailed ":
+      case "onInterstitialAdFailed":
         isLoaded = false;
         interstitialAdListener!.onInterstitialAdFailed (placement, methodCall.arguments);
         break;

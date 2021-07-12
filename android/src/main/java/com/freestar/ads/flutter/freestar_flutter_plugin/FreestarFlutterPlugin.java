@@ -247,7 +247,7 @@ public class FreestarFlutterPlugin implements FlutterPlugin, MethodCallHandler, 
           public void onInterstitialFailed (String s, int i) {
             ChocolateLogger.e(TAG, "onInterstitialAdFailed : " + ErrorCodes.getErrorDescription(i));
             if (interstitialAd != null && isActivityAlive()) {
-              interstitialChannel.invokeMethod("onInterstitialAdFailed ", ErrorCodes.getErrorDescription(i), callbackResult);
+              interstitialChannel.invokeMethod("onInterstitialAdFailed", ErrorCodes.getErrorDescription(i), callbackResult);
             }
           }
 

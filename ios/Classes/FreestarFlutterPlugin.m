@@ -12,6 +12,8 @@
 #import "FlutterNativeAd.h"
 
 static const NSString *REWARDED_CHANNEL_PREFIX = @"freestar_flutter_plugin/RewardedAd";
+static const NSString *INTERSTITIAL_CHANNEL_PREFIX = @"freestar_flutter_plugin/InterstitialAd";
+
 
 @implementation FreestarFlutterPlugin
 + (void)registerWithRegistrar:(NSObject<FlutterPluginRegistrar>*)registrar {
@@ -23,6 +25,7 @@ static const NSString *REWARDED_CHANNEL_PREFIX = @"freestar_flutter_plugin/Rewar
     [registrar registerViewFactory:nativeAdFactory withId:NATIVE_CHANNEL_PREFIX];
     
     [FreestarRewardedPlugin registerWithRegistrar:registrar];
+    [FreestarInterstitialPlugin registerWithRegistrar:registrar];
     
 }
 @end
@@ -109,6 +112,75 @@ static FlutterMethodChannel* rewardedChanel = nil;
 
 - (void)freestarRewardedShown:(nonnull FreestarRewardedAd *)ad {
     [rewardedChanel invokeMethod:@"onRewardedAdShown" arguments:(ad.placement ?: @"")];
+}
+
+@end
+
+@interface FreestarInterstitialPlugin() <FreestarInterstitialDelegate>
+@end
+
+@implementation FreestarInterstitialPlugin {
+    FreestarInterstitialAd *ad;
+}
+
+static FlutterMethodChannel* interstitialChannel = nil;
+
+-(instancetype) init {
+    self = [super init];
+    ad = [[FreestarInterstitialAd alloc] initWithDelegate:self];
+    return self;
+}
+
+#pragma mark - FlutterPlugin
+
++ (void)registerWithRegistrar:(nonnull NSObject<FlutterPluginRegistrar> *)registrar {
+    interstitialChannel = [FlutterMethodChannel methodChannelWithName:INTERSTITIAL_CHANNEL_PREFIX binaryMessenger:registrar.messenger];
+    [registrar addMethodCallDelegate:[[FreestarInterstitialPlugin alloc] init] channel:interstitialChannel];
+}
+
+-(void)handleMethodCall:(FlutterMethodCall *)call result:(FlutterResult)result {
+    if ([call.method isEqualToString:@"loadInterstitialAd"]) {
+        NSString *placement = call.arguments[@"placement"];
+        NSDictionary *targeting = call.arguments[@"targetingMap"];
+            
+        
+        [targeting enumerateKeysAndObjectsUsingBlock:^(NSString *key, NSString *obj, BOOL * _Nonnull stop) {
+            [ad addCustomTargeting:key as:obj];
+        }];
+        
+        [ad loadPlacement:placement];
+    } else if ([call.method isEqualToString:@"showInterstitialAd"]) {
+        if([ad winningPartnerName] != nil) {
+            [ad showFrom:[UIApplication sharedApplication].keyWindow.rootViewController];
+            result(nil);
+        } else {
+            result([FlutterError errorWithCode:@"INTERSTITIAL_AD_NOT_READY" message:@"Must call loadAd first" details:nil]);
+        }
+    }
+}
+
+#pragma mark - FreestarInterstitialAdDelegate
+
+- (void)freestarInterstitialClicked:(nonnull FreestarInterstitialAd *)ad {
+    [interstitialChannel invokeMethod:@"onInterstitialAdClicked" arguments:(ad.placement ?: @"")];
+
+}
+
+- (void)freestarInterstitialClosed:(nonnull FreestarInterstitialAd *)ad {
+    [interstitialChannel invokeMethod:@"onInterstitialAdDismissed" arguments:(ad.placement ?: @"")];
+
+}
+
+- (void)freestarInterstitialFailed:(nonnull FreestarInterstitialAd *)ad because:(FreestarNoAdReason)reason {
+    [interstitialChannel invokeMethod:@"onInterstitialAdFailed" arguments:[NSString stringWithFormat:@"%lu", (unsigned long)reason]];
+}
+
+- (void)freestarInterstitialLoaded:(nonnull FreestarInterstitialAd *)ad {
+    [interstitialChannel invokeMethod:@"onInterstitialAdLoaded" arguments:(ad.placement ?: @"")];
+}
+
+- (void)freestarInterstitialShown:(nonnull FreestarInterstitialAd *)ad {
+    [interstitialChannel invokeMethod:@"onInterstitialAdShown" arguments:(ad.placement ?: @"")];
 }
 
 @end

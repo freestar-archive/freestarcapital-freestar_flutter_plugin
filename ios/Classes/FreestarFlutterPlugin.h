@@ -5,3 +5,6 @@
 
 @interface FreestarRewardedPlugin : NSObject<FlutterPlugin>
 @end
+
+@interface FreestarInterstitialPlugin : NSObject<FlutterPlugin>
+@end
