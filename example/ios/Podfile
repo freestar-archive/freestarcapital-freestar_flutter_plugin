@@ -32,6 +32,20 @@ target 'Runner' do
   use_modular_headers!
 
   flutter_install_all_ios_pods File.dirname(File.realpath(__FILE__))
+  
+  pod 'FreestarAds-AdColony', '~> 4.0'
+  pod 'FreestarAds-AppLovin', '~> 4.0'
+  pod 'FreestarAds-Mopub', '~> 4.0'
+  pod 'FreestarAds-Googleadmob', '~> 3.0'
+  pod 'FreestarAds-Tapjoy', '~> 4.0'
+  pod 'FreestarAds-Unity', '~> 5.0'
+  pod 'FreestarAds-Vungle', '~> 4.0'
+  pod 'FreestarAds-Amazon', '~> 3.0'
+  pod 'FreestarAds-Google', '~> 4.0'
+  pod 'FreestarAds-Criteo', '~> 2.0'
+  pod 'FreestarAds-GAM', '~> 2.0'
+  pod 'FreestarAds-Nimbus', '~> 2.0'
+  pod 'FreestarAds-TAM', '~> 1.0'
 end
 
 post_install do |installer|

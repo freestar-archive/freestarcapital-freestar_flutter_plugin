@@ -22,7 +22,6 @@ class InterstitialAd {
 
   void loadAd() {
     Map params = FreestarUtils.paramsFrom(placement, targetingParams);
-    print("batman");
     _channel.invokeMethod('loadInterstitialAd', params);
   }
 
