@@ -81,13 +81,13 @@ class _MyAppState extends State<MyApp>
 
   void _loadInterstitialAd() {
     _interstitialAd.interstitialAdListener = this;
-    //_interstitialAd!.placement = "optional-placement";
+    //_interstitialAd.placement = "optional-placement";
     _interstitialAd.loadAd();
   }
 
   void _loadRewardedAd() {
     _rewardedAd.rewardedAdListener = this;
-    //_rewardedAd!.placement = "optional-placement";
+    //_rewardedAd.placement = "optional-placement";
     Map targetingParams = Map();
     targetingParams["my-targeting-param1"] = "example value 1";
     targetingParams["my-targeting-param2"] = "example value 2";
