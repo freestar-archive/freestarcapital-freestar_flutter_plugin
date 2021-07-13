@@ -34,6 +34,9 @@
 -keep class com.amazon.** {*;}
 -keep interface com.amazon.** {*;}
 
+-keep class com.amazonaws.** {*;}
+-keep interface com.amazonaws.** {*;}
+
 -keep class com.applovin.** {*;}
 -keep interface com.applovin.** {*;}
 
