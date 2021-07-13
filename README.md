@@ -2,7 +2,7 @@
 
 Freestar Flutter plugin is a Flutter plugin package for publishers and app developers who wish to display ads in their Flutter app.
 
-Supports Android platform.  iOS coming soon!
+Supports Android and iOS platforms.
 
 ## Getting Started
 
