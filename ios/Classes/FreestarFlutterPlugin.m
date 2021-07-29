@@ -51,7 +51,6 @@ static FlutterMethodChannel* rewardedChanel = nil;
 }
 
 -(FlutterPartnerChooser *)partnerChooser {
-    //return nil;
     if (![SwiftFreestarFlutterPlugin partnerChoosing]) { return nil; }
     return [[FlutterPartnerChooser alloc] initWithAdType:FreestarFlutterAdUnitRewarded delegate:self];
 }

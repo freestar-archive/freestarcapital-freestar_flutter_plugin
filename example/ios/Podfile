@@ -40,7 +40,6 @@ target 'Runner' do
   pod 'FreestarAds-Tapjoy', '~> 4.0'
   pod 'FreestarAds-Unity', '~> 5.0'
   pod 'FreestarAds-Vungle', '~> 4.0'
-  pod 'FreestarAds-Amazon', '~> 3.0'
   pod 'FreestarAds-Google', '~> 4.0'
   pod 'FreestarAds-Criteo', '~> 2.0'
   pod 'FreestarAds-GAM', '~> 2.0'

@@ -1,6 +1,5 @@
 PODS:
   - AdColony (4.6.0)
-  - AmazonAd (3.1.0)
   - AmazonPublisherServicesSDK (4.0.0)
   - AppLovinSDK (10.1.1)
   - CriteoPublisherSdk (4.3.1):
@@ -20,9 +19,6 @@ PODS:
   - FreestarAds (4.1.0)
   - FreestarAds-AdColony (4.0.0):
     - AdColony (= 4.6.0)
-    - FreestarAds (~> 4.0)
-  - FreestarAds-Amazon (3.0.0):
-    - AmazonAd (= 3.1.0)
     - FreestarAds (~> 4.0)
   - FreestarAds-AppLovin (4.0.0):
     - AppLovinSDK (= 10.1.1)
@@ -117,7 +113,6 @@ DEPENDENCIES:
   - Flutter (from `Flutter`)
   - freestar_flutter_plugin (from `.symlinks/plugins/freestar_flutter_plugin/ios`)
   - FreestarAds-AdColony (~> 4.0)
-  - FreestarAds-Amazon (~> 3.0)
   - FreestarAds-AppLovin (~> 4.0)
   - FreestarAds-Criteo (~> 2.0)
   - FreestarAds-GAM (~> 2.0)
@@ -133,7 +128,6 @@ DEPENDENCIES:
 SPEC REPOS:
   trunk:
     - AdColony
-    - AmazonAd
     - AmazonPublisherServicesSDK
     - AppLovinSDK
     - CriteoPublisherSdk
@@ -143,7 +137,6 @@ SPEC REPOS:
     - Freestar-Nimbus-SDK
     - FreestarAds
     - FreestarAds-AdColony
-    - FreestarAds-Amazon
     - FreestarAds-AppLovin
     - FreestarAds-Criteo
     - FreestarAds-GAM
@@ -175,7 +168,6 @@ EXTERNAL SOURCES:
 
 SPEC CHECKSUMS:
   AdColony: a79d5e46d893a94f35edadfde3d08f5d8ae55bf9
-  AmazonAd: 9adf416ea36ca2325ce2040c0cf124f071089904
   AmazonPublisherServicesSDK: f73e281872525d1b929dca506c3a0332d4f902fa
   AppLovinSDK: 575c3c64158878fdd445ea3d48f4fd2233633336
   CriteoPublisherSdk: 8b7a5a68f4b4fb754311018062f03b5cd6ba4ff1
@@ -187,7 +179,6 @@ SPEC CHECKSUMS:
   freestar_flutter_plugin: 745e9303d4387346780736f3a0eafe9bcec3746c
   FreestarAds: 3a117fa9c891360d20e5db4980f0dcc3159ae258
   FreestarAds-AdColony: 00274697a0b9604e97faf51ebfd6dd4b33ecf906
-  FreestarAds-Amazon: c6805dd8a04913d10045e82582548bd0ae55dcb9
   FreestarAds-AppLovin: fcffdd2611ee45a69808fc3974f9f2da3fd706a6
   FreestarAds-Criteo: f8f57fa3f1d1d04d74912c1254f68004dffac38a
   FreestarAds-GAM: 1ed5a831e691a14309fe5a35b7308b4d34f3113b
@@ -211,6 +202,6 @@ SPEC CHECKSUMS:
   UnityAds: cc929eb40aefa1e8dca8f0d271e6f4c13c8ed9e4
   VungleSDK-iOS: 09abfadbcc04e0748ce33c6bd02282e9961125ba
 
-PODFILE CHECKSUM: d4f0ac96f2b9ba7e1cdc23d65b10539e6fc1461a
+PODFILE CHECKSUM: a3a0108812e8aded9a276913d8c430db18232d8a
 
 COCOAPODS: 1.10.1

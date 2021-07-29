@@ -46,7 +46,6 @@ public class FlutterPartnerChooser: UITableViewController {
                 "Unity",
                 "AppLovin",
                 "Vungle",
-                "Amazon",
                 "Criteo",
                 "Google",
                 "TAM",
@@ -57,7 +56,6 @@ public class FlutterPartnerChooser: UITableViewController {
                 "Unity",
                 "AppLovin",
                 "Vungle",
-                "Amazon",
                 "Criteo",
                 "Mopub",
                 "Google",
@@ -68,12 +66,10 @@ public class FlutterPartnerChooser: UITableViewController {
                 "GoogleAdmob",
                 "Mopub",
                 "Nimbus",
-                "Amazon",
                 "Criteo",
                 "Google" ].map { PartnerChoice(name: $0) }
         case .Banner: return [PartnerChoice(name: "All", selected: true)] + [
                 "GoogleAdmob",
-                "Amazon",
                 "Criteo",
                 "Mopub",
                 "Nimbus",
