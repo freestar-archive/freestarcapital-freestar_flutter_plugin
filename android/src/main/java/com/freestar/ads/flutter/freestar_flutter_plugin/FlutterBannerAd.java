@@ -2,7 +2,11 @@ package com.freestar.ads.flutter.freestar_flutter_plugin;
 
 import android.content.Context;
 import android.content.DialogInterface;
+import android.util.DisplayMetrics;
+import android.util.TypedValue;
+import android.view.Gravity;
 import android.view.View;
+import android.widget.FrameLayout;
 
 import com.freestar.android.ads.AdRequest;
 import com.freestar.android.ads.AdSize;
@@ -27,22 +31,37 @@ public class FlutterBannerAd implements PlatformView, MethodCallHandler, BannerA
 
     private static final String TAG = "fsfp_tag: FlutterBannerAd";
 
+    private final FrameLayout bannerAdContainer;
     private final BannerAd bannerAd;
     private final AdRequest adRequest;
     private final MethodChannel methodChannel;
 
     FlutterBannerAd(Context context, BinaryMessenger messenger, int id) {
         ChocolateLogger.i(TAG,"FlutterBannerAd created");
+        bannerAdContainer = createBannerAdContainer(context);
         bannerAd = new BannerAd(context);
         bannerAd.setBannerAdListener(this);
+        FrameLayout.LayoutParams layoutParams = new FrameLayout.LayoutParams(-2, -2);
+        bannerAd.setLayoutParams(layoutParams);
+        bannerAdContainer.addView(bannerAd);
         adRequest = new AdRequest(context);
         methodChannel = new MethodChannel(messenger, "plugins.freestar.ads/BannerAd_" + id);
         methodChannel.setMethodCallHandler(this);
     }
 
+    private FrameLayout createBannerAdContainer(Context context) {
+        final DisplayMetrics dm = context.getResources().getDisplayMetrics();
+        FrameLayout.LayoutParams layoutParams = new FrameLayout.LayoutParams(
+                dm.widthPixels, -2, Gravity.CENTER);
+        FrameLayout frameLayout = new FrameLayout(context);
+        frameLayout.setLayoutParams(layoutParams);
+        ChocolateLogger.i(TAG,"createBannerAdContainer");
+        return frameLayout;
+    }
+
     @Override
     public View getView() {
-        return bannerAd;
+        return bannerAdContainer;
     }
 
     @Override
