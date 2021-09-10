@@ -1,4 +1,7 @@
-## 1.0.3
+## 1.0.4
+
+* 1.0.4 - Fixed bug on Android where sometimes small banner ads are not center aligned.
+          iOS fix coming soon.
 
 * 1.0.3 - Updated Android Dependencies.
           Added iOS partner chooser for testing.
