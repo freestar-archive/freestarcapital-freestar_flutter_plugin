@@ -1,4 +1,6 @@
-## 1.0.6
+## 1.0.7
+
+* 1.0.7 - Fixed Unity Ads not showing issue
 
 * 1.0.6 - Fixed build.gradle typo
 

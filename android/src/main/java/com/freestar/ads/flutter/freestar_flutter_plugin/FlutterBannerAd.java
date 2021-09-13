@@ -39,7 +39,14 @@ public class FlutterBannerAd implements PlatformView, MethodCallHandler, BannerA
     FlutterBannerAd(Context context, BinaryMessenger messenger, int id) {
         ChocolateLogger.i(TAG,"FlutterBannerAd created");
         bannerAdContainer = createBannerAdContainer(context);
-        bannerAd = new BannerAd(context);
+        /*
+         * If use passed in context for BannerAd (below) instead of
+         * activity context, then Unity Ads won't work.
+         *
+         * Conversely, if use activity context for above, then the
+         * ads will appear left aligned.
+         */
+        bannerAd = new BannerAd(FreestarFlutterPlugin.activity.get());
         bannerAd.setBannerAdListener(this);
         FrameLayout.LayoutParams layoutParams = new FrameLayout.LayoutParams(-2, -2);
         bannerAd.setLayoutParams(layoutParams);
