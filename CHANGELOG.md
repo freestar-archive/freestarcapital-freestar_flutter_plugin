@@ -1,4 +1,6 @@
-## 1.0.9
+## 1.0.10
+
+* 1.0.10 - Minor removed unnecessary Podfile.lock from example/ios folder
 
 * 1.0.9 - Minor change to iOS podspec
 
