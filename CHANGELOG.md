@@ -1,4 +1,6 @@
-## 1.0.8
+## 1.0.9
+
+* 1.0.9 - Minor change to iOS podspec
 
 * 1.0.8 - Removed preroll since not used and causing build issue for iOS.
 
