@@ -1,4 +1,6 @@
-## 1.0.7
+## 1.0.8
+
+* 1.0.8 - Removed preroll since not used and causing build issue for iOS.
 
 * 1.0.7 - Fixed Unity Ads not showing issue
 

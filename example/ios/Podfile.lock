@@ -29,9 +29,6 @@ PODS:
   - FreestarAds-GAM (2.0.0):
     - FreestarAds (~> 4.0)
     - Google-Mobile-Ads-SDK (= 7.69.0)
-  - FreestarAds-Google (4.0.0):
-    - FreestarAds (~> 4.0)
-    - GoogleAds-IMA-iOS-SDK (= 3.14.1)
   - FreestarAds-Googleadmob (3.0.0):
     - FreestarAds (~> 4.0)
     - Google-Mobile-Ads-SDK (= 7.69.0)
@@ -116,7 +113,6 @@ DEPENDENCIES:
   - FreestarAds-AppLovin (~> 4.0)
   - FreestarAds-Criteo (~> 2.0)
   - FreestarAds-GAM (~> 2.0)
-  - FreestarAds-Google (~> 4.0)
   - FreestarAds-Googleadmob (~> 3.0)
   - FreestarAds-Mopub (~> 4.0)
   - FreestarAds-Nimbus (~> 2.0)
@@ -140,7 +136,6 @@ SPEC REPOS:
     - FreestarAds-AppLovin
     - FreestarAds-Criteo
     - FreestarAds-GAM
-    - FreestarAds-Google
     - FreestarAds-Googleadmob
     - FreestarAds-Mopub
     - FreestarAds-Nimbus
@@ -182,7 +177,6 @@ SPEC CHECKSUMS:
   FreestarAds-AppLovin: fcffdd2611ee45a69808fc3974f9f2da3fd706a6
   FreestarAds-Criteo: f8f57fa3f1d1d04d74912c1254f68004dffac38a
   FreestarAds-GAM: 1ed5a831e691a14309fe5a35b7308b4d34f3113b
-  FreestarAds-Google: 80a042065305ac7ac479b75a27eb1afb6ab584e7
   FreestarAds-Googleadmob: 81d19154a98eaeaf5dc37ece0d98747b718714e3
   FreestarAds-Mopub: 2f8067d051afe6e3a71e0db0eaee78c9606b8c8c
   FreestarAds-Nimbus: 8dd5ddc385f6aab087a396fa07d610ecfbb9c0d8
