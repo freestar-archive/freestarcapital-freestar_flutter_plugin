@@ -1,4 +1,6 @@
-## 1.0.10
+## 1.0.11
+
+* 1.0.11 - Updated Android gradle dependencies
 
 * 1.0.10 - Minor removed unnecessary Podfile.lock from example/ios folder
 
