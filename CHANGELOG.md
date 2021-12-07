@@ -1,4 +1,6 @@
-## 1.0.11
+## 1.0.12
+
+* 1.0.12 - Updated Android gradle dependencies + added hyprmx partner
 
 * 1.0.11 - Updated Android gradle dependencies
 
