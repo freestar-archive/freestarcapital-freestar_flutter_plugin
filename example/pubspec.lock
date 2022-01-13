@@ -73,7 +73,7 @@ packages:
       name: freestar_flutter_plugin
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "1.0.12"
+    version: "1.0.13"
   matcher:
     dependency: transitive
     description:

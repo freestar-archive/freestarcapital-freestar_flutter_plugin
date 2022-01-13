@@ -1,4 +1,6 @@
-## 1.0.12
+## 1.0.13
+
+* 1.0.13 - Internally updated iOS per Facebook advertising id fix
 
 * 1.0.12 - Updated Android gradle dependencies + added hyprmx partner
 
@@ -8,7 +10,7 @@
 
 * 1.0.9 - Minor change to iOS podspec
 
-* 1.0.8 - Removed preroll since not used and causing build issue for iOS.
+* 1.0.8 - Removed preroll since not used and causing build issue for iOS
 
 * 1.0.7 - Fixed Unity Ads not showing issue
 
@@ -16,11 +18,11 @@
 
 * 1.0.5 - Updated plugin dependencies
 
-* 1.0.4 - Fixed bug on Android where sometimes small banner ads are not center aligned.
-          iOS fix coming soon.
+* 1.0.4 - Fixed bug on Android where sometimes small banner ads are not center aligned
+          iOS fix coming soon
 
 * 1.0.3 - Updated Android Dependencies.
-          Added iOS partner chooser for testing.
+          Added iOS partner chooser for testing
 
 * 1.0.2 - Updated Android Dependencies
 
