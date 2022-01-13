@@ -7,7 +7,7 @@
 
 #import "FlutterNativeAd.h"
 
-static const FreestarNativeAdSize FLUTTER_NATIVE_SIZES[2] = {
+static FreestarNativeAdSize FLUTTER_NATIVE_SIZES[2] = {
     FreestarNativeSmall,
     FreestarNativeMedium
 };
@@ -27,11 +27,11 @@ static const FreestarNativeAdSize FLUTTER_NATIVE_SIZES[2] = {
 - (NSObject<FlutterPlatformView>*)createWithFrame:(CGRect)frame
                                    viewIdentifier:(int64_t)viewId
                                         arguments:(id _Nullable)args {
-  return [[FlutterNativeAd alloc] initWithFrame:frame
-                              viewIdentifier:viewId
-                                   arguments:args
-                             binaryMessenger:_messenger];
-
+    return [[FlutterNativeAd alloc] initWithFrame:frame
+                                   viewIdentifier:viewId
+                                        arguments:args
+                                  binaryMessenger:_messenger];
+    
 }
 
 @end
@@ -46,12 +46,12 @@ static const FreestarNativeAdSize FLUTTER_NATIVE_SIZES[2] = {
 }
 
 /*
-// Only override drawRect: if you perform custom drawing.
-// An empty implementation adversely affects performance during animation.
-- (void)drawRect:(CGRect)rect {
-    // Drawing code
-}
-*/
+ // Only override drawRect: if you perform custom drawing.
+ // An empty implementation adversely affects performance during animation.
+ - (void)drawRect:(CGRect)rect {
+ // Drawing code
+ }
+ */
 
 - (instancetype)initWithFrame:(CGRect)frame
                viewIdentifier:(int64_t)viewId
@@ -60,7 +60,7 @@ static const FreestarNativeAdSize FLUTTER_NATIVE_SIZES[2] = {
     self = [super init];
     channel = [FlutterMethodChannel methodChannelWithName:
                [NSString stringWithFormat:@"%@_%lld", NATIVE_CHANNEL_PREFIX, viewId]
-               binaryMessenger:messenger];
+                                          binaryMessenger:messenger];
     
     __weak typeof(self) weakSelf = self;
     
@@ -80,7 +80,7 @@ static const FreestarNativeAdSize FLUTTER_NATIVE_SIZES[2] = {
     return self;
 }
 
--(void)loadAd:(FlutterMethodCall *)call {
+- (void)loadAd:(FlutterMethodCall *)call {
     int size = [call.arguments[@"template"] intValue];
     
     if(size == 1) {
@@ -93,7 +93,7 @@ static const FreestarNativeAdSize FLUTTER_NATIVE_SIZES[2] = {
     
     NSString *placement = call.arguments[@"placement"];
     NSDictionary *targeting = call.arguments[@"targetingMap"];
-        
+    
     
     [targeting enumerateKeysAndObjectsUsingBlock:^(NSString *key, NSString *obj, BOOL * _Nonnull stop) {
         [ad addCustomTargeting:key as:obj];
@@ -102,17 +102,17 @@ static const FreestarNativeAdSize FLUTTER_NATIVE_SIZES[2] = {
     [ad loadPlacement:placement];
 }
 
--(void)appLostFocus {
+- (void)appLostFocus {
     [ad performSelector:@selector(appLostFocus)];
     [[ad valueForKeyPath:@"ad.winner"] performSelector:@selector(appLostFocus)];
 }
 
--(void)appGainedFocus {
+- (void)appGainedFocus {
     [ad performSelector:@selector(appGainedFocus)];
     [[ad valueForKeyPath:@"ad.winner"] performSelector:@selector(appGainedFocus)];
 }
 
--(void) detachAd {
+- (void) detachAd {
     [[ad valueForKeyPath:@"ad"] performSelector:@selector(close)];
 }
 
@@ -127,7 +127,7 @@ static const FreestarNativeAdSize FLUTTER_NATIVE_SIZES[2] = {
 
 - (void)freestarNativeClicked:(nonnull FreestarNativeAd *)ad {
     [channel invokeMethod:@"onNativeAdClicked" arguments:@""];
-
+    
 }
 
 - (void)freestarNativeClosed:(nonnull FreestarNativeAd *)ad {

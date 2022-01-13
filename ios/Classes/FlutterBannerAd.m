@@ -7,7 +7,7 @@
 
 #import "FlutterBannerAd.h"
 
-static const FreestarBannerAdSize FLUTTER_BANNER_SIZES[3] = {
+static FreestarBannerAdSize FLUTTER_BANNER_SIZES[3] = {
     FreestarBanner320x50,
     FreestarBanner300x250,
     FreestarBanner728x90
@@ -28,11 +28,11 @@ static const FreestarBannerAdSize FLUTTER_BANNER_SIZES[3] = {
 - (NSObject<FlutterPlatformView>*)createWithFrame:(CGRect)frame
                                    viewIdentifier:(int64_t)viewId
                                         arguments:(id _Nullable)args {
-  return [[FlutterBannerAd alloc] initWithFrame:frame
-                              viewIdentifier:viewId
-                                   arguments:args
-                             binaryMessenger:_messenger];
-
+    return [[FlutterBannerAd alloc] initWithFrame:frame
+                                   viewIdentifier:viewId
+                                        arguments:args
+                                  binaryMessenger:_messenger];
+    
 }
 
 @end
@@ -49,12 +49,12 @@ static const FreestarBannerAdSize FLUTTER_BANNER_SIZES[3] = {
 }
 
 /*
-// Only override drawRect: if you perform custom drawing.
-// An empty implementation adversely affects performance during animation.
-- (void)drawRect:(CGRect)rect {
-    // Drawing code
-}
-*/
+ // Only override drawRect: if you perform custom drawing.
+ // An empty implementation adversely affects performance during animation.
+ - (void)drawRect:(CGRect)rect {
+ // Drawing code
+ }
+ */
 
 - (instancetype)initWithFrame:(CGRect)frame
                viewIdentifier:(int64_t)viewId
@@ -63,7 +63,7 @@ static const FreestarBannerAdSize FLUTTER_BANNER_SIZES[3] = {
     self = [super init];
     channel = [FlutterMethodChannel methodChannelWithName:
                [NSString stringWithFormat:@"%@_%lld", BANNER_CHANNEL_PREFIX, viewId]
-               binaryMessenger:messenger];
+                                          binaryMessenger:messenger];
     
     __weak typeof(self) weakSelf = self;
     
@@ -83,7 +83,7 @@ static const FreestarBannerAdSize FLUTTER_BANNER_SIZES[3] = {
     return self;
 }
 
--(void)loadAd:(FlutterMethodCall *)call {
+- (void)loadAd:(FlutterMethodCall *)call {
     int size = [call.arguments[@"adSize"] intValue];
     
     if(size == 1 || size == 2) {
@@ -98,7 +98,7 @@ static const FreestarBannerAdSize FLUTTER_BANNER_SIZES[3] = {
     
     NSString *placement = call.arguments[@"placement"];
     NSDictionary *targeting = call.arguments[@"targetingMap"];
-        
+    
     
     [targeting enumerateKeysAndObjectsUsingBlock:^(NSString *key, NSString *obj, BOOL * _Nonnull stop) {
         [ad addCustomTargeting:key as:obj];
@@ -107,17 +107,17 @@ static const FreestarBannerAdSize FLUTTER_BANNER_SIZES[3] = {
     [ad loadPlacement:placement];
 }
 
--(void)appLostFocus {
+- (void)appLostFocus {
     [ad performSelector:@selector(appLostFocus)];
     [[ad valueForKeyPath:@"ad.winner"] performSelector:@selector(appLostFocus)];
 }
 
--(void)appGainedFocus {
+- (void)appGainedFocus {
     [ad performSelector:@selector(appGainedFocus)];
     [[ad valueForKeyPath:@"ad.winner"] performSelector:@selector(appGainedFocus)];
 }
 
--(void) detachAd {
+- (void) detachAd {
     [[ad valueForKeyPath:@"ad"] performSelector:@selector(close)];
 }
 
@@ -132,7 +132,7 @@ static const FreestarBannerAdSize FLUTTER_BANNER_SIZES[3] = {
 
 - (void)freestarBannerClicked:(nonnull FreestarBannerAd *)ad {
     [channel invokeMethod:@"onBannerAdClicked" arguments:@""];
-
+    
 }
 
 - (void)freestarBannerClosed:(nonnull FreestarBannerAd *)ad {

@@ -11,8 +11,8 @@
 #import "FlutterBannerAd.h"
 #import "FlutterNativeAd.h"
 
-static const NSString *REWARDED_CHANNEL_PREFIX = @"freestar_flutter_plugin/RewardedAd";
-static const NSString *INTERSTITIAL_CHANNEL_PREFIX = @"freestar_flutter_plugin/InterstitialAd";
+static NSString * const REWARDED_CHANNEL_PREFIX = @"freestar_flutter_plugin/RewardedAd";
+static NSString * const INTERSTITIAL_CHANNEL_PREFIX = @"freestar_flutter_plugin/InterstitialAd";
 
 
 @implementation FreestarFlutterPlugin
@@ -20,7 +20,7 @@ static const NSString *INTERSTITIAL_CHANNEL_PREFIX = @"freestar_flutter_plugin/I
     [SwiftFreestarFlutterPlugin registerWithRegistrar:registrar];
     FlutterBannerAdFactory *bannerAdFactory = [[FlutterBannerAdFactory alloc] initWithMessenger:registrar.messenger];
     FlutterNativeAdFactory *nativeAdFactory = [[FlutterNativeAdFactory alloc] initWithMessenger:registrar.messenger];
-
+    
     [registrar registerViewFactory:bannerAdFactory withId:BANNER_CHANNEL_PREFIX];
     [registrar registerViewFactory:nativeAdFactory withId:NATIVE_CHANNEL_PREFIX];
     
@@ -40,17 +40,17 @@ static const NSString *INTERSTITIAL_CHANNEL_PREFIX = @"freestar_flutter_plugin/I
 
 static FlutterMethodChannel* rewardedChanel = nil;
 
--(instancetype) init {
+- (instancetype) init {
     self = [super init];
     ad = [[FreestarRewardedAd alloc] initWithDelegate:self andReward:[FreestarReward blankReward]];
     return self;
 }
 
--(UIViewController *)rootVC {
+- (UIViewController *)rootVC {
     return [UIApplication sharedApplication].keyWindow.rootViewController;
 }
 
--(FlutterPartnerChooser *)partnerChooser {
+- (FlutterPartnerChooser *)partnerChooser {
     if (![SwiftFreestarFlutterPlugin partnerChoosing]) { return nil; }
     return [[FlutterPartnerChooser alloc] initWithAdType:FreestarFlutterAdUnitRewarded delegate:self];
 }
@@ -62,11 +62,11 @@ static FlutterMethodChannel* rewardedChanel = nil;
     [registrar addMethodCallDelegate:[[FreestarRewardedPlugin alloc] init] channel:rewardedChanel];
 }
 
--(void)handleMethodCall:(FlutterMethodCall *)call result:(FlutterResult)result {
+- (void)handleMethodCall:(FlutterMethodCall *)call result:(FlutterResult)result {
     if ([call.method isEqualToString:@"loadRewardedAd"]) {
         placement = call.arguments[@"placement"];
         NSDictionary *targeting = call.arguments[@"targetingMap"];
-            
+        
         
         [targeting enumerateKeysAndObjectsUsingBlock:^(NSString *key, NSString *obj, BOOL * _Nonnull stop) {
             [ad addCustomTargeting:key as:obj];
@@ -104,11 +104,11 @@ static FlutterMethodChannel* rewardedChanel = nil;
 
 #pragma mark - FlutterPartnerChooserDelegate
 
--(void)partnersSelected:(NSArray<NSString *> *)partners {
+- (void)partnersSelected:(NSArray<NSString *> *)partners {
     [ad selectPartners:partners];
 }
 
--(void)chooserDismissed {
+- (void)chooserDismissed {
     [ad loadPlacement:placement];
 }
 
@@ -126,12 +126,12 @@ static FlutterMethodChannel* rewardedChanel = nil;
 
 - (void)freestarRewardedFailed:(nonnull FreestarRewardedAd *)ad because:(FreestarNoAdReason)reason {
     [rewardedChanel invokeMethod:@"onRewardedAdFailed" arguments:[NSString stringWithFormat:@"%lu", (unsigned long)reason]];
-
+    
 }
 
 - (void)freestarRewardedFailedToStart:(nonnull FreestarRewardedAd *)ad because:(FreestarNoAdReason)reason {
     [rewardedChanel invokeMethod:@"onRewardedAdShownError" arguments:[NSString stringWithFormat:@"%lu", (unsigned long)reason]];
-
+    
 }
 
 - (void)freestarRewardedLoaded:(nonnull FreestarRewardedAd *)ad {
@@ -154,17 +154,17 @@ static FlutterMethodChannel* rewardedChanel = nil;
 
 static FlutterMethodChannel* interstitialChannel = nil;
 
--(instancetype) init {
+- (instancetype) init {
     self = [super init];
     ad = [[FreestarInterstitialAd alloc] initWithDelegate:self];
     return self;
 }
 
--(UIViewController *)rootVC {
+- (UIViewController *)rootVC {
     return [UIApplication sharedApplication].keyWindow.rootViewController;
 }
 
--(FlutterPartnerChooser *)partnerChooser {
+- (FlutterPartnerChooser *)partnerChooser {
     if (![SwiftFreestarFlutterPlugin partnerChoosing]) { return nil; }
     return [[FlutterPartnerChooser alloc] initWithAdType:FreestarFlutterAdUnitInterstitial delegate:self];
 }
@@ -176,11 +176,11 @@ static FlutterMethodChannel* interstitialChannel = nil;
     [registrar addMethodCallDelegate:[[FreestarInterstitialPlugin alloc] init] channel:interstitialChannel];
 }
 
--(void)handleMethodCall:(FlutterMethodCall *)call result:(FlutterResult)result {
+- (void)handleMethodCall:(FlutterMethodCall *)call result:(FlutterResult)result {
     if ([call.method isEqualToString:@"loadInterstitialAd"]) {
         placement = call.arguments[@"placement"];
         NSDictionary *targeting = call.arguments[@"targetingMap"];
-            
+        
         
         [targeting enumerateKeysAndObjectsUsingBlock:^(NSString *key, NSString *obj, BOOL * _Nonnull stop) {
             [ad addCustomTargeting:key as:obj];
@@ -205,11 +205,11 @@ static FlutterMethodChannel* interstitialChannel = nil;
 
 #pragma mark - FlutterPartnerChooserDelegate
 
--(void)partnersSelected:(NSArray<NSString *> *)partners {
+- (void)partnersSelected:(NSArray<NSString *> *)partners {
     [ad selectPartners:partners];
 }
 
--(void)chooserDismissed {
+- (void)chooserDismissed {
     [ad loadPlacement:placement];
 }
 
@@ -217,12 +217,12 @@ static FlutterMethodChannel* interstitialChannel = nil;
 
 - (void)freestarInterstitialClicked:(nonnull FreestarInterstitialAd *)ad {
     [interstitialChannel invokeMethod:@"onInterstitialAdClicked" arguments:(ad.placement ?: @"")];
-
+    
 }
 
 - (void)freestarInterstitialClosed:(nonnull FreestarInterstitialAd *)ad {
     [interstitialChannel invokeMethod:@"onInterstitialAdDismissed" arguments:(ad.placement ?: @"")];
-
+    
 }
 
 - (void)freestarInterstitialFailed:(nonnull FreestarInterstitialAd *)ad because:(FreestarNoAdReason)reason {

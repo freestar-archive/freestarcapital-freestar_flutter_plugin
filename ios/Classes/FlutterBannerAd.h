@@ -10,7 +10,7 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-static const NSString *BANNER_CHANNEL_PREFIX = @"plugins.freestar.ads/BannerAd";
+static NSString * const BANNER_CHANNEL_PREFIX = @"plugins.freestar.ads/BannerAd";
 
 @interface FlutterBannerAdFactory : NSObject <FlutterPlatformViewFactory>
 - (instancetype)initWithMessenger:(NSObject<FlutterBinaryMessenger>*)messenger;

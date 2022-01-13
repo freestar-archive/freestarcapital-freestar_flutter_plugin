@@ -10,7 +10,7 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-static const NSString *NATIVE_CHANNEL_PREFIX = @"plugins.freestar.ads/NativeAd";
+static NSString * const NATIVE_CHANNEL_PREFIX = @"plugins.freestar.ads/NativeAd";
 
 @interface FlutterNativeAdFactory : NSObject <FlutterPlatformViewFactory>
 - (instancetype)initWithMessenger:(NSObject<FlutterBinaryMessenger>*)messenger;

@@ -41,90 +41,90 @@ public class FlutterPartnerChooser: UITableViewController {
     func partnerListForAdType(_ type: FreestarFlutterAdUnit) -> [PartnerChoice] {
         switch type {
         case .Interstitial: return [PartnerChoice(name: "All", selected: true)] + [
-                "AdColony",
-                "GoogleAdmob",
-                "Unity",
-                "AppLovin",
-                "Vungle",
-                "Criteo",
-                "Google",
-                "TAM",
-                "Nimbus"].map { PartnerChoice(name: $0) }
+            "AdColony",
+            "GoogleAdmob",
+            "Unity",
+            "AppLovin",
+            "Vungle",
+            "Criteo",
+            "Google",
+            "TAM",
+            "Nimbus"].map { PartnerChoice(name: $0) }
         case .Rewarded: return [PartnerChoice(name: "All", selected: true)] + [
-                "AdColony",
-                "GoogleAdmob",
-                "Unity",
-                "AppLovin",
-                "Vungle",
-                "Criteo",
-                "Mopub",
-                "Google",
-                "Tapjoy",
-                "Nimbus" ].map { PartnerChoice(name: $0) }
+            "AdColony",
+            "GoogleAdmob",
+            "Unity",
+            "AppLovin",
+            "Vungle",
+            "Criteo",
+            "Mopub",
+            "Google",
+            "Tapjoy",
+            "Nimbus" ].map { PartnerChoice(name: $0) }
         case .MREC: return [PartnerChoice(name: "All", selected: true)] + [
-                "AppLovin",
-                "GoogleAdmob",
-                "Mopub",
-                "Nimbus",
-                "Criteo",
-                "Google" ].map { PartnerChoice(name: $0) }
+            "AppLovin",
+            "GoogleAdmob",
+            "Mopub",
+            "Nimbus",
+            "Criteo",
+            "Google" ].map { PartnerChoice(name: $0) }
         case .Banner: return [PartnerChoice(name: "All", selected: true)] + [
-                "GoogleAdmob",
-                "Criteo",
-                "Mopub",
-                "Nimbus",
-                "AppLovin",
-                "Unity" ].map { PartnerChoice(name: $0) }
+            "GoogleAdmob",
+            "Criteo",
+            "Mopub",
+            "Nimbus",
+            "AppLovin",
+            "Unity" ].map { PartnerChoice(name: $0) }
         case .SmallNative: return [PartnerChoice(name: "All", selected: true)] + [
-                "Google",
-                "Googleadmob",
-                "Mopub" ].map { PartnerChoice(name: $0) }
+            "Google",
+            "Googleadmob",
+            "Mopub" ].map { PartnerChoice(name: $0) }
         case .MediumNative: return [PartnerChoice(name: "All", selected: true)] + [
-                "Google",
-                "Googleadmob",
-                "Mopub" ].map { PartnerChoice(name: $0) }
+            "Google",
+            "Googleadmob",
+            "Mopub" ].map { PartnerChoice(name: $0) }
         }
     }
-
+    
     public override func viewDidLoad() {
         super.viewDidLoad()
-
+        
         self.title = "Select Ad Partner";
         self.tableView.register(UITableViewCell.self, forCellReuseIdentifier: "partnerCell")
         
-//        self.navigationItem.rightBarButtonItem =
-//            UIBarButtonItem(barButtonSystemItem: .done,
-//                            target: self,
-//                            action: #selector(FlutterPartnerChooser.closeAndExit))
+        //        self.navigationItem.rightBarButtonItem =
+        //            UIBarButtonItem(barButtonSystemItem: .done,
+        //                            target: self,
+        //                            action: #selector(FlutterPartnerChooser.closeAndExit))
     }
     
-//    @objc func closeAndExit() {
-//        self.presentingViewController?.dismiss(animated: true, completion: nil)
-//    }
-
+    //    @objc func closeAndExit() {
+    //        self.presentingViewController?.dismiss(animated: true, completion: nil)
+    //    }
+    
     // MARK: - Table view data source
-
+    
     public override func numberOfSections(in tableView: UITableView) -> Int {
         return 1
     }
-
+    
     public override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return partnerList.count
     }
-
+    
     //*
     public override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "partnerCell", for: indexPath)
-
+        
         // Configure the cell...
         let pc = partnerList[indexPath.row]
         cell.textLabel?.text = pc.name
         cell.accessoryType = pc.selected ? .checkmark : .none
-
+        
         return cell
     }
     //*/
-
+    
     public override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if partnerList[indexPath.row].name == "All"  {
             for i in 1..<partnerList.count {
