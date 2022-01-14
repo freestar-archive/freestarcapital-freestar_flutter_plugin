@@ -63,6 +63,6 @@ post_install do |installer|
   installer.pods_project.build_configurations.each do |config|
     config.build_settings["EXCLUDED_ARCHS[sdk=iphonesimulator*]"] = "arm64"
     config.build_settings.delete 'IPHONEOS_DEPLOYMENT_TARGET'
-    installer.pods_project.build_settings(config.name)['VALID_ARCHS'] = ["arm64e armv7 armv7s x86_64"]
+    installer.pods_project.build_settings(config.name)['VALID_ARCHS'] = ["arm64 arm64e armv7 armv7s x86_64"]
   end
 end
