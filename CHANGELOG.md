@@ -1,4 +1,6 @@
-## 1.0.13
+## 1.1.0
+
+* 1.0.13 - iOS update - added missing arm64 slice to example app build settings
 
 * 1.0.13 - Internally updated iOS per Facebook advertising id fix
 
