@@ -4,7 +4,7 @@
 #
 Pod::Spec.new do |s|
   s.name             = 'freestar_flutter_plugin'
-  s.version          = '1.0.13'
+  s.version          = '1.1.1'
   s.summary          = 'A new flutter plugin project.'
   s.description      = <<-DESC
 A new flutter plugin project.
