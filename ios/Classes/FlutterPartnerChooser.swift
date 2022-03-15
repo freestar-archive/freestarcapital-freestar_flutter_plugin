@@ -45,44 +45,47 @@ public class FlutterPartnerChooser: UITableViewController {
             "GoogleAdmob",
             "Unity",
             "AppLovin",
+            "AppLovinMAX",
             "Vungle",
             "Criteo",
             "Google",
             "TAM",
-            "Nimbus"].map { PartnerChoice(name: $0) }
+            "Nimbus",
+            "Yahoo"].map { PartnerChoice(name: $0) }
         case .Rewarded: return [PartnerChoice(name: "All", selected: true)] + [
             "AdColony",
             "GoogleAdmob",
             "Unity",
             "AppLovin",
+            "AppLovinMAX",
             "Vungle",
             "Criteo",
-            "Mopub",
             "Google",
             "Tapjoy",
-            "Nimbus" ].map { PartnerChoice(name: $0) }
+            "Nimbus",
+            "Yahoo"].map { PartnerChoice(name: $0) }
         case .MREC: return [PartnerChoice(name: "All", selected: true)] + [
             "AppLovin",
+            "AppLovinMAX",
             "GoogleAdmob",
-            "Mopub",
             "Nimbus",
             "Criteo",
-            "Google" ].map { PartnerChoice(name: $0) }
+            "Google",
+            "Yahoo" ].map { PartnerChoice(name: $0) }
         case .Banner: return [PartnerChoice(name: "All", selected: true)] + [
             "GoogleAdmob",
             "Criteo",
-            "Mopub",
             "Nimbus",
             "AppLovin",
-            "Unity" ].map { PartnerChoice(name: $0) }
+            "AppLovinMAX",
+            "Unity",
+            "Yahoo"].map { PartnerChoice(name: $0) }
         case .SmallNative: return [PartnerChoice(name: "All", selected: true)] + [
             "Google",
-            "Googleadmob",
-            "Mopub" ].map { PartnerChoice(name: $0) }
+            "Googleadmob" ].map { PartnerChoice(name: $0) }
         case .MediumNative: return [PartnerChoice(name: "All", selected: true)] + [
             "Google",
-            "Googleadmob",
-            "Mopub" ].map { PartnerChoice(name: $0) }
+            "Googleadmob" ].map { PartnerChoice(name: $0) }
         }
     }
     

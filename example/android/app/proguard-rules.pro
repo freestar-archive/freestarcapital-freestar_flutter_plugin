@@ -128,3 +128,14 @@
 # pangle
 -keep class com.bytedance.sdk.** { *; }
 -keep class com.pgl.sys.ces.* {*;}
+
+-keepclassmembers class com.verizon.ads** {
+public *;
+}
+-keep class com.verizon.ads**
+-keep interface com.verizon.ads**
+
+
+-keep class org.prebid.** { *; }
+-keep interface org.prebid.** { *; }
+
