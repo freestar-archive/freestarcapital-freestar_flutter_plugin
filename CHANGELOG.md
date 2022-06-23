@@ -1,4 +1,6 @@
-## 1.1.3
+## 1.1.4
+
+* 1.1.4 - Updated Android dependencies.
 
 * 1.1.3 - Removed Mopub partner. Added AppLovinMAX and Yahoo/Verizon partners for iOS.
 
