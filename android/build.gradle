@@ -119,9 +119,9 @@ dependencies {
     implementation "com.google.code.gson:gson:2.8.5"
 
     //nimbus
-    implementation "com.adsbynimbus.android:nimbus:1.11.4" // Full Nimbus SDK with NimbusAdManager
-    implementation "com.adsbynimbus.android:extension-okhttp:1.11.4" // Use OkHttp with NimbusAdManager
-    implementation "com.adsbynimbus.android:extension-facebook:1.11.4"
+    implementation "com.adsbynimbus.android:nimbus:1.10.10" // Full Nimbus SDK with NimbusAdManager
+    implementation "com.adsbynimbus.android:extension-okhttp:1.10.10" // Use OkHttp with NimbusAdManager
+    implementation "com.adsbynimbus.android:extension-facebook:1.10.10"
     implementation "com.adsbynimbus.openrtb:kotlin:0.7.4"
 
     //pangle; also requires play-services-ads-identifier but already in criteo

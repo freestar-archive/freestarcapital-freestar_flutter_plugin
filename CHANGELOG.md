@@ -1,4 +1,6 @@
-## 1.1.4
+## 1.1.5
+
+* 1.1.5 - Updated Android dependencies.  Downgraded Nimbus dependencies for Android.
 
 * 1.1.4 - Updated Android dependencies.
 
