@@ -22,6 +22,7 @@ rootProject.allprojects {
         maven { url "https://sdk.tapjoy.com/" }
         maven { url 'https://artifact.bytedance.com/repository/pangle' }
         maven { url 'https://artifactory.verizonmedia.com/artifactory/maven/' }
+        maven { url "https://maven.ogury.co" }
 
         maven {
             url = uri("https://adsbynimbus-public.s3.amazonaws.com/android/sdks")
@@ -74,7 +75,7 @@ dependencies {
     implementation 'androidx.multidex:multidex:2.0.1'
 
     //begin Freestar
-    implementation 'com.freestar.android.ads:freestar:4.6.5'
+    implementation 'com.freestar.android.ads:freestar:4.6.6'
     implementation 'com.freestar.android.ads.admob:freestar-admob-adapter:20.6.0.0'
     implementation 'com.freestar.android.ads.tam:freestar-tam-adapter:8.4.3.3'
     implementation 'com.freestar.android.ads.adcolony:freestar-adcolony-adapter:4.6.5.0'
@@ -87,7 +88,7 @@ dependencies {
     implementation 'com.freestar.android.ads.pangle:freestar-pangle-adapter:3.6.0.0'
     implementation 'com.freestar.android.ads.hyprmx:freestar-hyprmx-adapter:6.0.1.0'
     implementation 'com.freestar.android.ads.yahoo:freestar-yahoo-adapter:1.14.0.1'
-    implementation 'com.freestar.android.ads.prebid:freestar-prebid-adapter:1.13.1.0'
+    implementation 'com.freestar.android.ads.ogury:freestar-ogury-adapter:5.3.0.0'
 
     implementation 'com.criteo.publisher:criteo-publisher-sdk:4.4.0'
     implementation 'com.google.android.gms:play-services-ads:20.6.0'
@@ -137,6 +138,9 @@ dependencies {
     implementation 'com.verizon.ads:android-vas-standard-edition:1.14.0'
     implementation 'androidx.browser:browser:1.4.0'
 
+    //ogury
+    implementation 'co.ogury:ogury-sdk:5.3.0'
+
     //App Open Support
     implementation "androidx.lifecycle:lifecycle-common-java8:2.4.0"
     implementation "androidx.lifecycle:lifecycle-runtime:2.4.0"
@@ -146,10 +150,6 @@ dependencies {
     implementation 'com.google.ads.mediation:adcolony:4.8.0.0'
     implementation 'com.google.ads.mediation:tapjoy:12.10.0.0'
     implementation 'com.google.ads.mediation:facebook:6.8.0.0'
-
-    //prebid
-    implementation 'org.prebid:prebid-mobile-sdk-core:1.13.1'
-    implementation 'org.prebid:prebid-mobile-sdk:1.13.1'
 
     //end, FreeStar
 

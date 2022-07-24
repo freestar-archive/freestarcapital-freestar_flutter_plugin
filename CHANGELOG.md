@@ -1,4 +1,6 @@
-## 1.1.5
+## 1.1.6
+
+* 1.1.6 - Updated Android dependencies.  Added Ogury demand source partner
 
 * 1.1.5 - Updated Android dependencies.  Downgraded Nimbus dependencies for Android.
 
