@@ -8,17 +8,13 @@ import com.freestar.android.ads.AdRequest;
 import com.freestar.android.ads.LVDOConstants;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 /**
  * Only for testing purposes!
  */
 public class MediationPartners {
-
-    private static final int numInterstitial = 16;
-    private static final int numRewarded = 14;
-    private static final int numInview = 15;
-    private static final int numPreroll = 2;
 
     public static final int ADTYPE_INTERSTITIAL = 0;
     public static final int ADTYPE_REWARDED = 1;
@@ -28,40 +24,36 @@ public class MediationPartners {
     /**
      * INTERSTITIAL
      */
-    private static final String[] interstitial_partners = new String[numInterstitial];
+    private static final List<String> sInterstitialPartners = new ArrayList<>(30);
+    private static final boolean[] sSelectedInterstitialPartners;
 
     static {
-        interstitial_partners[0] = LVDOConstants.PARTNER.TAM.name();
-        interstitial_partners[1] = LVDOConstants.PARTNER.ADCOLONY.name();
-        interstitial_partners[2] = LVDOConstants.PARTNER.APPLOVIN.name();
-        interstitial_partners[3] = LVDOConstants.PARTNER.APPLOVINMAX.name();
-        interstitial_partners[4] = LVDOConstants.PARTNER.CRITEO.name();
-        interstitial_partners[5] = LVDOConstants.PARTNER.FACEBOOK.name();
-        interstitial_partners[6] = LVDOConstants.PARTNER.GOOGLEADMOB.name();
-        interstitial_partners[7] = LVDOConstants.PARTNER.GOOGLE.name();
-        interstitial_partners[8] = LVDOConstants.PARTNER.NIMBUS.name();
-        interstitial_partners[9] = LVDOConstants.PARTNER.TAPJOY.name();
-        interstitial_partners[10] = LVDOConstants.PARTNER.UNITY.name();
-        interstitial_partners[11] = LVDOConstants.PARTNER.VUNGLE.name();
-        interstitial_partners[12] = LVDOConstants.PARTNER.PANGLE.name();
-        interstitial_partners[13] = LVDOConstants.PARTNER.HYPRMX.name();
-        interstitial_partners[14] = LVDOConstants.PARTNER.YAHOO.name();
-        interstitial_partners[15] = LVDOConstants.PARTNER.PREBID.name();
-    }
-
-    private static final boolean[] interstitial_parters_selected = new boolean[numInterstitial];
-
-    static {
-        for (int i = 0; i < numInterstitial; i++) {
-            interstitial_parters_selected[i] = true;
+        sInterstitialPartners.add(LVDOConstants.PARTNER.ADCOLONY.name());
+        sInterstitialPartners.add(LVDOConstants.PARTNER.CRITEO.name());
+        sInterstitialPartners.add(LVDOConstants.PARTNER.GOOGLEADMOB.name());
+        sInterstitialPartners.add(LVDOConstants.PARTNER.GOOGLE.name());
+        sInterstitialPartners.add(LVDOConstants.PARTNER.HYPRMX.name());
+        sInterstitialPartners.add(LVDOConstants.PARTNER.NIMBUS.name());
+        sInterstitialPartners.add(LVDOConstants.PARTNER.PANGLE.name());
+        sInterstitialPartners.add(LVDOConstants.PARTNER.TAM.name());
+        sInterstitialPartners.add(LVDOConstants.PARTNER.TAPJOY.name());
+        sInterstitialPartners.add(LVDOConstants.PARTNER.UNITY.name());
+        sInterstitialPartners.add(LVDOConstants.PARTNER.VUNGLE.name());
+        sInterstitialPartners.add(LVDOConstants.PARTNER.YAHOO.name());
+        sInterstitialPartners.add(LVDOConstants.PARTNER.PREBID.name());
+        sInterstitialPartners.add(LVDOConstants.PARTNER.OGURY.name());
+        Collections.sort(sInterstitialPartners);
+        sSelectedInterstitialPartners = new boolean[sInterstitialPartners.size()];
+        for (int i = 0; i < sInterstitialPartners.size(); i++) {
+            sSelectedInterstitialPartners[i] = true;
         }
     }
 
     private static List<LVDOConstants.PARTNER> setInterstitialPartners(AdRequest adRequest) {
-        List<LVDOConstants.PARTNER> list = new ArrayList<>(numInterstitial);
-        for (int i = 0; i < numInterstitial; i++) {
-            if (interstitial_parters_selected[i]) {
-                list.add(LVDOConstants.PARTNER.valueOf(interstitial_partners[i]));
+        List<LVDOConstants.PARTNER> list = new ArrayList<>(sInterstitialPartners.size());
+        for (int i = 0; i < sInterstitialPartners.size(); i++) {
+            if (sSelectedInterstitialPartners[i]) {
+                list.add(LVDOConstants.PARTNER.valueOf(sInterstitialPartners.get(i)));
             }
         }
         adRequest.setPartnerNames(list);
@@ -72,38 +64,34 @@ public class MediationPartners {
     /**
      * REWARDED
      */
-    private static final String[] rewarded_partners = new String[numRewarded];
+    private static final List<String> sRewardedPartners = new ArrayList<>(30);
+    private static final boolean[] sSelectedRewardedPartners;
 
     static {
-        rewarded_partners[0] = LVDOConstants.PARTNER.ADCOLONY.name();
-        rewarded_partners[1] = LVDOConstants.PARTNER.APPLOVIN.name();
-        rewarded_partners[2] = LVDOConstants.PARTNER.APPLOVINMAX.name();
-        rewarded_partners[3] = LVDOConstants.PARTNER.CRITEO.name();
-        rewarded_partners[4] = LVDOConstants.PARTNER.FACEBOOK.name();
-        rewarded_partners[5] = LVDOConstants.PARTNER.GOOGLEADMOB.name();
-        rewarded_partners[6] = LVDOConstants.PARTNER.GOOGLE.name();
-        rewarded_partners[7] = LVDOConstants.PARTNER.NIMBUS.name();
-        rewarded_partners[8] = LVDOConstants.PARTNER.TAPJOY.name();
-        rewarded_partners[9] = LVDOConstants.PARTNER.UNITY.name();
-        rewarded_partners[10] = LVDOConstants.PARTNER.VUNGLE.name();
-        rewarded_partners[11] = LVDOConstants.PARTNER.PANGLE.name();
-        rewarded_partners[12] = LVDOConstants.PARTNER.HYPRMX.name();
-        rewarded_partners[13] = LVDOConstants.PARTNER.PREBID.name();
-    }
-
-    private static final boolean[] rewarded_parters_selected = new boolean[numRewarded];
-
-    static {
-        for (int i = 0; i < numRewarded; i++) {
-            rewarded_parters_selected[i] = true;
+        sRewardedPartners.add(LVDOConstants.PARTNER.ADCOLONY.name());
+        sRewardedPartners.add(LVDOConstants.PARTNER.CRITEO.name());
+        sRewardedPartners.add(LVDOConstants.PARTNER.GOOGLEADMOB.name());
+        sRewardedPartners.add(LVDOConstants.PARTNER.GOOGLE.name());
+        sRewardedPartners.add(LVDOConstants.PARTNER.NIMBUS.name());
+        sRewardedPartners.add(LVDOConstants.PARTNER.TAPJOY.name());
+        sRewardedPartners.add(LVDOConstants.PARTNER.UNITY.name());
+        sRewardedPartners.add(LVDOConstants.PARTNER.VUNGLE.name());
+        sRewardedPartners.add(LVDOConstants.PARTNER.PANGLE.name());
+        sRewardedPartners.add(LVDOConstants.PARTNER.HYPRMX.name());
+        sRewardedPartners.add(LVDOConstants.PARTNER.PREBID.name());
+        sRewardedPartners.add(LVDOConstants.PARTNER.OGURY.name());
+        Collections.sort(sRewardedPartners);
+        sSelectedRewardedPartners = new boolean[sRewardedPartners.size()];
+        for (int i = 0; i < sRewardedPartners.size(); i++) {
+            sSelectedRewardedPartners[i] = true;
         }
     }
 
     private static List<LVDOConstants.PARTNER> setRewardedPartners(AdRequest adRequest) {
-        List<LVDOConstants.PARTNER> list = new ArrayList<>(numRewarded);
-        for (int i = 0; i < numRewarded; i++) {
-            if (rewarded_parters_selected[i]) {
-                list.add(LVDOConstants.PARTNER.valueOf(rewarded_partners[i]));
+        List<LVDOConstants.PARTNER> list = new ArrayList<>(sRewardedPartners.size());
+        for (int i = 0; i < sRewardedPartners.size(); i++) {
+            if (sSelectedRewardedPartners[i]) {
+                list.add(LVDOConstants.PARTNER.valueOf(sRewardedPartners.get(i)));
             }
         }
         adRequest.setPartnerNames(list);
@@ -113,39 +101,35 @@ public class MediationPartners {
     /**
      * NATIVE INVIEW
      */
-    private static final String[] inview_partners = new String[numInview];
+    private static final List<String> sBannerPartners = new ArrayList<>(30);
+    private static final boolean[] sSelectedBannerPartners;
 
     static {
-        inview_partners[0] = LVDOConstants.PARTNER.TAM.name();
-        inview_partners[1] = LVDOConstants.PARTNER.ADCOLONY.name();
-        inview_partners[2] = LVDOConstants.PARTNER.APPLOVIN.name();
-        inview_partners[3] = LVDOConstants.PARTNER.APPLOVINMAX.name();
-        inview_partners[4] = LVDOConstants.PARTNER.CRITEO.name();
-        inview_partners[5] = LVDOConstants.PARTNER.FACEBOOK.name();
-        inview_partners[6] = LVDOConstants.PARTNER.GOOGLEADMOB.name();
-        inview_partners[7] = LVDOConstants.PARTNER.GOOGLE.name();
-        inview_partners[8] = LVDOConstants.PARTNER.NIMBUS.name();
-        inview_partners[9] = LVDOConstants.PARTNER.UNITY.name();
-        inview_partners[10] = LVDOConstants.PARTNER.PANGLE.name();
-        inview_partners[11] = LVDOConstants.PARTNER.VUNGLE.name();
-        inview_partners[12] = LVDOConstants.PARTNER.HYPRMX.name();
-        inview_partners[13] = LVDOConstants.PARTNER.YAHOO.name();
-        inview_partners[14] = LVDOConstants.PARTNER.PREBID.name();
-    }
-
-    private static final boolean[] inview_parters_selected = new boolean[numInview];
-
-    static {
-        for (int i = 0; i < numInview; i++) {
-            inview_parters_selected[i] = true;
+        sBannerPartners.add(LVDOConstants.PARTNER.TAM.name());
+        sBannerPartners.add(LVDOConstants.PARTNER.ADCOLONY.name());
+        sBannerPartners.add(LVDOConstants.PARTNER.CRITEO.name());
+        sBannerPartners.add(LVDOConstants.PARTNER.GOOGLEADMOB.name());
+        sBannerPartners.add(LVDOConstants.PARTNER.GOOGLE.name());
+        sBannerPartners.add(LVDOConstants.PARTNER.NIMBUS.name());
+        sBannerPartners.add(LVDOConstants.PARTNER.UNITY.name());
+        sBannerPartners.add(LVDOConstants.PARTNER.PANGLE.name());
+        sBannerPartners.add(LVDOConstants.PARTNER.VUNGLE.name());
+        sBannerPartners.add(LVDOConstants.PARTNER.HYPRMX.name());
+        sBannerPartners.add(LVDOConstants.PARTNER.YAHOO.name());
+        sBannerPartners.add(LVDOConstants.PARTNER.PREBID.name());
+        sBannerPartners.add(LVDOConstants.PARTNER.OGURY.name());
+        Collections.sort(sBannerPartners);
+        sSelectedBannerPartners = new boolean[sBannerPartners.size()];
+        for (int i = 0; i < sBannerPartners.size(); i++) {
+            sSelectedBannerPartners[i] = true;
         }
     }
 
     private static List<LVDOConstants.PARTNER> setInviewPartners(AdRequest adRequest) {
-        List<LVDOConstants.PARTNER> list = new ArrayList<>(numInview);
-        for (int i = 0; i < numInview; i++) {
-            if (inview_parters_selected[i]) {
-                list.add(LVDOConstants.PARTNER.valueOf(inview_partners[i]));
+        List<LVDOConstants.PARTNER> list = new ArrayList<>(sBannerPartners.size());
+        for (int i = 0; i < sBannerPartners.size(); i++) {
+            if (sSelectedBannerPartners[i]) {
+                list.add(LVDOConstants.PARTNER.valueOf(sBannerPartners.get(i)));
             }
         }
         adRequest.setPartnerNames(list);
@@ -155,26 +139,24 @@ public class MediationPartners {
     /**
      * PRE-ROLL
      */
-    private static final String[] preroll_partners = new String[numPreroll];
+    private static final List<String> sPrerollPartners = new ArrayList<>(30);
+    private static final boolean[] sSelectedPrerollPartners;
 
     static {
-        preroll_partners[0] = LVDOConstants.PARTNER.GOOGLE.name();
-        preroll_partners[1] = LVDOConstants.PARTNER.NIMBUS.name();
-    }
-
-    private static final boolean[] preroll_parters_selected = new boolean[numPreroll];
-
-    static {
-        for (int i = 0; i < numPreroll; i++) {
-            preroll_parters_selected[i] = true;
+        sPrerollPartners.add(LVDOConstants.PARTNER.GOOGLE.name());
+        sPrerollPartners.add(LVDOConstants.PARTNER.NIMBUS.name());
+        Collections.sort(sPrerollPartners);
+        sSelectedPrerollPartners = new boolean[sPrerollPartners.size()];
+        for (int i = 0; i < sPrerollPartners.size(); i++) {
+            sSelectedPrerollPartners[i] = true;
         }
     }
 
     private static List<LVDOConstants.PARTNER> setPrerollPartners(AdRequest adRequest) {
-        List<LVDOConstants.PARTNER> list = new ArrayList<>(numPreroll);
-        for (int i = 0; i < numPreroll; i++) {
-            if (preroll_parters_selected[i]) {
-                list.add(LVDOConstants.PARTNER.valueOf(preroll_partners[i]));
+        List<LVDOConstants.PARTNER> list = new ArrayList<>(sPrerollPartners.size());
+        for (int i = 0; i < sPrerollPartners.size(); i++) {
+            if (sSelectedPrerollPartners[i]) {
+                list.add(LVDOConstants.PARTNER.valueOf(sPrerollPartners.get(i)));
             }
         }
         adRequest.setPartnerNames(list);
@@ -191,30 +173,34 @@ public class MediationPartners {
         boolean[] selected;
         String title;
         if (adUnitType == ADTYPE_INTERSTITIAL) {
-            partners = interstitial_partners;
-            selected = interstitial_parters_selected;
+            partners = new String[sInterstitialPartners.size()];
+            sInterstitialPartners.toArray(partners);
+            selected = sSelectedInterstitialPartners;
             title = "Interstitial";
         } else if (adUnitType == ADTYPE_REWARDED) {
-            partners = rewarded_partners;
-            selected = rewarded_parters_selected;
+            partners = new String[sRewardedPartners.size()];
+            sRewardedPartners.toArray(partners);
+            selected = sSelectedRewardedPartners;
             title = "Rewarded";
         } else if (adUnitType == ADTYPE_BANNER) {
-            partners = inview_partners;
-            selected = inview_parters_selected;
+            partners = new String[sBannerPartners.size()];
+            sBannerPartners.toArray(partners);
+            selected = sSelectedBannerPartners;
             title = "Display";
         } else {
-            partners = preroll_partners;
-            selected = preroll_parters_selected;
+            partners = new String[sPrerollPartners.size()];
+            sPrerollPartners.toArray(partners);
+            selected = sSelectedPrerollPartners;
             title = "Pre-Roll";
         }
         //w/out the listener, even though it does nothing, things don't work so well
         //so we need to pass a listener
         new AlertDialog.Builder(context).setMultiChoiceItems(partners, selected, new DialogInterface.OnMultiChoiceClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which, boolean isChecked) {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which, boolean isChecked) {
 
-            }
-        })
+                    }
+                })
                 .setPositiveButton("OK", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
@@ -259,25 +245,29 @@ public class MediationPartners {
         String[] chosen;
         int total;
         if (adUnitType == ADTYPE_INTERSTITIAL) {
-            partners = interstitial_partners;
-            selected = interstitial_parters_selected;
-            total = numInterstitial;
-            chosen = new String[numInterstitial];
+            partners = new String[sInterstitialPartners.size()];
+            sInterstitialPartners.toArray(partners);
+            selected = sSelectedInterstitialPartners;
+            total = sInterstitialPartners.size();
+            chosen = new String[sInterstitialPartners.size()];
         } else if (adUnitType == ADTYPE_REWARDED) {
-            partners = rewarded_partners;
-            selected = rewarded_parters_selected;
-            total = numRewarded;
-            chosen = new String[numRewarded];
+            partners = new String[sRewardedPartners.size()];
+            sRewardedPartners.toArray(partners);
+            selected = sSelectedRewardedPartners;
+            total = sRewardedPartners.size();
+            chosen = new String[sRewardedPartners.size()];
         } else if (adUnitType == ADTYPE_BANNER) {
-            partners = inview_partners;
-            selected = inview_parters_selected;
-            total = numInview;
-            chosen = new String[numInview];
+            partners = new String[sBannerPartners.size()];
+            sBannerPartners.toArray(partners);
+            selected = sSelectedBannerPartners;
+            total = sBannerPartners.size();
+            chosen = new String[sBannerPartners.size()];
         } else {
-            partners = preroll_partners;
-            selected = preroll_parters_selected;
-            total = numPreroll;
-            chosen = new String[numPreroll];
+            partners = new String[sPrerollPartners.size()];
+            sPrerollPartners.toArray(partners);
+            selected = sSelectedPrerollPartners;
+            total = sPrerollPartners.size();
+            chosen = new String[sPrerollPartners.size()];
         }
         int j=0;
         for (int i=0;i<total;i++) {
