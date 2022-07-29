@@ -1,4 +1,6 @@
-## 1.1.6
+## 1.1.7
+
+* 1.1.7 - Updated Android dependencies.  Added Prebid demand source partner
 
 * 1.1.6 - Updated Android dependencies.  Added Ogury demand source partner
 

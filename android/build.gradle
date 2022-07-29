@@ -1,4 +1,4 @@
-version '1.1.4'
+version '1.1.7'
 
 buildscript {
     repositories {
@@ -17,23 +17,14 @@ rootProject.allprojects {
         jcenter()
         mavenCentral()
         maven { url 'https://jitpack.io' }
-        maven { url "https://freestar.jfrog.io/artifactory/freestar-mediation-android-sdk" }
-        maven { url "https://s3.amazonaws.com/moat-sdk-builds" }
-        maven { url "https://sdk.tapjoy.com/" }
+        maven { url 'https://freestar.jfrog.io/artifactory/freestar-mediation-android-sdk' }
+        maven { url 'https://s3.amazonaws.com/moat-sdk-builds' }
+        maven { url 'https://sdk.tapjoy.com/' }
         maven { url 'https://artifact.bytedance.com/repository/pangle' }
+        maven { url 'https://hyprmx.jfrog.io/artifactory/hyprmx' }
+        maven { url 'https://adsbynimbus-public.s3.amazonaws.com/android/sdks' }
         maven { url 'https://artifactory.verizonmedia.com/artifactory/maven/' }
         maven { url "https://maven.ogury.co" }
-
-        maven {
-            url = uri("https://adsbynimbus-public.s3.amazonaws.com/android/sdks")
-            credentials {
-                username = "*"
-            }
-            content {
-                includeGroup("com.adsbynimbus.openrtb")
-                includeGroup("com.adsbynimbus.android")
-            }
-        }
     }
 }
 
@@ -89,6 +80,7 @@ dependencies {
     implementation 'com.freestar.android.ads.hyprmx:freestar-hyprmx-adapter:6.0.1.0'
     implementation 'com.freestar.android.ads.yahoo:freestar-yahoo-adapter:1.14.0.1'
     implementation 'com.freestar.android.ads.ogury:freestar-ogury-adapter:5.3.0.0'
+    implementation 'com.freestar.android.ads.prebid:freestar-prebid-adapter:2.0.2.1'
 
     implementation 'com.criteo.publisher:criteo-publisher-sdk:4.4.0'
     implementation 'com.google.android.gms:play-services-ads:20.6.0'
@@ -140,6 +132,9 @@ dependencies {
 
     //ogury
     implementation 'co.ogury:ogury-sdk:5.3.0'
+
+    //prebid
+    implementation 'com.freestar.android.ads.prebid:freestar-prebid-core:2.0.2.1'
 
     //App Open Support
     implementation "androidx.lifecycle:lifecycle-common-java8:2.4.0"
