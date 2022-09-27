@@ -1,4 +1,13 @@
-## 1.1.7
+## 1.1.8
+
+* 1.1.8 - Updated Android dependencies.  Android Target Version 33.
+          Added android:exported="true" to
+          example/android/app/src/main/AndroidManifest.xml
+
+          Added the following to example/android/app/build.gradle:
+             packagingOptions {
+                        exclude("META-INF/*.kotlin_module")
+                    }
 
 * 1.1.7 - Updated Android dependencies.  Added Prebid demand source partner
 
