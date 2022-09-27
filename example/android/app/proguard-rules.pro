@@ -139,3 +139,5 @@ public *;
 -keep class org.prebid.** { *; }
 -keep interface org.prebid.** { *; }
 
+-keep class com.ogury.** { *; }
+-keep interface com.ogury.** { *; }
