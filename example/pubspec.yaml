@@ -10,7 +10,7 @@ environment:
 
 dependencies:
   flutter:
-    sdk: flutter
+    sdk: flutter    
 
   freestar_flutter_plugin: ^1.1.3
     # When depending on this package from a real application you should use:

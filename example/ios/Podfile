@@ -1,5 +1,5 @@
 # Uncomment this line to define a global platform for your project
-platform :ios, '10.0'
+platform :ios, '11.0'
 
 # CocoaPods analytics sends network stats synchronously affecting flutter build latency.
 ENV['COCOAPODS_DISABLE_STATS'] = 'true'
@@ -33,20 +33,24 @@ target 'Runner' do
 
   flutter_install_all_ios_pods File.dirname(File.realpath(__FILE__))
 
-    pod 'FreestarAds-AdColony', '~> 5.0'
-    pod 'FreestarAds-AppLovin', '~> 5.0'
-    pod 'FreestarAds-AppLovinMax', '~> 11.0'
-    pod 'FreestarAds-Googleadmob', '~> 6.0'
-    pod 'FreestarAds-Tapjoy', '~> 5.0'
-    pod 'FreestarAds-Unity', '~> 6.0'
-    pod 'FreestarAds-Vungle', '~> 5.0'
-    pod 'FreestarAds-Google', '~> 5.0'
-    pod 'FreestarAds-Criteo', '~> 3.0'
-    pod 'FreestarAds-GAM', '~> 5.0'
-    pod 'FreestarAds-Nimbus', '~> 3.0'
-    pod 'FreestarAds-TAM', '~> 2.0'
-    pod 'FreestarAds-Pangle', '~> 1.0'
-    pod 'FreestarAds-Hyprmx', '~> 6.0'
+  pod "FreestarAds-AdColony", "~> 4.7.2.1"
+  pod "FreestarAds-Criteo", "~> 4.3.1.1"
+  pod "FreestarAds-AppLovin", "~> 11.0.0.1"
+  pod "FreestarAds-AppLovinMax", "~> 11.0.0.2"
+  pod "FreestarAds-Hyprmx", "~> 6.0.3.4"
+  pod "FreestarAds-Yahoo", "~> 1.14.2.2"
+  pod "FreestarAds-Ogury", "~> 2.1.0.3"
+  pod 'FreestarAds-Googleadmob', '~> 9.11.0.4'
+  pod 'FreestarAds-Googleadmob/Facebook', '~> 9.11.0.4'
+  pod 'FreestarAds-GAM', '~> 9.11.0.4'
+  pod 'FreestarAds-GAM/Facebook', '~> 9.11.0.4'
+  pod "FreestarAds-Unity", "~> 4.1.0.4"
+  pod "FreestarAds-Prebid", "~> 2.0.3.6"
+  pod "FreestarAds-TAM", "~> 4.4.3.3"
+  pod "FreestarAds-Vungle", "~> 6.10.6.1"
+  pod "FreestarAds-Nimbus", "~> 1.10.5.1"
+  pod "FreestarAds-Pangle", "~> 3.7.0.1"
+
 
 end
 
