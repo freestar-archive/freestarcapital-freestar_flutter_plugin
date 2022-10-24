@@ -1,4 +1,6 @@
-## 1.1.8
+## 1.1.9
+
+* 1.1.9 - Updated iOS dependencies. Version bump.  iOS 11 deployment target 9 to 11.
 
 * 1.1.8 - Updated Android dependencies.  Android Target Version 33.
           Added android:exported="true" to
