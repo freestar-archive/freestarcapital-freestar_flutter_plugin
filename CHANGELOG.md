@@ -1,4 +1,6 @@
-## 1.2.0
+## 1.2.1
+
+* 1.2.1 - Updated the included example pubspec.yaml to use 1.2.1 of the freestar flutter plugin.
 
 * 1.2.0 - Updated Android SDK dependencies.  Multiple.
           Updated iOS SDK dependencies; added FBAudienceNetwork 6.+
