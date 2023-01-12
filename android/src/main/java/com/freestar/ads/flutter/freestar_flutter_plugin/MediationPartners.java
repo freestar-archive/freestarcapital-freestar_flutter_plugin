@@ -32,6 +32,7 @@ public class MediationPartners {
         sInterstitialPartners.add(LVDOConstants.PARTNER.CRITEO.name());
         sInterstitialPartners.add(LVDOConstants.PARTNER.GOOGLEADMOB.name());
         sInterstitialPartners.add(LVDOConstants.PARTNER.GOOGLE.name());
+        sInterstitialPartners.add(LVDOConstants.PARTNER.FYBER.name());
         sInterstitialPartners.add(LVDOConstants.PARTNER.HYPRMX.name());
         sInterstitialPartners.add(LVDOConstants.PARTNER.NIMBUS.name());
         sInterstitialPartners.add(LVDOConstants.PARTNER.PANGLE.name());
@@ -72,6 +73,7 @@ public class MediationPartners {
         sRewardedPartners.add(LVDOConstants.PARTNER.CRITEO.name());
         sRewardedPartners.add(LVDOConstants.PARTNER.GOOGLEADMOB.name());
         sRewardedPartners.add(LVDOConstants.PARTNER.GOOGLE.name());
+        sRewardedPartners.add(LVDOConstants.PARTNER.FYBER.name());
         sRewardedPartners.add(LVDOConstants.PARTNER.NIMBUS.name());
         sRewardedPartners.add(LVDOConstants.PARTNER.TAPJOY.name());
         sRewardedPartners.add(LVDOConstants.PARTNER.UNITY.name());
@@ -110,6 +112,7 @@ public class MediationPartners {
         sBannerPartners.add(LVDOConstants.PARTNER.CRITEO.name());
         sBannerPartners.add(LVDOConstants.PARTNER.GOOGLEADMOB.name());
         sBannerPartners.add(LVDOConstants.PARTNER.GOOGLE.name());
+        sBannerPartners.add(LVDOConstants.PARTNER.FYBER.name());
         sBannerPartners.add(LVDOConstants.PARTNER.NIMBUS.name());
         sBannerPartners.add(LVDOConstants.PARTNER.UNITY.name());
         sBannerPartners.add(LVDOConstants.PARTNER.PANGLE.name());
