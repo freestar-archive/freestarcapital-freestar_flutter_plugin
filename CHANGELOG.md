@@ -1,4 +1,7 @@
-## 1.1.9
+## 1.2.0
+
+* 1.2.0 - Updated Android SDK dependencies.  Multiple.
+          Updated iOS SDK dependencies; added FBAudienceNetwork 6.+
 
 * 1.1.9 - Updated iOS dependencies. Version bump.  iOS 11 deployment target 9 to 11.
 
