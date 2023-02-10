@@ -1,4 +1,7 @@
-## 1.2.1
+## 1.2.2
+
+* 1.2.2 - Android: As a result of end-user feedback, moved dependencies from android\build.gradle
+          to app\build.gradle so as to give publishers more flexibility.
 
 * 1.2.1 - Updated the included example pubspec.yaml to use 1.2.1 of the freestar flutter plugin.
 
