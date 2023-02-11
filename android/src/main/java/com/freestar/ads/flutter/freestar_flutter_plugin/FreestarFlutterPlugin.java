@@ -150,7 +150,9 @@ public class FreestarFlutterPlugin implements FlutterPlugin, MethodCallHandler, 
           interstitialAd.show();
           result.success(null);
         } else {
-          result.error("INTERSTITIAL_AD_NOT_READY", "Must call loadAd first", null);
+          //result.error("INTERSTITIAL_AD_NOT_READY", "Must call loadAd first", null);
+          //fix per publisher feedback
+          interstitialChannel.invokeMethod("onInterstitialAdDismissed", "INTERSTITIAL_AD_NOT_READY", null);
         }
 
         break;
@@ -228,7 +230,9 @@ public class FreestarFlutterPlugin implements FlutterPlugin, MethodCallHandler, 
           rewardedAd.showRewardAd((String) params.get("secret"), (String) params.get("userId"), (String) params.get("rewardName"), (String) params.get("rewardAmount"));
           result.success(null);
         } else {
-          result.error("REWARDED_AD_NOT_READY", "Must call load first", "rewarded ad: " + rewardedAd);
+          //result.error("REWARDED_AD_NOT_READY", "Must call load first", "rewarded ad: " + rewardedAd);
+          //fixed per publisher feedback
+          rewardedChannel.invokeMethod("onRewardedAdDismissed", "REWARDED_AD_NOT_READY", null);
         }
 
         break;

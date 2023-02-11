@@ -1,4 +1,8 @@
-## 1.2.2
+## 1.2.3
+
+* 1.2.3 - Android: As a result of end-user feedback, interstitial and rewarded ads that are not
+          ready when 'show' is called will result in 'onInterstitialAdDismissed'
+          and 'onRewardedAdDismissed' getting called respectively.
 
 * 1.2.2 - Android: As a result of end-user feedback, moved dependencies from android\build.gradle
           to app\build.gradle so as to give publishers more flexibility.
