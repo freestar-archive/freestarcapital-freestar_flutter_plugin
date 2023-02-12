@@ -1,6 +1,6 @@
 name: freestar_flutter_plugin
 description: Freestar Ads Mediation plugin for Flutter apps.  Android and iOS.
-version: 1.2.3
+version: 1.2.4
 homepage: https://github.com/freestarcapital/freestar_flutter_plugin
 
 environment:

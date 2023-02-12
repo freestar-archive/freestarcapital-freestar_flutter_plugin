@@ -26,7 +26,7 @@ class NativeAd extends StatefulWidget {
     _channel!.setMethodCallHandler(adsCallbackHandler);
     Map params = FreestarUtils.paramsFrom(placement, targetingParams);
     params["template"] = template;
-    await _channel!.invokeMethod('loadNativeAd', params);
+    unawaited(_channel!.invokeMethod('loadNativeAd', params));
   }
 
   Future<dynamic> adsCallbackHandler(MethodCall methodCall) async {

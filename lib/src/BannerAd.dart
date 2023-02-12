@@ -27,7 +27,7 @@ class BannerAd extends StatefulWidget {
     _channel!.setMethodCallHandler(adsCallbackHandler);
     Map params = FreestarUtils.paramsFrom(placement, targetingParams);
     params["adSize"] = adSize;
-    await _channel!.invokeMethod('loadBannerAd', params);
+    unawaited (_channel!.invokeMethod('loadBannerAd', params));
   }
 
   Future<dynamic> adsCallbackHandler(MethodCall methodCall) async {

@@ -1,4 +1,6 @@
-## 1.2.3
+## 1.2.4
+
+* 1.2.4 - Dart modules only: Added 'unawaited' to channel invoke per BannerAd and NativeAd.
 
 * 1.2.3 - Android: As a result of end-user feedback, interstitial and rewarded ads that are not
           ready when 'show' is called will result in 'onInterstitialAdDismissed'
