@@ -7,12 +7,6 @@
 
 #import "FlutterBannerAd.h"
 
-static FreestarBannerAdSize FLUTTER_BANNER_SIZES[3] = {
-    FreestarBanner320x50,
-    FreestarBanner300x250,
-    FreestarBanner728x90
-};
-
 @implementation FlutterBannerAdFactory {
     NSObject<FlutterBinaryMessenger>* _messenger;
 }
@@ -38,14 +32,12 @@ static FreestarBannerAdSize FLUTTER_BANNER_SIZES[3] = {
 @end
 
 @interface FlutterBannerAd () <FreestarBannerAdDelegate>
-
-
+@property(nonatomic, strong) FreestarBannerAd *ad;
 
 @end
 
 @implementation FlutterBannerAd {
     FlutterMethodChannel *channel;
-    FreestarBannerAd *ad;
 }
 
 /*
@@ -67,7 +59,8 @@ static FreestarBannerAdSize FLUTTER_BANNER_SIZES[3] = {
     
     __weak typeof(self) weakSelf = self;
     
-    ad = [[FreestarBannerAd alloc] initWithDelegate:self andSize:FreestarBanner320x50];
+    self.ad = [[FreestarBannerAd alloc] initWithDelegate:self andSize:FreestarBanner320x50];
+    self.ad.frame =[self frameForSize:FreestarBanner320x50];
     
     [channel setMethodCallHandler:^(FlutterMethodCall * _Nonnull call, FlutterResult  _Nonnull result) {
         if ([call.method isEqualToString:@"loadBannerAd"]) {
@@ -83,48 +76,48 @@ static FreestarBannerAdSize FLUTTER_BANNER_SIZES[3] = {
     return self;
 }
 
+- (CGRect)frameForSize:(FreestarBannerAdSize)size {
+    switch (size) {
+        case FreestarBanner300x250:
+            return CGRectMake(0, 0, 300, 250);
+        case FreestarBanner320x50:
+        case FreestarBanner728x90:
+        default:
+            break;
+}
+    return CGRectZero;
+}
+
 - (void)loadAd:(FlutterMethodCall *)call {
     int size = [call.arguments[@"adSize"] intValue];
-    
-    if(size == 1 || size == 2) {
-        ad.bounds = size == 1 ? CGRectMake(0, 0, 300, 250) : CGRectMake(0, 0, 728, 90);
-        
-        NSInvocation *inv = [NSInvocation invocationWithMethodSignature:[[ad valueForKey:@"ad"] methodSignatureForSelector:@selector(setSize:)]];
-        [inv setSelector:@selector(setSize:)];
-        [inv setTarget:[ad valueForKey:@"ad"]];
-        [inv setArgument:&FLUTTER_BANNER_SIZES[size] atIndex:2];
-        [inv invoke];
-    }
-    
+    // TODO: support leaderboard size
+    FreestarBannerAdSize adSize = size;
     NSString *placement = call.arguments[@"placement"];
     NSDictionary *targeting = call.arguments[@"targetingMap"];
     
-    
     [targeting enumerateKeysAndObjectsUsingBlock:^(NSString *key, NSString *obj, BOOL * _Nonnull stop) {
-        [ad addCustomTargeting:key as:obj];
+        [self.ad addCustomTargeting:key as:obj];
     }];
     
-    [ad loadPlacement:placement];
+    [self.ad loadPlacement:placement];
 }
 
 - (void)appLostFocus {
-    [ad performSelector:@selector(appLostFocus)];
-    [[ad valueForKeyPath:@"ad.winner"] performSelector:@selector(appLostFocus)];
+    [self.ad performSelector:@selector(appLostFocus)];
 }
 
 - (void)appGainedFocus {
-    [ad performSelector:@selector(appGainedFocus)];
-    [[ad valueForKeyPath:@"ad.winner"] performSelector:@selector(appGainedFocus)];
+    [self.ad performSelector:@selector(appGainedFocus)];
 }
 
-- (void) detachAd {
-    [[ad valueForKeyPath:@"ad"] performSelector:@selector(close)];
+- (void)detachAd {
+    [self.ad removeFromSuperview];
 }
 
 #pragma mark - FlutterPlatformView
 
 - (nonnull UIView *)view {
-    return ad;
+    return self.ad;
 }
 
 #pragma mark - FreestarBannerAdDelegate
