@@ -18,13 +18,12 @@ rootProject.allprojects {
         mavenCentral()
         maven { url 'https://jitpack.io' }
         maven { url 'https://freestar.jfrog.io/artifactory/freestar-mediation-android-sdk' }
-        maven { url 'https://s3.amazonaws.com/moat-sdk-builds' }
         maven { url 'https://sdk.tapjoy.com/' }
         maven { url 'https://artifact.bytedance.com/repository/pangle' }
         maven { url 'https://hyprmx.jfrog.io/artifactory/hyprmx' }
         maven { url 'https://adsbynimbus-public.s3.amazonaws.com/android/sdks' }
-        maven { url 'https://artifactory.verizonmedia.com/artifactory/maven/' }
         maven { url "https://maven.ogury.co" }
+        maven { url "https://s3.amazonaws.com/smaato-sdk-releases/" }
     }
 }
 
@@ -61,7 +60,7 @@ dependencies {
     compileOnly 'androidx.annotation:annotation:1.1.0'
 
     //begin Freestar
-    compileOnly 'com.freestar.android.ads:freestar:5.1.0'
+    compileOnly 'com.freestar.android.ads:freestar:5.1.6'
 
     //Note: If you want to use Preroll video ads, un-comment the following lines:
     //Important: Preroll is not compatible with Nimbus, so remove all 3 Nimbus

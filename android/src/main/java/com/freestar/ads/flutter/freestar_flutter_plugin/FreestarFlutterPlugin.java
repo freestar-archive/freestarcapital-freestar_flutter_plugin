@@ -82,6 +82,10 @@ public class FreestarFlutterPlugin implements FlutterPlugin, MethodCallHandler, 
 
     flutterPluginBinding
             .getPlatformViewRegistry()
+            .registerViewFactory("plugins.freestar.ads/MrecBannerAd", new MrecBannerAdFactory(flutterPluginBinding.getBinaryMessenger()));
+
+    flutterPluginBinding
+            .getPlatformViewRegistry()
             .registerViewFactory("plugins.freestar.ads/NativeAd", new NativeAdFactory(flutterPluginBinding.getBinaryMessenger()));
   }
 

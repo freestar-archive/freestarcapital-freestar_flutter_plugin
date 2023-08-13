@@ -29,10 +29,11 @@ public class MediationPartners {
 
     static {
         sInterstitialPartners.add(LVDOConstants.PARTNER.ADCOLONY.name());
+        sInterstitialPartners.add(LVDOConstants.PARTNER.APPLOVIN.name());
+        sInterstitialPartners.add(LVDOConstants.PARTNER.APPLOVINMAX.name());
         sInterstitialPartners.add(LVDOConstants.PARTNER.CRITEO.name());
         sInterstitialPartners.add(LVDOConstants.PARTNER.GOOGLEADMOB.name());
         sInterstitialPartners.add(LVDOConstants.PARTNER.GOOGLE.name());
-        sInterstitialPartners.add(LVDOConstants.PARTNER.FYBER.name());
         sInterstitialPartners.add(LVDOConstants.PARTNER.HYPRMX.name());
         sInterstitialPartners.add(LVDOConstants.PARTNER.NIMBUS.name());
         sInterstitialPartners.add(LVDOConstants.PARTNER.PANGLE.name());
@@ -43,6 +44,8 @@ public class MediationPartners {
         sInterstitialPartners.add(LVDOConstants.PARTNER.YAHOO.name());
         sInterstitialPartners.add(LVDOConstants.PARTNER.PREBID.name());
         sInterstitialPartners.add(LVDOConstants.PARTNER.OGURY.name());
+        sInterstitialPartners.add(LVDOConstants.PARTNER.FYBER.name());
+        sInterstitialPartners.add(LVDOConstants.PARTNER.SMAATO.name());
         Collections.sort(sInterstitialPartners);
         sSelectedInterstitialPartners = new boolean[sInterstitialPartners.size()];
         for (int i = 0; i < sInterstitialPartners.size(); i++) {
@@ -70,10 +73,11 @@ public class MediationPartners {
 
     static {
         sRewardedPartners.add(LVDOConstants.PARTNER.ADCOLONY.name());
+        sRewardedPartners.add(LVDOConstants.PARTNER.APPLOVIN.name());
+        sRewardedPartners.add(LVDOConstants.PARTNER.APPLOVINMAX.name());
         sRewardedPartners.add(LVDOConstants.PARTNER.CRITEO.name());
         sRewardedPartners.add(LVDOConstants.PARTNER.GOOGLEADMOB.name());
         sRewardedPartners.add(LVDOConstants.PARTNER.GOOGLE.name());
-        sRewardedPartners.add(LVDOConstants.PARTNER.FYBER.name());
         sRewardedPartners.add(LVDOConstants.PARTNER.NIMBUS.name());
         sRewardedPartners.add(LVDOConstants.PARTNER.TAPJOY.name());
         sRewardedPartners.add(LVDOConstants.PARTNER.UNITY.name());
@@ -82,6 +86,8 @@ public class MediationPartners {
         sRewardedPartners.add(LVDOConstants.PARTNER.HYPRMX.name());
         sRewardedPartners.add(LVDOConstants.PARTNER.PREBID.name());
         sRewardedPartners.add(LVDOConstants.PARTNER.OGURY.name());
+        sRewardedPartners.add(LVDOConstants.PARTNER.FYBER.name());
+        sRewardedPartners.add(LVDOConstants.PARTNER.SMAATO.name());
         Collections.sort(sRewardedPartners);
         sSelectedRewardedPartners = new boolean[sRewardedPartners.size()];
         for (int i = 0; i < sRewardedPartners.size(); i++) {
@@ -109,10 +115,11 @@ public class MediationPartners {
     static {
         sBannerPartners.add(LVDOConstants.PARTNER.TAM.name());
         sBannerPartners.add(LVDOConstants.PARTNER.ADCOLONY.name());
+        sBannerPartners.add(LVDOConstants.PARTNER.APPLOVIN.name());
+        sBannerPartners.add(LVDOConstants.PARTNER.APPLOVINMAX.name());
         sBannerPartners.add(LVDOConstants.PARTNER.CRITEO.name());
         sBannerPartners.add(LVDOConstants.PARTNER.GOOGLEADMOB.name());
         sBannerPartners.add(LVDOConstants.PARTNER.GOOGLE.name());
-        sBannerPartners.add(LVDOConstants.PARTNER.FYBER.name());
         sBannerPartners.add(LVDOConstants.PARTNER.NIMBUS.name());
         sBannerPartners.add(LVDOConstants.PARTNER.UNITY.name());
         sBannerPartners.add(LVDOConstants.PARTNER.PANGLE.name());
@@ -121,6 +128,8 @@ public class MediationPartners {
         sBannerPartners.add(LVDOConstants.PARTNER.YAHOO.name());
         sBannerPartners.add(LVDOConstants.PARTNER.PREBID.name());
         sBannerPartners.add(LVDOConstants.PARTNER.OGURY.name());
+        sBannerPartners.add(LVDOConstants.PARTNER.FYBER.name());
+        sBannerPartners.add(LVDOConstants.PARTNER.SMAATO.name());
         Collections.sort(sBannerPartners);
         sSelectedBannerPartners = new boolean[sBannerPartners.size()];
         for (int i = 0; i < sBannerPartners.size(); i++) {
