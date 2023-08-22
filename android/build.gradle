@@ -1,13 +1,14 @@
-version '1.1.7'
+group 'com.freestar.ads.flutter.freestar_flutter_plugin'
+version '1.0'
 
 buildscript {
     repositories {
         google()
-        jcenter()
+        mavenCentral()
     }
 
     dependencies {
-        classpath 'com.android.tools.build:gradle:4.2.1'
+        classpath 'com.android.tools.build:gradle:7.3.0'
     }
 }
 
@@ -18,13 +19,12 @@ rootProject.allprojects {
         mavenCentral()
         maven { url 'https://jitpack.io' }
         maven { url 'https://freestar.jfrog.io/artifactory/freestar-mediation-android-sdk' }
-        maven { url 'https://s3.amazonaws.com/moat-sdk-builds' }
         maven { url 'https://sdk.tapjoy.com/' }
         maven { url 'https://artifact.bytedance.com/repository/pangle' }
         maven { url 'https://hyprmx.jfrog.io/artifactory/hyprmx' }
         maven { url 'https://adsbynimbus-public.s3.amazonaws.com/android/sdks' }
-        maven { url 'https://artifactory.verizonmedia.com/artifactory/maven/' }
         maven { url "https://maven.ogury.co" }
+        maven { url "https://s3.amazonaws.com/smaato-sdk-releases/" }
     }
 }
 
@@ -52,6 +52,39 @@ android {
 
 }
 
+android {
+    compileSdkVersion 33
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+
+    defaultConfig {
+        minSdkVersion 21
+    }
+
+    dependencies {
+        testImplementation 'junit:junit:4.13.2'
+        testImplementation 'org.mockito:mockito-core:5.0.0'
+    }
+
+    testOptions {
+        unitTests.all {
+            testLogging {
+                events "passed", "skipped", "failed", "standardOut", "standardError"
+                outputs.upToDateWhen {false}
+                showStandardStreams = true
+            }
+        }
+    }
+
+    packagingOptions {
+        exclude("META-INF/*.kotlin_module")
+    }
+}
+
+
 dependencies {
     compileOnly 'androidx.appcompat:appcompat:1.2.0'
     testImplementation 'junit:junit:4.12'
@@ -61,18 +94,9 @@ dependencies {
     compileOnly 'androidx.annotation:annotation:1.1.0'
 
     //begin Freestar
-    compileOnly 'com.freestar.android.ads:freestar:5.1.0'
+    compileOnly 'com.freestar.android.ads:freestar:5.1.8'
 
-    //Note: If you want to use Preroll video ads, un-comment the following lines:
-    //Important: Preroll is not compatible with Nimbus, so remove all 3 Nimbus
-    //dependencies (above) before using Preroll video ads (freestar-nimbus-adapter,
-    //and nimbus section).
-    //start preroll
-    //implementation 'com.google.ads.interactivemedia.v3:interactivemedia:3.24.0'
-    //implementation 'com.google.android.exoplayer:exoplayer-core:2.15.1'
-    //implementation 'com.google.android.exoplayer:exoplayer-ui:2.15.1'
-    //implementation 'com.google.android.exoplayer:extension-ima:2.15.1'
-    //end preroll
+    //see example/android/app/build.gradle for full mediation dependencies
 
     //end, FreeStar
 

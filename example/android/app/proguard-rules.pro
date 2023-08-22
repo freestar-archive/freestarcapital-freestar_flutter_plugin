@@ -125,19 +125,34 @@
     !static <methods>;
 }
 
+# adsbynimbus
+-keep class com.adsbynimbus.** { *; }
+-keep interface com.adsbynimbus.** { *; }
+
 # pangle
 -keep class com.bytedance.sdk.** { *; }
 -keep class com.pgl.sys.ces.* {*;}
 
--keepclassmembers class com.verizon.ads** {
-public *;
-}
--keep class com.verizon.ads**
--keep interface com.verizon.ads**
+# hyprmx
+-keep class com.hyprmx.** { *; }
+-keep interface com.hyprmx.** { *; }
 
+# verizon
+-keep class com.verizon.** { *; }
+-keep interface com.verizon.** { *; }
 
+# prebid
 -keep class org.prebid.** { *; }
 -keep interface org.prebid.** { *; }
 
--keep class com.ogury.** { *; }
--keep interface com.ogury.** { *; }
+# ogury
+-keep class com.ogury.** {*;}
+-keep interface com.ogury.** {*;}
+
+# fyber
+-keep class com.fyber.** {*;}
+-keep interface com.fyber.** {*;}
+
+# smaato
+-keep class com.smaato.** { *; }
+-keep interface com.smaato.** { *; }
