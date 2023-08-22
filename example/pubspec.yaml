@@ -14,7 +14,7 @@ dependencies:
 
   freestar_flutter_plugin:
 
-    #latest version is ^1.2.5
+    #latest version is ^1.2.6
 
     path: ../
 

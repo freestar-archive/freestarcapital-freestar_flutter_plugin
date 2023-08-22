@@ -1,8 +1,6 @@
-## 1.2.5
+## 1.2.6
 
-* 1.2.5 - Updated Android dependencies.
-
-## 1.2.5
+* 1.2.6 - Updated Android dependencies.
 
 * 1.2.5 - Fixed iOS crash due to calling private methods.  Updated Android and iOS dependencies.
 
