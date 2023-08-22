@@ -1,6 +1,7 @@
 import 'package:flutter/services.dart';
 
 export 'src/BannerAd.dart';
+export 'src/MrecBannerAd.dart';
 export 'src/BannerAdListener.dart';
 export 'src/FreestarUtils.dart';
 export 'src/InterstitialAd.dart';

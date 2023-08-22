@@ -15,6 +15,15 @@ allprojects {
     repositories {
         google()
         mavenCentral()
+
+        maven { url 'https://jitpack.io' }
+        maven { url 'https://freestar.jfrog.io/artifactory/freestar-mediation-android-sdk' }
+        maven { url 'https://sdk.tapjoy.com/' }
+        maven { url 'https://artifact.bytedance.com/repository/pangle' }
+        maven { url 'https://hyprmx.jfrog.io/artifactory/hyprmx' }
+        maven { url 'https://adsbynimbus-public.s3.amazonaws.com/android/sdks' }
+        maven { url "https://maven.ogury.co" }
+        maven { url "https://s3.amazonaws.com/smaato-sdk-releases/" }
     }
 }
 

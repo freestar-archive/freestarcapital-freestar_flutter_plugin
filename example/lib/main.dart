@@ -26,7 +26,7 @@ class _MyAppState extends State<MyApp>
   InterstitialAd _interstitialAd = new InterstitialAd();
   RewardedAd _rewardedAd = new RewardedAd();
   BannerAd _bannerAd = BannerAd.from(null, BannerAd.AD_SIZE_BANNER_320x50, null, false);
-  BannerAd _mrecBannerAd = BannerAd.from(null, BannerAd.AD_SIZE_MREC_300x250, null, false);
+  MrecBannerAd _mrecBannerAd = MrecBannerAd.from(null, BannerAd.AD_SIZE_MREC_300x250, null, false);
   NativeAd _smallNativeAd = NativeAd.fromParams(null, NativeAd.NATIVE_TEMPLATE_SMALL, null, false);
   NativeAd _mediumNativeAd = NativeAd.fromParams(null, NativeAd.NATIVE_TEMPLATE_MEDIUM, null, false);
 

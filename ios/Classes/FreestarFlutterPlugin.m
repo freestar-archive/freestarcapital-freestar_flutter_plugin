@@ -9,6 +9,7 @@
 #endif
 
 #import "FlutterBannerAd.h"
+#import "FlutterMrecBannerAd.h"
 #import "FlutterNativeAd.h"
 
 static NSString * const REWARDED_CHANNEL_PREFIX = @"freestar_flutter_plugin/RewardedAd";
@@ -19,9 +20,11 @@ static NSString * const INTERSTITIAL_CHANNEL_PREFIX = @"freestar_flutter_plugin/
 + (void)registerWithRegistrar:(NSObject<FlutterPluginRegistrar>*)registrar {
     [SwiftFreestarFlutterPlugin registerWithRegistrar:registrar];
     FlutterBannerAdFactory *bannerAdFactory = [[FlutterBannerAdFactory alloc] initWithMessenger:registrar.messenger];
+    FlutterMrecBannerAdFactory *mrecBannerAdFactory = [[FlutterMrecBannerAdFactory alloc] initWithMessenger:registrar.messenger];
     FlutterNativeAdFactory *nativeAdFactory = [[FlutterNativeAdFactory alloc] initWithMessenger:registrar.messenger];
     
     [registrar registerViewFactory:bannerAdFactory withId:BANNER_CHANNEL_PREFIX];
+    [registrar registerViewFactory:mrecBannerAdFactory withId:MREC_BANNER_CHANNEL_PREFIX];
     [registrar registerViewFactory:nativeAdFactory withId:NATIVE_CHANNEL_PREFIX];
     
     [FreestarRewardedPlugin registerWithRegistrar:registrar];
