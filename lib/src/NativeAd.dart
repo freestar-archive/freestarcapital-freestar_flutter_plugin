@@ -14,7 +14,7 @@ class NativeAd extends StatefulWidget {
   NativeAd.fromParams(this.placement, this.template, this.nativeAdListener, this.doAutoloadWhenCreated);
 
   NativeAdListener? nativeAdListener;
-  int template = NATIVE_TEMPLATE_SMALL; //default SMALL template
+  late final int template;
   late final String? placement;  //optional
   Map? targetingParams; //optional
   late final bool doAutoloadWhenCreated; //if false, loadAd must be explicitly called

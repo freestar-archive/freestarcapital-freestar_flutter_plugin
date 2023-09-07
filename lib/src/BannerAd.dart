@@ -17,7 +17,7 @@ class BannerAd extends StatefulWidget {
   late final String? placement;  //optional
   Map? targetingParams; //optional
   BannerAdListener? bannerAdListener;
-  int adSize = AD_SIZE_BANNER_320x50; //default small banner
+  late final int adSize; //AD_SIZE_BANNER_320x50
   late final bool doAutoloadWhenCreated; //if false, loadAd must be explicitly called
 
   late final MethodChannel? _channel;

@@ -17,7 +17,7 @@ class MrecBannerAd extends StatefulWidget {
   late final String? placement;  //optional
   Map? targetingParams; //optional
   BannerAdListener? bannerAdListener;
-  int adSize = AD_SIZE_MREC_300x250; //default small banner
+  late final int adSize;  //AD_SIZE_MREC_300x250
   late final bool doAutoloadWhenCreated; //if false, loadAd must be explicitly called
 
   MethodChannel? _channel;
