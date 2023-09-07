@@ -15,9 +15,9 @@ class NativeAd extends StatefulWidget {
 
   NativeAdListener? nativeAdListener;
   int template = NATIVE_TEMPLATE_SMALL; //default SMALL template
-  String? placement;  //optional
+  late final String? placement;  //optional
   Map? targetingParams; //optional
-  bool doAutoloadWhenCreated = false; //if false, loadAd must be explicitly called
+  late final bool doAutoloadWhenCreated; //if false, loadAd must be explicitly called
 
   MethodChannel? _channel;
 
@@ -34,13 +34,6 @@ class NativeAd extends StatefulWidget {
         methodCall.method +
         "] args: " +
         methodCall.arguments);
-
-    if (NativeAdListener == null) {
-      print("fsfp_tag: NativeAd.dart. Listener is null. info: " +
-          methodCall.method +
-          " args: " +
-          methodCall.arguments);
-    }
 
     switch (methodCall.method) {
       case "onNativeAdLoaded":
@@ -72,7 +65,7 @@ class _NativeAdViewState extends State<NativeAd> with WidgetsBindingObserver {
   @override
   void dispose() {
     // remove the observer
-    WidgetsBinding.instance!.removeObserver(this);
+    WidgetsBinding.instance.removeObserver(this);
 
     super.dispose();
     print("fsfp_tag: NativeAd.dart. dispose");
@@ -105,6 +98,9 @@ class _NativeAdViewState extends State<NativeAd> with WidgetsBindingObserver {
         print("fsfp_tag: NativeAd.dart. AppLifecycleState.detached");
         widget._channel!.invokeMethod('detached');
         break;
+      case AppLifecycleState.hidden:
+        widget._channel!.invokeMethod('paused');
+        break;
     }
   }
 
@@ -132,6 +128,6 @@ class _NativeAdViewState extends State<NativeAd> with WidgetsBindingObserver {
       widget.loadAd();
     }
     // add the observer
-    WidgetsBinding.instance!.addObserver(this);
+    WidgetsBinding.instance.addObserver(this);
   }
 }

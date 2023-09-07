@@ -1,6 +1,6 @@
 plugin 'cocoapods-pod-linkage'
 # Uncomment this line to define a global platform for your project
-platform :ios, '12.0'
+platform :ios, '13.0'
 
 
 # CocoaPods analytics sends network stats synchronously affecting flutter build latency.
@@ -37,25 +37,25 @@ target 'Runner' do
 
   pod "FSLPromisesObjC", :linkage => :dynamic
   pod "FMDB", :linkage => :dynamic
-  
+     
   pod "FreestarAds-AdColony", "~> 4.7.2.1"
+  pod "FreestarAds-AppLovin", "~> 11.11.3.3"
+  pod "FreestarAds-AppLovinMax", "~> 11.11.3.4"
   pod "FreestarAds-Criteo", "~> 4.3.1.1"
-  pod "FreestarAds-AppLovin", "~> 11.0.0.1"
-  pod "FreestarAds-AppLovinMax", "~> 11.0.0.2"
+  pod "FreestarAds-Fyber2", "~> 8.2.4.3"
+  pod 'FreestarAds-GAM', '~> 10.9.0.7'
+  pod 'FreestarAds-GAM/Facebook', '~> 10.9.0.7'
+  pod 'FreestarAds-Googleadmob', '~> 10.9.0.7'
+  pod 'FreestarAds-Googleadmob/Facebook', '~> 10.9.0.7'
   pod "FreestarAds-Hyprmx", "~> 6.0.3.4"
-  pod "FreestarAds-Yahoo", "~> 1.14.2.2"
   pod "FreestarAds-Ogury", "~> 2.1.0.3"
-  pod 'FreestarAds-Googleadmob', '~> 9.11.0.4'
-  pod 'FreestarAds-Googleadmob/Facebook', '~> 9.11.0.4'
-  pod 'FreestarAds-GAM', '~> 9.11.0.4'
-  pod 'FreestarAds-GAM/Facebook', '~> 9.11.0.4'
-  pod "FreestarAds-Unity", "~> 4.1.0.4"
-  pod "FreestarAds-Prebid", "~> 2.0.3.6"
-  pod "FreestarAds-TAM", "~> 4.4.3.3"
-  pod "FreestarAds-Vungle", "~> 6.10.6.1"
-  pod "FreestarAds-Nimbus", "~> 1.10.5.1"
-  pod "FreestarAds-Pangle", "~> 3.7.0.1"
-
+  pod "FreestarAds-Prebid", "~> 2.1.5.13"
+  pod "FreestarAds-TAM", "~> 4.7.5.7"
+  pod "FreestarAds-Unity", "~> 4.8.0.5"
+  pod "FreestarAds-Yahoo", "~> 1.14.2.2"
+  pod "FreestarAds-Nimbus", "~> 2.15.0.5"
+  pod "FreestarAds-Smaato", "~> 22.1.3.1"
+  pod "FreestarAds-Vungle", "~> 7.0.1.3"
 
 end
 
@@ -71,9 +71,9 @@ post_install do |installer|
       config.build_settings['ONLY_ACTIVE_ARCH'] = 'YES'
     end
   end
-  installer.pods_project.build_configurations.each do |config|
-    config.build_settings["EXCLUDED_ARCHS[sdk=iphonesimulator*]"] = "arm64"
-    config.build_settings.delete 'IPHONEOS_DEPLOYMENT_TARGET'
-    installer.pods_project.build_settings(config.name)['VALID_ARCHS'] = ["arm64 arm64e armv7 armv7s x86_64"]
-  end
+#   installer.pods_project.build_configurations.each do |config|
+#     config.build_settings["EXCLUDED_ARCHS[sdk=iphonesimulator*]"] = "arm64"
+#     config.build_settings.delete 'IPHONEOS_DEPLOYMENT_TARGET'
+#     installer.pods_project.build_settings(config.name)['VALID_ARCHS'] = ["arm64 arm64e armv7 armv7s x86_64"]
+#   end
 end

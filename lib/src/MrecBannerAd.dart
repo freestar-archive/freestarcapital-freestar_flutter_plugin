@@ -14,11 +14,11 @@ class MrecBannerAd extends StatefulWidget {
 
   MrecBannerAd.from(this.placement, this.adSize, this.bannerAdListener, this.doAutoloadWhenCreated);
 
-  String? placement;  //optional
+  late final String? placement;  //optional
   Map? targetingParams; //optional
   BannerAdListener? bannerAdListener;
   int adSize = AD_SIZE_MREC_300x250; //default small banner
-  bool doAutoloadWhenCreated = false; //if false, loadAd must be explicitly called
+  late final bool doAutoloadWhenCreated; //if false, loadAd must be explicitly called
 
   MethodChannel? _channel;
 
@@ -73,7 +73,7 @@ class _MrecBannerAdViewState extends State<MrecBannerAd> with WidgetsBindingObse
   @override
   void dispose() {
     // remove the observer
-    WidgetsBinding.instance!.removeObserver(this);
+    WidgetsBinding.instance.removeObserver(this);
 
     super.dispose();
     print("fsfp_tag: MrecBannerAd.dart. dispose");
@@ -105,6 +105,9 @@ class _MrecBannerAdViewState extends State<MrecBannerAd> with WidgetsBindingObse
       // widget is detached
         print("fsfp_tag: MrecBannerAd.dart. AppLifecycleState.detached");
         widget._channel!.invokeMethod('detached');
+        break;
+      case AppLifecycleState.hidden:
+        widget._channel!.invokeMethod('paused');
         break;
     }
   }

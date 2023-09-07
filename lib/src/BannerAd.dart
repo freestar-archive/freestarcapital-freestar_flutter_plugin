@@ -14,13 +14,13 @@ class BannerAd extends StatefulWidget {
 
   BannerAd.from(this.placement, this.adSize, this.bannerAdListener, this.doAutoloadWhenCreated);
 
-  String? placement;  //optional
+  late final String? placement;  //optional
   Map? targetingParams; //optional
   BannerAdListener? bannerAdListener;
   int adSize = AD_SIZE_BANNER_320x50; //default small banner
-  bool doAutoloadWhenCreated = false; //if false, loadAd must be explicitly called
+  late final bool doAutoloadWhenCreated; //if false, loadAd must be explicitly called
 
-  MethodChannel? _channel;
+  late final MethodChannel? _channel;
 
   Future<void> loadAd() async {
     print("fsfp_tag: BannerAd.dart. loadAd.");
@@ -73,7 +73,7 @@ class _BannerAdViewState extends State<BannerAd> with WidgetsBindingObserver {
   @override
   void dispose() {
     // remove the observer
-    WidgetsBinding.instance!.removeObserver(this);
+    WidgetsBinding.instance.removeObserver(this);
 
     super.dispose();
     print("fsfp_tag: BannerAd.dart. dispose");
@@ -106,6 +106,9 @@ class _BannerAdViewState extends State<BannerAd> with WidgetsBindingObserver {
         print("fsfp_tag: BannerAd.dart. AppLifecycleState.detached");
         widget._channel!.invokeMethod('detached');
         break;
+      case AppLifecycleState.hidden:
+        widget._channel!.invokeMethod('paused');
+        break;
     }
   }
 
@@ -133,6 +136,6 @@ class _BannerAdViewState extends State<BannerAd> with WidgetsBindingObserver {
       widget.loadAd();
     }
     // add the observer
-    WidgetsBinding.instance!.addObserver(this);
+    WidgetsBinding.instance.addObserver(this);
   }
 }
