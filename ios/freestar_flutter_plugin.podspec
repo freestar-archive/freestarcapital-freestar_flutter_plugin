@@ -4,7 +4,7 @@
 #
 Pod::Spec.new do |s|
   s.name             = 'freestar_flutter_plugin'
-  s.version          = '1.2.6'
+  s.version          = '1.2.8'
   s.summary          = 'A new flutter plugin project.'
   s.description      = <<-DESC
 A new flutter plugin project.
@@ -20,6 +20,6 @@ A new flutter plugin project.
   # Flutter.framework does not contain a i386 slice.
   s.pod_target_xcconfig = { 'DEFINES_MODULE' => 'YES', 'EXCLUDED_ARCHS[sdk=iphonesimulator*]' => 'i386' }
   s.swift_version = '5.0'
-  s.dependency 'FreestarAds', '~> 5.27'
+  s.dependency 'FreestarAds', '~> 5.28'
   s.dependency 'FBAudienceNetwork', '~> 6.0'
 end

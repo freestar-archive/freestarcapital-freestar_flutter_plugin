@@ -20,7 +20,8 @@ class BannerAd extends StatefulWidget {
   late final int adSize; //AD_SIZE_BANNER_320x50
   late final bool doAutoloadWhenCreated; //if false, loadAd must be explicitly called
 
-  late final MethodChannel? _channel;
+  MethodChannel? _channel;
+  MethodChannel? get channel => _channel;
 
   Future<void> loadAd() async {
     print("fsfp_tag: BannerAd.dart. loadAd.");

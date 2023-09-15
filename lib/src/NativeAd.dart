@@ -20,6 +20,7 @@ class NativeAd extends StatefulWidget {
   late final bool doAutoloadWhenCreated; //if false, loadAd must be explicitly called
 
   MethodChannel? _channel;
+  MethodChannel? get channel => _channel;
 
   Future<void> loadAd() async {
     print("fsfp_tag: NativeAd.dart. loadAd.");
