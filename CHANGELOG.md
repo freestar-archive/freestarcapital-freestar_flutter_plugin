@@ -1,4 +1,6 @@
-## 1.2.7
+## 1.2.8
+
+* 1.2.8 - Fixed race condition in Dart that was causing intermittent crashes.
 
 * 1.2.7 - Upgraded plugin to work with Flutter 3.13.3
           Fix applied to Dart modules.  Some minor touches to iOS.

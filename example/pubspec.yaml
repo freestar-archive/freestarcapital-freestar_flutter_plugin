@@ -14,12 +14,12 @@ dependencies:
 
   freestar_flutter_plugin:
 
-    #latest version is ^1.2.7
+    #latest version is ^1.2.8
 
     path: ../
 
     # When depending on this package from a real application you should use:
-    #   freestar_flutter_plugin: ^1.2.7
+    #   freestar_flutter_plugin: ^1.2.8
     # See https://dart.dev/tools/pub/dependencies#version-constraints
     # The example app is bundled with the plugin so we use a path dependency on
     # the parent directory to use the current plugin's version.
