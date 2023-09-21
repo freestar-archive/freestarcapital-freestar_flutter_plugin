@@ -91,56 +91,68 @@ dependencies {
     implementation 'com.google.code.gson:gson:2.8.5'
 
     //begin Freestar
-    implementation 'com.freestar.android.ads:freestar:5.1.8'
+    implementation 'com.freestar.android.ads:freestar:5.2.0'
     implementation 'androidx.constraintlayout:constraintlayout:2.1.4'
     implementation 'androidx.lifecycle:lifecycle-viewmodel-ktx:2.5.1'
     implementation 'androidx.lifecycle:lifecycle-common-java8:2.5.1'
     implementation 'androidx.lifecycle:lifecycle-runtime:2.5.1'
     implementation 'androidx.lifecycle:lifecycle-process:2.5.1'
 
-    //Freestar Ad Quality
+    //Freestar Ad Quality (optional)
     implementation 'com.freestar.android.ads.quality:quality:5.0.3.2'
 
+    //Freestar Identity (optional)
+    implementation 'com.freestar.android.ads.identity:identity:2.0.6'
+    implementation 'com.liveramp:ats:v2.1.0'
+    implementation "androidx.preference:preference-ktx:1.2.0"
+    implementation "org.jetbrains.kotlinx:kotlinx-serialization-json:1.2.0"
+    implementation "com.squareup.retrofit2:retrofit:2.9.0"
+    implementation "com.jakewharton.retrofit:retrofit2-kotlinx-serialization-converter:0.8.0"
+    implementation "androidx.room:room-runtime:2.5.2"
+    annotationProcessor "androidx.room:room-compiler:2.5.2"
+    implementation "androidx.room:room-ktx:2.5.2"
+
     //Google Ads Manager (GAM)
-    implementation 'com.freestar.android.ads.google:freestar-google-adapter:22.2.0.0'
-    implementation 'com.google.android.gms:play-services-ads:22.2.0'
+    implementation 'com.freestar.android.ads.google:freestar-google-adapter:22.4.0.0'
+    implementation 'com.google.android.gms:play-services-ads:22.4.0'
 
     //AdMob
-    implementation 'com.freestar.android.ads.admob:freestar-admob-adapter:22.2.0.0'
-    implementation 'com.google.android.gms:play-services-ads:22.2.0'  //can remove if already used
+    implementation 'com.freestar.android.ads.admob:freestar-admob-adapter:22.4.0.0'
+    implementation 'com.google.android.gms:play-services-ads:22.4.0'  //can remove if already used
 
     //GAM mediation adapters
-    implementation 'com.google.ads.mediation:applovin:11.10.1.0'
+    implementation 'com.google.ads.mediation:applovin:11.11.3.0'
     implementation 'com.google.ads.mediation:adcolony:4.8.0.0'
-    implementation 'com.google.ads.mediation:tapjoy:13.0.1.0'
-    implementation 'com.google.ads.mediation:facebook:6.14.0.0'
-    implementation 'com.facebook.android:audience-network-sdk:6.14.0' //req'd for mediation in GAM
+    implementation 'com.google.ads.mediation:tapjoy:13.1.2.0'
+    implementation 'com.google.ads.mediation:facebook:6.16.0.0'
+    implementation 'com.facebook.android:audience-network-sdk:6.16.0' //req'd for mediation in GAM
 
     //AppLovinMAX
-    implementation 'com.freestar.android.ads.applovinmax:freestar-applovinmax-adapter:11.10.1.1'
-    implementation 'com.applovin:applovin-sdk:11.10.1'
+    implementation 'com.freestar.android.ads.applovinmax:freestar-applovinmax-adapter:11.11.3.0'
+    implementation 'com.applovin:applovin-sdk:11.11.3'
 
     //AppLovin
-    implementation 'com.freestar.android.ads.applovin:freestar-applovin-adapter:11.3.3.1'
-    implementation 'com.applovin:applovin-sdk:11.10.1' //can remove if already used
+    implementation 'com.freestar.android.ads.applovin:freestar-applovin-adapter:11.11.3.0'
+    implementation 'com.applovin:applovin-sdk:11.11.3' //can remove if already used
 
     //Amazon TAM (Transparent Ads Marketplace)
-    implementation 'com.freestar.android.ads.tam:freestar-tam-adapter:9.7.0.0'
+    implementation 'com.freestar.android.ads.tam:freestar-tam-adapter:9.8.2.0'
     implementation 'com.amazon.android:aps-sdk:9.8.2'
 
     //AdColony
-    implementation 'com.freestar.android.ads.adcolony:freestar-adcolony-adapter:4.6.5.1'
+    implementation 'com.freestar.android.ads.adcolony:freestar-adcolony-adapter:4.8.0.0'
     implementation 'com.adcolony:sdk:4.8.0'
 
     //Criteo
-    implementation 'com.freestar.android.ads.criteo:freestar-criteo-adapter:4.4.0.1'
+    implementation 'com.freestar.android.ads.criteo:freestar-criteo-adapter:4.4.0.2'
     implementation 'com.criteo.publisher:criteo-publisher-sdk:4.4.0'
 
     //Unity Ads
     implementation 'com.freestar.android.ads.unityads:freestar-unity-adapter:4.7.1.0'
+    implementation "androidx.webkit:webkit:1.7.0"
 
     //Vungle
-    implementation 'com.freestar.android.ads.vungle:freestar-vungle-adapter:6.10.4.1'
+    implementation 'com.freestar.android.ads.vungle:freestar-vungle-adapter:6.12.1.0'
     implementation 'com.vungle:publisher-sdk-android:6.12.1'
 
     //Tapjoy
@@ -148,7 +160,7 @@ dependencies {
     implementation 'com.tapjoy:tapjoy-android-sdk:13.0.1@aar'
 
     //Nimbus
-    implementation 'com.freestar.android.ads.nimbus:freestar-nimbus-adapter:2.10.0.1'
+    implementation 'com.freestar.android.ads.nimbus:freestar-nimbus-adapter:2.10.0.2'
     implementation "com.adsbynimbus.android:nimbus:2.10.0"
     implementation "com.adsbynimbus.android:extension-facebook:2.10.0"
 
@@ -157,7 +169,7 @@ dependencies {
     implementation 'com.pangle.global:ads-sdk:3.7.1.4'
 
     //Prebid
-    implementation 'com.freestar.android.ads.prebid:freestar-prebid-adapter:2.1.1.3'
+    implementation 'com.freestar.android.ads.prebid:freestar-prebid-adapter:2.1.1.4'
     implementation 'com.freestar.android.ads.prebid:freestar-prebid-core:2.1.1.1'
     implementation 'com.google.android.exoplayer:exoplayer-core:2.19.0'
     implementation 'com.google.android.exoplayer:exoplayer-ui:2.19.0'
@@ -165,7 +177,7 @@ dependencies {
     implementation "androidx.localbroadcastmanager:localbroadcastmanager:1.1.0"
 
     //HyprMX
-    implementation 'com.freestar.android.ads.hyprmx:freestar-hyprmx-adapter:6.0.3.0'
+    implementation 'com.freestar.android.ads.hyprmx:freestar-hyprmx-adapter:6.0.3.1'
     implementation 'com.hyprmx.android:HyprMX-SDK:6.0.3'
 
     //Ogury
@@ -173,16 +185,17 @@ dependencies {
     implementation 'co.ogury:ogury-sdk:5.4.0'
 
     //Fyber
-    implementation 'com.freestar.android.ads.fyber:freestar-fyber-adapter:8.2.0.1'
+    implementation 'com.freestar.android.ads.fyber:freestar-fyber-adapter:8.2.3.0'
     implementation 'com.fyber:marketplace-sdk:8.2.3'
 
     //Smaato
     implementation 'com.freestar.android.ads.smaato:freestar-smaato-adapter:22.1.1.3'
-    implementation 'com.smaato.android.sdk:smaato-sdk:22.1.1'
-    implementation 'com.smaato.android.sdk:smaato-sdk-native:22.1.1'
-    implementation 'com.smaato.android.sdk:smaato-sdk-banner:22.1.1'
-    implementation 'com.smaato.android.sdk:smaato-sdk-interstitial:22.1.1'
-    implementation 'com.smaato.android.sdk:smaato-sdk-rewarded-ads:22.1.1'
+    implementation 'com.smaato.android.sdk:smaato-sdk:22.3.1'
+    implementation 'com.smaato.android.sdk:smaato-sdk-native:22.3.1'
+    implementation 'com.smaato.android.sdk:smaato-sdk-banner:22.3.1'
+    implementation 'com.smaato.android.sdk:smaato-sdk-interstitial:22.3.1'
+    implementation 'com.smaato.android.sdk:smaato-sdk-rewarded-ads:22.3.1'
+
 
     //uncomment if your app is a React Native app
     //implementation 'com.freestar.android.ads:react-native-android:1.2.1'

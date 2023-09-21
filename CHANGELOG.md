@@ -1,4 +1,6 @@
-## 1.2.8
+## 1.2.9
+
+* 1.2.9 - Updated Android dependencies.
 
 * 1.2.8 - Fixed race condition in Dart that was causing intermittent crashes.
 

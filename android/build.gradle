@@ -25,6 +25,7 @@ rootProject.allprojects {
         maven { url 'https://adsbynimbus-public.s3.amazonaws.com/android/sdks' }
         maven { url "https://maven.ogury.co" }
         maven { url "https://s3.amazonaws.com/smaato-sdk-releases/" }
+        maven { url "https://sdk-android-prod.launch.liveramp.com" }
     }
 }
 
@@ -94,7 +95,7 @@ dependencies {
     compileOnly 'androidx.annotation:annotation:1.1.0'
 
     //begin Freestar
-    compileOnly 'com.freestar.android.ads:freestar:5.1.8'
+    compileOnly 'com.freestar.android.ads:freestar:5.2.0'
 
     //see example/android/app/build.gradle for full mediation dependencies
 
